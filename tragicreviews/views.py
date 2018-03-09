@@ -153,7 +153,7 @@ def add_category(request):
             return index(request)
         else:
             # The supplied form contained errors - just print them to the terminal.
-            print form.errors
+            print(form.errors)
     else:
         # If the request was not a POST, display the form to enter details.
         form = CategoryForm()
@@ -198,7 +198,7 @@ def add_page(request, category_name_url):
             # Now that the page is saved, display the category instead.
             return category(request, category_name_url)
         else:
-            print form.errors
+            print(form.errors)
     else:
         form = PageForm()
 
@@ -254,7 +254,7 @@ def register(request):
 
         # Invalid form(s) - just print errors to the terminal.
         else:
-            print user_form.errors, profile_form.errors
+            print(user_form.errors, profile_form.errors)
 
     # Not a HTTP POST, so we render the two ModelForms to allow a user to input their data.
     else:
@@ -301,7 +301,7 @@ def user_login(request):
                 return render_to_response('tragicreviews/login.html', context_dict, context)
         # Invalid login details supplied!
         else:
-            print "Invalid login details: {0}, {1}".format(username, password)
+            print("Invalid login details: {0}, {1}".format(username, password))
             context_dict['bad_details'] = True
             return render_to_response('tragicreviews/login.html', context_dict, context)
 
