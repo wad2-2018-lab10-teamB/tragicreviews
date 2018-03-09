@@ -1,0 +1,44 @@
+body {
+    background-color: AntiqueWhite;
+    color: DarkSlateGrey;
+}
+
+.jumbotron {
+    background-color: transparent; 
+}
+
+.navbar-nav {
+    float:none;
+    margin:0 auto;
+    display: block;
+    text-align: center;
+}
+
+
+.navbar-nav > li {
+    display: inline-block;
+    float:none;
+}
+
+a {
+    /*link*/
+    text-decoration: none
+
+}
+
+
+a:link {
+    color: CadetBlue
+    text-decoration: none
+    /* unclicked link */
+
+}
+
+a:visited {
+    color: MidnightBlue
+    /* clicked link */
+}
+
+a:hover {
+    color: LightSteelBlue;
+}

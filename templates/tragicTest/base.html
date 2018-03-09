@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+
+<html>
+    <head>
+        <title>
+            TragicReviews 
+            {% block title_block %}
+                
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{% static "css/base.css" %}" />
+    </head>
+    <body>
+
+    
+        <div id="sidebar">
+            <ul>
+                <li><a href="{% url 'index' %}">Index</a></li>
+                <a href="https://www.w3schools.com/css/css_link.asp">test</a>
+            </ul>
+        </div>
+
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+        <hr />
+        
+
+        <div>
+            {% block sidebar_block %}
+                test
+            {% endblock %}
+        </div>
+    </body>
+</html>
