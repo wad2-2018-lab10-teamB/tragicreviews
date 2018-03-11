@@ -1,0 +1,113 @@
+{% extends 'tragicTest/base_boot-strap.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Article Name
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="panel panel-default" id="article">
+            
+              <div class="panel-heading"><h2>Title <small>by <a href='#'>Author</a></small></h2></div>
+              
+              <div class="panel-body" id="article-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body" id="article-content">
+                            Now indulgence dissimilar for his thoroughly has terminated. Agreement offending commanded my an. Change wholly say why eldest period. Are projection put celebrated particular unreserved joy unsatiable its. In then dare good am rose bred or. On am in nearer square wanted. 
+
+                            When be draw drew ye. Defective in do recommend suffering. House it seven in spoil tiled court. Sister others marked fat missed did out use. Alteration possession dispatched collecting instrument travelling he or on. Snug give made at spot or late that mr. 
+
+                            Resources exquisite set arranging moonlight sex him household had. Months had too ham cousin remove far spirit. She procuring the why performed continual improving. Civil songs so large shade in cause. Lady an mr here must neat sold. Children greatest ye extended delicate of. No elderly passage earnest as in removed winding or. 
+
+                            Or neglected agreeable of discovery concluded oh it sportsman. Week to time in john. Son elegance use weddings separate. Ask too matter formed county wicket oppose talent. He immediate sometimes or to dependent in. Everything few frequently discretion surrounded did simplicity decisively. Less he year do with no sure loud. 
+
+                            Behind sooner dining so window excuse he summer. Breakfast met certainty and fulfilled propriety led. Waited get either are wooded little her. Contrasted unreserved as mr particular collecting it everything as indulgence. Seems ask meant merry could put. Age old begin had boy noisy table front whole given. 
+
+                            Subjects to ecstatic children he. Could ye leave up as built match. Dejection agreeable attention set suspected led offending. Admitting an performed supposing by. Garden agreed matter are should formed temper had. Full held gay now roof whom such next was. Ham pretty our people moment put excuse narrow. Spite mirth money six above get going great own. Started now shortly had for assured hearing expense. Led juvenile his laughing speedily put pleasant relation offering. 
+
+                            Kindness to he horrible reserved ye. Effect twenty indeed beyond for not had county. The use him without greatly can private. Increasing it unpleasant no of contrasted no continuing. Nothing colonel my no removed in weather. It dissimilar in up devonshire inhabiting. 
+
+                            Moments its musical age explain. But extremity sex now education concluded earnestly her continual. Oh furniture acuteness suspected continual ye something frankness. Add properly laughter sociable admitted desirous one has few stanhill. Opinion regular in perhaps another enjoyed no engaged he at. It conveying he continual ye suspected as necessary. Separate met packages shy for kindness. 
+
+                            Particular unaffected projection sentiments no my. Music marry as at cause party worth weeks. Saw how marianne graceful dissuade new outlived prospect followed. Uneasy no settle whence nature narrow in afraid. At could merit by keeps child. While dried maids on he of linen in. 
+
+                            Prevailed sincerity behaviour to so do principle mr. As departure at no propriety zealously my. On dear rent if girl view. First on smart there he sense. Earnestly enjoyment her you resources. Brother chamber ten old against. Mr be cottage so related minuter is. Delicate say and blessing ladyship exertion few margaret. Delight herself welcome against smiling its for. Suspected discovery by he affection household of principle perfectly he. 
+
+                        </div> </div>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                              <label for="comment">Comment:</label>
+                              <textarea class="form-control" rows="3" id="comment"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="container" id="submit-btn"><button type="button" class="btn" id="submit">Submit</button></div>
+                        </div>
+                      </div>
+                
+                    <div class="container">
+                      <div class="media">
+                            <div class="media-left">
+                              <img src="{% static "images/cat.jpg" %}" class="media-object" style="width:45px">
+                            </div>
+                            <div class="media-body">
+                              <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                              
+                              <!-- Nested media object -->
+                              <div class="media">
+                                <div class="media-left">
+                                  <img src="{% static "images/cat.jpg" %}" class="media-object" style="width:45px">
+                                </div>
+                                <div class="media-body">
+                                  <h4 class="media-heading">John Doe <small><i>Posted on February 20, 2016</i></small></h4>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                  <!-- Nested media object -->
+                                  <div class="media">
+                                    <div class="media-left">
+                                      <img src="{% static "images/cat.jpg" %}" class="media-object" style="width:45px">
+                                    </div>
+                                    <div class="media-body">
+                                      <h4 class="media-heading">John Doe <small><i>Posted on February 21, 2016</i></small></h4>
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                                
+                                <!-- Nested media object -->
+                                <div class="media">
+                                  <div class="media-left">
+                                    <img src="{% static "images/cat.jpg" %}" class="media-object" style="width:45px">
+                                  </div>
+                                  <div class="media-body">
+                                    <h4 class="media-heading">Jane Doe <small><i>Posted on February 20, 2016</i></small></h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                            </div>
+                            
+                            <!-- Nested media object -->    
+                            <div class="media">
+                              <div class="media-left">
+                                <img src="{% static "images/cat.jpg" %}" class="media-object" style="width:45px">
+                              </div>
+                              <div class="media-body">
+                                <h4 class="media-heading">Jane Doe <small><i>Posted on February 19, 2016</i></small></h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                  </div>
+              
+    </div>
+
+            
+{% endblock %}

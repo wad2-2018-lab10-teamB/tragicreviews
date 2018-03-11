@@ -32,6 +32,37 @@ body {
     padding-left: 30px;
 }
 
+#category.panel-default div.row { 
+  border: 1px solid;
+  border-bottom: 0px;
+}
+
+#catRow.container{
+     width: 1000px;
+      }
+
+#cat.panel-body {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+#category.panel-default div.row:last-child {
+  border-bottom: 1px solid;
+}
+
+#article-body.panel-body {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+#article-content.panel-body {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+#submit-btn.container { 
+    padding-top: 70px;
+}
 
 #profile.panel-default div.row { 
   border: 1px solid;
