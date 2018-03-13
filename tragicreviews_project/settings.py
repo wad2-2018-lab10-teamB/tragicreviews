@@ -15,6 +15,11 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Reference of templates directory - temporary edited by xy
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+# Reference of static directory - temporary edited by xy
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -38,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tragicreviews',
-    #'registration',  # for user authentication, will be enabled later
+    'registration',  # for user authentication, will be enabled later
 ]
 
 MIDDLEWARE = [
@@ -56,7 +61,7 @@ ROOT_URLCONF = 'tragicreviews_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR, ],  # xy
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,6 +122,35 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+# temp edited
+STATICFILES_DIRS = [STATIC_DIR, ]
+
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Registration - temp xy
+# Password
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+)
+
+# True - user can register
+REGISTRATION_OPEN = True
+
+# One-week activation window
+ACCOUNT_ACTIVATION_DAY = 7
+
+# True - user will be auto logged in
+REGISTRATION_AUTO_LOGIN = True
+
+# The page users to arrive at after they successfully log in
+LOGIN_REDIRECT_URL = '/tragicreviews/'
+
+# The page users are directed to if they are not logged in,
+# and are trying to access pages requiring authentication
+# Redirect any user not logged in to the specific url
+LOGIN_URL = '/accounts/login/'
