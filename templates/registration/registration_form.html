@@ -1,0 +1,24 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Registration
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="panel panel-default" id="trending">
+
+              <div class="panel-heading">Registration</div>
+
+              <div class="panel-body">
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Submit" />
+                    </form>
+              </div>
+    </div>
+
+
+{% endblock %}
