@@ -164,54 +164,54 @@ def add_category(request):
     return render_to_response('tragicreviews/add_category.html', context_dict, context)
 
 
-@login_required
-def add_page(request, category_name_url):
-    context = RequestContext(request)
-    cat_list = get_category_list()
-    context_dict = {}
-    context_dict['cat_list'] = cat_list
+# @login_required
+# def add_page(request, category_name_url):
+#     context = RequestContext(request)
+#     cat_list = get_category_list()
+#     context_dict = {}
+#     context_dict['cat_list'] = cat_list
+#
+#     category_name = decode_url(category_name_url)
+#     if request.method == 'POST':
+#         form = PageForm(request.POST)
+#
+#         if form.is_valid():
+#             # This time we cannot commit straight away.
+#             # Not all fields are automatically populated!
+#             page = form.save(commit=False)
+#
+#             # Retrieve the associated Category object so we can add it.
+#             try:
+#                 cat = Category.objects.get(name=category_name)
+#                 page.category = cat
+#             except Category.DoesNotExist:
+#                 return render_to_response('tragicreviews/add_page.html',
+#                                           context_dict,
+#                                           context)
+#
+#             # Also, create a default value for the number of views.
+#             page.views = 0
+#
+#             # With this, we can then save our new model instance.
+#             page.save()
+#
+#             # Now that the page is saved, display the category instead.
+#             return category(request, category_name_url)
+#         else:
+#             print(form.errors)
+#     else:
+#         form = PageForm()
+#
+#     context_dict['category_name_url'] = category_name_url
+#     context_dict['category_name'] = category_name
+#     context_dict['form'] = form
+#
+#     return render_to_response('tragicreviews/add_page.html',
+#                               context_dict,
+#                               context)
 
-    category_name = decode_url(category_name_url)
-    if request.method == 'POST':
-        form = PageForm(request.POST)
 
-        if form.is_valid():
-            # This time we cannot commit straight away.
-            # Not all fields are automatically populated!
-            page = form.save(commit=False)
-
-            # Retrieve the associated Category object so we can add it.
-            try:
-                cat = Category.objects.get(name=category_name)
-                page.category = cat
-            except Category.DoesNotExist:
-                return render_to_response('tragicreviews/add_page.html',
-                                          context_dict,
-                                          context)
-
-            # Also, create a default value for the number of views.
-            page.views = 0
-
-            # With this, we can then save our new model instance.
-            page.save()
-
-            # Now that the page is saved, display the category instead.
-            return category(request, category_name_url)
-        else:
-            print(form.errors)
-    else:
-        form = PageForm()
-
-    context_dict['category_name_url'] = category_name_url
-    context_dict['category_name'] = category_name
-    context_dict['form'] = form
-
-    return render_to_response('tragicreviews/add_page.html',
-                              context_dict,
-                              context)
-
-
-def register(request):
+def registration_(request):
     # Request the context.
     context = RequestContext(request)
     cat_list = get_category_list()
