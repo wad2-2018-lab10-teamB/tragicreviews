@@ -28,7 +28,7 @@ class UserProfileManager(models.Manager):
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, primary_key=True)
-	image = models.ImageField(null=True)
+	image = models.ImageField(upload_to='profile_images', blank=True)#null=True)
 	majors = models.ManyToManyField(Subject)
 
 	objects = UserProfileManager()
