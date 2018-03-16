@@ -8,3 +8,4 @@ class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfS
     image = forms.ImageField(required=True)  # temp
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(), required=True)
     group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
+    field_order = ['username', 'email', 'password1', 'password2', 'majors', 'image', 'group', 'tos']

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tragicreviews',
-    'registration',  # for user authentication, will be enabled later
+    'registration',  # for user authentication
+    # 'bootstrap_toolkit'  # bootstrap toolkit, probably will not be used
 ]
 
 MIDDLEWARE = [
