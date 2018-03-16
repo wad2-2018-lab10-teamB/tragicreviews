@@ -21,6 +21,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # Reference of static directory - temporary edited by xy
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
+# Reference of media directory
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -69,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',  # media config
             ],
         },
     },
@@ -97,6 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 6, },  # setting minimum length constraint
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -129,6 +134,10 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 
 STATIC_URL = '/static/'
 
+# Media settings
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
+
 # Registration - temp xy
 # Password
 PASSWORD_HASHERS = (
@@ -142,7 +151,7 @@ PASSWORD_HASHERS = (
 REGISTRATION_OPEN = True
 
 # One-week activation window
-ACCOUNT_ACTIVATION_DAY = 7
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # True - user will be auto logged in
 REGISTRATION_AUTO_LOGIN = True
@@ -154,3 +163,6 @@ LOGIN_REDIRECT_URL = '/tragicreviews/'
 # and are trying to access pages requiring authentication
 # Redirect any user not logged in to the specific url
 LOGIN_URL = '/accounts/login/'
+
+# Customise user registration form
+REGISTRATION_FORM = 'tragicreviews.forms.UserRegistrationForm'
