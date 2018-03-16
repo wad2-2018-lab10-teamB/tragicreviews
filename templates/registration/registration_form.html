@@ -6,11 +6,11 @@
 
 {% block body_block %}
 
-    <div class="panel panel-default" id="trending">
+    <div class="panel panel-default">
 
               <div class="panel-heading">Registration</div>
 
-              <div class="panel-body">
+              <div class="panel-body" id="register">
                     <form method="post" action="." enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
