@@ -64,10 +64,21 @@ body {
     padding-top: 70px;
 }
 
+#register.panel-body {
+    max-height: 550px;
+    overflow-y: scroll;
+}
+
+#login.panel-default #loginReg.p{
+    colour: red;
+    padding-top: 70px;
+}
+
 #profile.panel-default div.row { 
   border: 1px solid;
   border-bottom: 0px;
 }
+
 #profile.panel-default div.row:last-child {
   border-bottom: 1px solid;
 }
@@ -80,6 +91,13 @@ body {
 #uploads.panel-body {
     max-height: 500px;
     overflow-y: scroll;
+    overflow-x: scroll;
+}
+
+#reviews.panel-body {
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: scroll;
 }
 
 .top-buffer {
