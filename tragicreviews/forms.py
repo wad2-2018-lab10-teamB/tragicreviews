@@ -19,8 +19,17 @@ class SubjectForm(forms.ModelForm):
 
 
 class ArticleForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Article
+        fields = ("title", "body")
+        help_texts = {
+            "title": "Please choose a title for your article",
+            "body": "Please include the body of your article"
+        }
 
 
 class CommentForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Comment
+        fields = ("text", )
+        help_texts = {"text": "Please enter your comment"}
