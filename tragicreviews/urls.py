@@ -2,11 +2,11 @@ from django.conf.urls import url
 from tragicreviews import views
 
 urlpatterns = [
-    url(r'^login/$', views.user_login, name='login'),
+    #url(r'^login/$', views.user_login, name='login'),
     # url(r'^restricted/$', views.restricted, name='restricted'),
-    url(r'^logout/$', views.user_logout, name='logout'),
-    url(r'^registration_form/$', views.registration_form, name='registration_form'),
-    url(r'^registration_complete/$', views.registration_complete, name='registration_complete'),
+    #url(r'^logout/$', views.user_logout, name='logout'),
+    #url(r'^registration_form/$', views.registration_form, name='registration_form'),
+    #url(r'^registration_complete/$', views.registration_complete, name='registration_complete'),
 	url(r'^article/$', views.about, name='article'),
 	url(r'^category/(?P<category_name_url>\w+)/$', views.category, name='category'),
 	url(r'^add_article/$', views.add_article, name='add_article'),
