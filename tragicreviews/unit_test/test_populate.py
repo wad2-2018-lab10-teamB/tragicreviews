@@ -21,6 +21,10 @@ class PopulateTests(TestCase):
         self.assertTrue(Group.objects.get(name="student"))
         self.assertTrue(Group.objects.get(name="staff"))
 
+        # test numbers of permissions of staff and student group are correct
+        self.assertEqual(Group.objects.get(name="student").permissions.all().count(), 0)
+        self.assertEqual(Group.objects.get(name="staff").permissions.all().count(), 3)
+
         # Test staff group have correct permissions
         staff = Group.objects.get(name="staff")
         self.assertTrue(staff.permissions.get(codename="add_subject"))

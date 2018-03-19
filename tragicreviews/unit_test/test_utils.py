@@ -1,4 +1,14 @@
 from tragicreviews.models import *
+from django.contrib.auth.models import Permission
+
+
+def create_groups():
+    Group.objects.get_or_create(name="student")
+    staff = Group.objects.get_or_create(name="staff")[0]
+    staff.permissions.add(Permission.objects.get(codename="add_subject"))
+    staff.permissions.add(Permission.objects.get(codename="change_subject"))
+    staff.permissions.add(Permission.objects.get(codename="delete_subject"))
+    staff.save()
 
 
 def create_subject():

@@ -1,10 +1,9 @@
 from django.test import TestCase
-from tragicreviews.models import Subject, Article, Rating, Comment, UserProfile
-from django.contrib.auth.models import User
+from tragicreviews.models import Subject, Article, Rating, Comment, UserProfile, UserLevelField
+from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-from django.db.utils import IntegrityError
-from django.db import transaction
 import tragicreviews.unit_test.test_utils as test_utils
+
 
 # Testing Models
 class ModelTests(TestCase):
@@ -75,8 +74,7 @@ class ModelTests(TestCase):
         rating1 = Rating(user=user, article=article, rating=4)
 
         # test integrity
-        with transaction.atomic():
-            self.assertRaises(IntegrityError, lambda: rating1.save())
+        self.assertRaises(ValidationError, lambda: rating1.save())
         Rating.objects.all().delete()
 
         # test a rating with negative value
@@ -101,3 +99,55 @@ class ModelTests(TestCase):
         self.assertEqual(Comment.objects.all()[0].text, text)
         self.assertEqual(Comment.objects.all()[0].article, article)
         self.assertEqual(Comment.objects.all()[0].user, user)
+
+    def test_user_level_field(self):
+        test_utils.create_groups()
+        student_levels = UserLevelField.student_levels
+        staff_levels = UserLevelField.staff_levels
+
+        # test correct number of levels
+        self.assertEqual(len(student_levels), 6)
+        self.assertEqual(len(staff_levels), 5)
+
+        user_pf = test_utils.create_user()
+        user_pf.user.groups.add(Group.objects.get(name="student"))
+        user_pf.level = staff_levels[0]
+
+        # test raise error assign staff level to student account
+        self.assertRaises(ValidationError, lambda: user_pf.save())
+
+        # reset
+        UserProfile.objects.all().delete()
+        User.objects.all().delete()
+        user_pf = test_utils.create_user()
+        user_pf.user.groups.add(Group.objects.get(name="staff"))
+        user_pf.level = student_levels[0]
+
+        # test raise error assign student level to staff account
+        self.assertRaises(ValidationError, lambda: user_pf.save())
+
+        # reset
+        UserProfile.objects.all().delete()
+        User.objects.all().delete()
+        user_pf = test_utils.create_user()
+        user_pf.user.groups.add(Group.objects.get(name="student"))
+        user_pf.level = student_levels[0]
+
+        # test correctness of assigning student level to student account
+        # no error raises
+        self.assertTrue(user_pf.save() is None)
+        # level is saved correctly
+        self.assertEqual(user_pf.level, UserLevelField.student_levels[0])
+
+        # reset
+        UserProfile.objects.all().delete()
+        User.objects.all().delete()
+        user_pf = test_utils.create_user()
+        user_pf.user.groups.add(Group.objects.get(name="staff"))
+        user_pf.level = staff_levels[0]
+
+        # test correctness of assigning staff level to staff account
+        # no error raises
+        self.assertTrue(user_pf.save() is None)
+        # level is saved correctly
+        self.assertEqual(user_pf.level, UserLevelField.staff_levels[0])
