@@ -1,7 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User, Group
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 
 class Subject(models.Model):
 	name = models.CharField(max_length=32, unique=True)
@@ -26,12 +26,57 @@ class UserProfileManager(models.Manager):
 		user_profile.save(using=self._db)
 		return user_profile
 
+class UserLevelField(models.CharField):
+	student_levels = ["Level 1 undergraduate", "Level 2 undergraduate", "Level 3 undergraduate", "Level 4 undergraduate", "Level 5 undergraduate", "Postgraduate"]
+	staff_levels = ["Tutor", "Lecturer", "Senior lecturer", "Reader", "Professor"]
+
+	def __init__(self, *args, **kwargs):
+		kwargs["max_length"] = 24
+		kwargs["blank"] = True
+		kwargs["null"] = True
+		super().__init__(*args, **kwargs)
+
+	def validate(self, value, model_instance):
+		super().validate(value, model_instance)
+
+		if not isinstance(model_instance, UserProfile):
+			raise ValidationError("UserLevelField is only supported on UserProfile models.")
+
+		if value is None:
+			return
+
+		valid = False
+		if model_instance.user.groups.filter(name="student").exists():
+			if value in self.student_levels:
+				valid = True
+		if not valid and model_instance.user.groups.filter(name="staff").exists():
+			if value in self.staff_levels:
+				valid = True
+		if not valid:
+			raise ValidationError(
+				self.error_messages["invalid_choice"],
+				code="invalid_choice",
+				params={"value": value}
+			)
+
+	def deconstruct(self):
+		name, path, args, kwargs = super().deconstruct()
+		del kwargs["max_length"]
+		del kwargs["blank"]
+		del kwargs["null"]
+		return name, path, args, kwargs
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, primary_key=True)
-	image = models.ImageField(upload_to='profile_images', blank=True)#null=True)
+	image = models.ImageField(upload_to='profile_images', blank=True)
+	level = UserLevelField()
 	majors = models.ManyToManyField(Subject)
 
 	objects = UserProfileManager()
+
+	def save(self, *args, **kwargs):
+		self.full_clean()
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return self.user.username
