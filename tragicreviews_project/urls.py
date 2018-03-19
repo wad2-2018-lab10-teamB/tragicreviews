@@ -19,9 +19,11 @@ from django.contrib import admin
 from django.conf.urls import include
 #from tragicreviews import views
 from tragicreviews.regbackend import MyRegistrationView
+from tragicreviews import regbackend
 
 urlpatterns = [
-    #url(r'^$', views.index, name='index'),
+    url(r'^$', regbackend.index, name='index'),  # for testing, will be deleted later. comment last line when testing.
+    url(r'^tragicreviews/$', regbackend.index, name='index'),  # same as above
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
