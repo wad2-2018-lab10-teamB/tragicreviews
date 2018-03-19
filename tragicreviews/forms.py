@@ -12,12 +12,10 @@ class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfS
 
 
 class SubjectForm(forms.ModelForm):
-    name = forms.CharField(max_length=32, help_text="Please enter subject name", required=True)
-    slug = forms.CharField(widget=forms.HiddenInput, required=False)
-
     class Meta:
         model = Subject
-        fields = ('name', )
+        fields = ("name", )
+        help_texts = {"name": "Please enter a subject name"}
 
 
 class ArticleForm(forms.ModelForm):
