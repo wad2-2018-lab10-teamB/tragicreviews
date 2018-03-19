@@ -40,13 +40,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'registration',  # for user authentication
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tragicreviews',
-    'registration',  # for user authentication
     # 'bootstrap_toolkit'  # bootstrap toolkit, probably will not be used
 ]
 
