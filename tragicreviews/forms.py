@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import Group
-from tragicreviews.models import Subject
+from tragicreviews.models import Subject, Article, Comment
 from registration.forms import RegistrationFormTermsOfService, RegistrationFormUniqueEmail
 
 
