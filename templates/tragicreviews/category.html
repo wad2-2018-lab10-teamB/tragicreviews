@@ -13,6 +13,21 @@
               
               <div class="panel-body" id="cat">
                     <div class="container" id="catRow">
+
+                        <! -- ACTUAL ARTICLES
+                         {% for a in articles %}
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <h4><a href="a.url">a.title</a></h4>
+                                    <p>by <a href="a.author.url">a.author</a></p>
+                                </div>
+                                <div class="col-sm-7">
+                                    <p>a.preview</p>
+                                </div>
+                            </div>
+                        {% end for %}
+
+                        
                         <div class="row">
                                 <div class="col-sm-5">
                                     <h4><a href="#">Title</a></h4>

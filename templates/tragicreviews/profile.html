@@ -10,9 +10,9 @@
     <div class="panel panel-default">
             
               <div class="panel-heading"><ul class="nav nav-tabs">
-                  <li class="active"><a href='tragicTest/profile'>My Account</a></li>
-                  <li><a href='tragicTest/profile/uploads'>Uploads</a></li>
-                  <li><a href='tragicTest/profile/reviews'>Reviews</a></li>
+                  <li class="active"><a href='{% url 'profile' %}'>My Account</a></li>
+                  <li><a href='{% url 'profile_reviews' %}'>Uploads</a></li>
+                  <li><a href='{% url 'profile_uploads' %}'>Reviews</a></li>
               </ul></div>
               
               <div class="panel-body">

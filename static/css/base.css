@@ -13,15 +13,16 @@ body {
     padding-left: 200px;
 }
 
+#search.container { 
+    padding-top: 70px;
+    padding-right: 600px;
+}
+
 #about.panel-default {
     background-color: AntiqueWhite;
     border-color: DarkSlateGrey;
 }
 
-#search.panel-default {
-    background-color: AntiqueWhite;
-    border-color: DarkSlateGrey;
-}
 
 
 #sidebar.container {

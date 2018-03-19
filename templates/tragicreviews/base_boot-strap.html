@@ -27,10 +27,8 @@
   <div class="container-fluid">
     
     <ul class="nav navbar-nav">
-      <li><a href="#">Index</a></li>
-      <li><a href="#">Sitemap</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Contact Us</a></li>
+      <li><a href='{% url 'index' %}'>Index</a></li>
+      <li><a href='{% url 'index' %}'>Sitemap</a></li>
     </ul>
   </div>
 </nav>
@@ -38,14 +36,19 @@
 
 <div class="container-fluid">
    <div class="row" >
-    <div class="col-sm-8">
+    <div class="col-sm-6">
        <div class="container" id="title">
             <div class="jumbotron">
                 <h1>TragicReviews</h1>
             </div>
         </div>
     </div>
-    <div class="col-sm-4 align-self-end">
+    <div class="col-sm-2 align-self-end">
+        <div id="search" class="container">
+            <div class="panel-body"><center>search bar here</center></div>
+        </div>
+    </div>
+    <div class="col-sm-2 align-self-end">
         <div id="login" class="container">
             {% if user.is_authenticated %}
             <h4><p>
@@ -76,16 +79,19 @@
                     </div>
                 </div>
                 <div class="row top-buffer">
-                    <div class="panel panel-default" id="search">
-                        <div class="panel-body"><center>search bar here</center></div>
-                    </div>
-                </div>
-                <div class="row top-buffer">
-                    <h4>Subjects</h4>
+                
                     <ul class="nav nav-pills nav-stacked" data-offset-top="205">
+                        <li><a href="{% url 'add_article' %}">Submit Article</a></li>
+                        <h4>Subjects</h4>
                         <li class="active"><a href="#section1">Computing</a></li>
                         <li><a href="#section2">Mathematics</a></li>
                         <li><a href="#section3">Psychology</a></li>
+
+                        <!--ACTUAL SUBJECTS
+                        <h4>Subjects</h4>
+                        { % for c in category % }
+                            <li><a href="c.url">c.name</a></li>
+                        { % end for % } -->
                     </ul>
                 </div>
             </nav>  
