@@ -127,7 +127,7 @@ body {
 .carousel-caption {
     color:black;
     display:block;
-    align-items:;
+    align-items:none;
 }
 
 #text-carousel {
@@ -138,20 +138,20 @@ body {
 
 a {
     /*link*/
-    text-decoration: none
+    text-decoration: none;
 
 }
 
 
 a:link {
-    color: CadetBlue
-    text-decoration: none
+    color: CadetBlue;
+    text-decoration: none;
     /* unclicked link */
 
 }
 
 a:visited {
-    color: MidnightBlue
+    color: MidnightBlue;
     /* clicked link */
 }
 
