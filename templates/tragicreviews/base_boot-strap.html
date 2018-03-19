@@ -15,6 +15,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="{% static "css/base.css" %}" rel="stylesheet">
+  {% block scripts %}
+      <!--Insert your scripts-->
+  {% endblock %}
   
 </head>
 
@@ -44,11 +47,19 @@
     </div>
     <div class="col-sm-4 align-self-end">
         <div id="login" class="container">
+            {% if user.is_authenticated %}
             <h4><p>
-            <a href='tragicTest/registration'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+            <a href='{% url 'auth_logout' %}?next=/tragicreviews/'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
             </p><p>
-            <a href='tragicTest/login'><span class="glyphicon glyphicon-log-in"></span> Login</a>
+            <a href='/accounts/password/change/'><span class="glyphicon glyphicon-edit"></span> Change Password </a>
             </p></h4>
+            {% else %}
+            <h4><p>
+            <a href='{% url 'registration_register' %}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+            </p><p>
+            <a href='{% url 'auth_login' %}'><span class="glyphicon glyphicon-log-in"></span> Login</a>
+            </p></h4>
+            {% endif %}
         </div>
     </div>
   </div>
