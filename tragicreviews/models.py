@@ -50,6 +50,10 @@ class Rating(models.Model):
 	class Meta:
 		unique_together = ('article', 'user')
 
+	def save(self, *args, **kwargs):
+		self.full_clean()
+		super().save(*args, **kwargs)
+
 class Comment(models.Model):
 	article = models.ForeignKey(Article)
 	user = models.ForeignKey(UserProfile)
