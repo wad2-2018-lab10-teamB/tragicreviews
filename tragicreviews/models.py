@@ -130,9 +130,7 @@ class ArticleViewsManager(models.Manager):
 		trending_articles = article_views.annotate(views=models.Sum("views")).order_by("-views")
 		if limit > 0:
 			trending_articles = trending_articles[:limit]
-		for record in trending_articles:
-			record["article"] = Article.objects.get(pk=record["article"])
-		return trending_articles
+		return [Article.objects.get(pk=record["article"]) for record in trending_articles]
 
 class ArticleViews(models.Model):
 	article = models.ForeignKey(Article)
