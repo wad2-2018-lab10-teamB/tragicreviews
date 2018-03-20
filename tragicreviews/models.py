@@ -122,6 +122,18 @@ class ArticleViewsManager(models.Manager):
 
 		return article_views.aggregate(models.Sum("views"))["views__sum"] or 0
 
+	def get_trending_articles(self, *, limit=0, days=7):
+		article_views = self.values("article")
+		if days > 0:
+			article_views = article_views.filter(date__gt=timezone.now() - timedelta(days=days))
+
+		trending_articles = article_views.annotate(views=models.Sum("views")).order_by("-views")
+		if limit > 0:
+			trending_articles = trending_articles[:limit]
+		for record in trending_articles:
+			record["article"] = Article.objects.get(pk=record["article"])
+		return trending_articles
+
 class ArticleViews(models.Model):
 	article = models.ForeignKey(Article)
 	date = models.DateField(auto_now_add=True)
