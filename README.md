@@ -9,3 +9,9 @@ Installation: `pip install django-registration-redux`
 [bcrypt v3.1.4](https://pypi.python.org/pypi/bcrypt/3.1.4)
 
 Installation: `pip install bcrypt`
+
+## Running Unit Test:
+`python manage.py test tragicreviews.unit_test.your_test`
+
+example:
+`python manage.py test tragicreviews.unit_test.test_models`
