@@ -186,13 +186,13 @@ class ModelTests(TestCase):
         self.assertEqual(user_pf.level, UserLevelField.staff_levels[0])
 
     def test_article_views(self):
-        article = test_utils.create_article()
-        article2 = Article(title="Even More Terrible Code", body=article.body, author=article.author,
-                           category=article.category)
+        article1 = test_utils.create_article()
+        article2 = Article(title="Even More Terrible Code", body=article1.body, author=article1.author,
+                           category=article1.category)
         article2.save()
         date1 = date(2018, 1, 30)
         date2 = date(2018, 1, 31)
-        article_views = ArticleViews(article=article, date=date1, views=1)
+        article_views = ArticleViews(article=article1, date=date1, views=1)
         article_views.save()
 
         # test correct number of ArticleViews models
@@ -204,14 +204,20 @@ class ModelTests(TestCase):
         self.assertEqual(ArticleViews.objects.all().count(), 2)
 
         # test integrity
-        article_views3 = ArticleViews(article=article, date=date2, views=45)
+        article_views3 = ArticleViews(article=article2, date=date2, views=45)
         with transaction.atomic():
             self.assertRaises(IntegrityError, lambda: article_views3.save())
 
+        # reset
+        ArticleViews.objects.all().delete()
+        self.assertEqual(ArticleViews.objects.all().count(), 0)
+
         # test same article could have different views on different date
         # and on same date different articles could have different views
-        # currently cannot pass
-        article_views4 = ArticleViews(article=article, date=date2, views=5)
-        article_views5 = ArticleViews(article=article2, date=date, views=5)
+        article_views = ArticleViews(article=article1, date=date1, views=5)
+        article_views.save()
+        article_views4 = ArticleViews(article=article2, date=date1, views=5)
         self.assertIsNone(article_views4.save())
+        # currently cannot pass
+        article_views5 = ArticleViews(article=article1, date=date2, views=5)
         self.assertIsNone(article_views5.save())
