@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User, Group
 from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
+from django.utils import timezone
+from datetime import timedelta
 
 class Subject(models.Model):
 	name = models.CharField(max_length=32, unique=True)
@@ -13,6 +15,7 @@ class Subject(models.Model):
 
 	def __str__(self):
 		return self.name
+
 
 class UserProfileManager(models.Manager):
 	def create_user(self, username, email=None, password=None, group=None, **kwargs):
@@ -81,6 +84,7 @@ class UserProfile(models.Model):
 	def __str__(self):
 		return self.user.username
 
+
 class Article(models.Model):
 	category = models.ForeignKey(Subject)
 	title = models.CharField(max_length=128)
@@ -99,15 +103,27 @@ class Rating(models.Model):
 		self.full_clean()
 		super().save(*args, **kwargs)
 
+
 class Comment(models.Model):
 	article = models.ForeignKey(Article)
 	user = models.ForeignKey(UserProfile)
 	text = models.TextField(max_length=500)
 
+
+class ArticleViewsManager(models.Manager):
+	def get_total_views(self, article, *, days=0):
+		article_views = self.filter(article=article)
+		if days > 0:
+			article_views = article_views.filter(date__gt=timezone.now() - timedelta(days=days))
+
+		return article_views.aggregate(models.Sum("views"))["views__sum"] or 0
+
 class ArticleViews(models.Model):
 	article = models.ForeignKey(Article)
 	date = models.DateField(auto_now_add=True)
 	views = models.PositiveIntegerField()
+
+	objects = ArticleViewsManager()
 
 	class Meta:
 		unique_together = ("article", "date")
