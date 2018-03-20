@@ -38,7 +38,7 @@ def article(request, req_title):
         context_dict['author'] = article_object.author
         context_dict['text'] = article_object.body
         # according to bo :P
-        context_dict.update('comment_set':[Comment.objects.get(article = article_object)])
+        context_dict['comment_set'] = Comment.objects.get(article = article_object) # This will return a set rather than a single comment
     else:
         return False
 
@@ -85,7 +85,7 @@ def index(request):
     trend_cat_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
 
     for cat in trend_cat_list:
-        cat.url = encode_url(cat.name)
+        cat.url = encode_url(cat.title)
 
     context_dict = {'categories': trend_cat_list}
 

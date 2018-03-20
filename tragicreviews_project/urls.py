@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^$', include('tragicreviews.urls')),
+    url(r'^', include('tragicreviews.urls')),
 ]
 
 
