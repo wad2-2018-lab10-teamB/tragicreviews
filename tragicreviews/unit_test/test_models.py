@@ -1,8 +1,12 @@
 from django.test import TestCase
-from tragicreviews.models import Subject, Article, Rating, Comment, UserProfile, UserLevelField
+from tragicreviews.models import Subject, Article, Rating, Comment, UserProfile, UserLevelField, ArticleViews
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 import tragicreviews.unit_test.test_utils as test_utils
+from datetime import date
+
+from django.db.utils import IntegrityError
+from django.db import transaction
 
 
 # Testing Models
@@ -25,6 +29,25 @@ class ModelTests(TestCase):
         self.assertEqual(User.objects.all().count(), 2)
         self.assertEqual(UserProfile.objects.all().count(), 2)
         self.assertEqual(UserProfile.objects.all()[0], user_pf)
+
+        # Test Integrity
+        UserProfile.objects.all().delete()
+        User.objects.all().delete()
+        user_pf1 = UserProfile.objects.create_user("mummy")
+        user_pf2 = UserProfile.objects.create_user("dummy")
+        user_pf3 = UserProfile(user=user_pf1.user)
+        self.assertRaises(ValidationError, lambda: user_pf3.save())
+
+        # Something weird, will fix it later
+        user_pf2.user = user_pf1.user
+        user_pf2.save()
+        user_pf2.user.save()
+        print(user_pf1.user)
+        print(user_pf2.user)
+        print(user_pf1)
+        print(user_pf2)
+        print(UserProfile.objects.all())
+
 
     def test_creating_article(self):
         user_pf = test_utils.create_user()
@@ -58,7 +81,10 @@ class ModelTests(TestCase):
 
     def test_rating(self):
         user = test_utils.create_user()
+        user2 = UserProfile.objects.create_user("another")
         article = test_utils.create_article()
+        article2 = Article(title="Even More Terrible Code", body=article.body, author=article.author, category=article.category)
+        article2.save()
         neg_val = -1
         zero_val = 0
         large_val = 6
@@ -75,6 +101,13 @@ class ModelTests(TestCase):
 
         # test integrity
         self.assertRaises(ValidationError, lambda: rating1.save())
+
+        # test same user could rate different articles and same article could be rated by different users
+        rating2 = Rating(user=user2, article=article, rating=5)
+        rating3 = Rating(user=user, article=article2, rating=5)
+        self.assertIsNone(rating2.save())
+        self.assertIsNone(rating3.save())
+        self.assertEqual(Rating.objects.all().count(), 3)
         Rating.objects.all().delete()
 
         # test a rating with negative value
@@ -151,3 +184,34 @@ class ModelTests(TestCase):
         self.assertTrue(user_pf.save() is None)
         # level is saved correctly
         self.assertEqual(user_pf.level, UserLevelField.staff_levels[0])
+
+    def test_article_views(self):
+        article = test_utils.create_article()
+        article2 = Article(title="Even More Terrible Code", body=article.body, author=article.author,
+                           category=article.category)
+        article2.save()
+        date1 = date(2018, 1, 30)
+        date2 = date(2018, 1, 31)
+        article_views = ArticleViews(article=article, date=date1, views=1)
+        article_views.save()
+
+        # test correct number of ArticleViews models
+        self.assertEqual(ArticleViews.objects.all().count(), 1)
+
+        article_views2 = ArticleViews(article=article2, date=date2, views=3)
+        article_views2.save()
+        # test correct number of ArticleViews models
+        self.assertEqual(ArticleViews.objects.all().count(), 2)
+
+        # test integrity
+        article_views3 = ArticleViews(article=article, date=date2, views=45)
+        with transaction.atomic():
+            self.assertRaises(IntegrityError, lambda: article_views3.save())
+
+        # test same article could have different views on different date
+        # and on same date different articles could have different views
+        # currently cannot pass
+        article_views4 = ArticleViews(article=article, date=date2, views=5)
+        article_views5 = ArticleViews(article=article2, date=date, views=5)
+        self.assertIsNone(article_views4.save())
+        self.assertIsNone(article_views5.save())
