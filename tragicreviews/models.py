@@ -103,3 +103,11 @@ class Comment(models.Model):
 	article = models.ForeignKey(Article)
 	user = models.ForeignKey(UserProfile)
 	text = models.TextField(max_length=500)
+
+class ArticleViews(models.Model):
+	article = models.ForeignKey(Article)
+	date = models.DateField(auto_now_add=True)
+	views = models.PositiveIntegerField()
+
+	class Meta:
+		unique_together = ("article", "date")
