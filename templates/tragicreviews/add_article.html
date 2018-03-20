@@ -1,0 +1,43 @@
+{% extends 'tragicTest/base_boot-strap.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Article Name
+{% endblock %}
+
+{% block body_block %}
+        <div class="panel panel-default">
+            <div class="panel-body" id="new-article">
+            
+                <div class="row left-buffer">
+                    <div class="form-group">
+                      <label for="usr">Title:</label>
+                      <input type="text" class="form-control" id="usr">
+                    </div>
+                </div>
+                
+                <div class="row left-buffer">
+                    <div class="form-group ">
+                      <label for="comment">Article:</label>
+                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                </div>
+                
+                <div class="row left-buffer">
+                    <div class="col-sm-4"><b><p>Subject:</p></b></div>
+                    <div class="col-sm-8">
+                        <label class="radio-inline"><input type="radio" name="optradio">Computing</label>
+                        <label class="radio-inline"><input type="radio" name="optradio">Maths</label>
+                        <label class="radio-inline"><input type="radio" name="optradio">Psychology</label>
+                    </div>
+                      
+                      
+                </div>
+                
+                <div class="row top-buffer">
+                      <button type="button" class="btn pull-right" name="add-article">Submit</button>
+                </div>
+            
+            </div>
+        </div>
+{% endblock %}
