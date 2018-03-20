@@ -91,6 +91,10 @@ class Article(models.Model):
 	body = models.TextField(max_length=5000)
 	author = models.ForeignKey(UserProfile)
 
+	def __str__(self):
+		return self.title + " - " + self.category.name
+
+
 class Rating(models.Model):
 	article = models.ForeignKey(Article)
 	user = models.ForeignKey(UserProfile)
@@ -127,3 +131,4 @@ class ArticleViews(models.Model):
 
 	class Meta:
 		unique_together = ("article", "date")
+		verbose_name_plural = "Article views"

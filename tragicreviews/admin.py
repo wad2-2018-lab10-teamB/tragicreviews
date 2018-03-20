@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tragicreviews.models import UserProfile, Subject, Article, Rating, Comment
+from tragicreviews.models import UserProfile, Subject, Article, Rating, Comment, ArticleViews
 
 admin.site.register(UserProfile)
 
@@ -13,3 +13,4 @@ admin.site.register(Article, ArticleAdmin)
 
 admin.site.register(Rating)
 admin.site.register(Comment)
+admin.site.register(ArticleViews)
