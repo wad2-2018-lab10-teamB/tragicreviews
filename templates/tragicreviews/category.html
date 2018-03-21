@@ -9,7 +9,7 @@
 
     <div class="panel panel-default" id="category">
             
-              <div class="panel-heading"><h3>category.name</h3>
+              <div class="panel-heading"><h3>{{ category.name }}</h3>
               {% if user.is_authenticated %}
                         <a href="{% url 'add_article' %}" class="btn pull-right">Submit Article</a></li>
               {% endif %} </div>
@@ -20,8 +20,8 @@
                          {% for a in articles %}
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <h4><a href="a.url">a.title</a></h4>
-                                    <p>by <a href="a.author.url">a.author</a></p>
+                                    <h4><a href="a.url">{{ a.title }}</a></h4>
+                                    <p>by <a href="{{ a.author.url }}">{{ a.author }}</a></p>
                                 </div>
                                 <div class="col-sm-7">
                                     <p>a.body</p>
