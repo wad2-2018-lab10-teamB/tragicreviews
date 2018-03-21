@@ -1,4 +1,4 @@
-{% extends 'tragicTest/base_boot-strap.html' %}
+{% extends 'tragicreviews/base_boot-strap.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -8,36 +8,14 @@
 {% block body_block %}
         <div class="panel panel-default">
             <div class="panel-body" id="new-article">
-            
-                <div class="row left-buffer">
-                    <div class="form-group">
-                      <label for="usr">Title:</label>
-                      <input type="text" class="form-control" id="usr">
+                <form method="post" action=".">
+                    <div class="row">
+                        {{ form.as_p }}
                     </div>
-                </div>
-                
-                <div class="row left-buffer">
-                    <div class="form-group ">
-                      <label for="comment">Article:</label>
-                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <div class="row top-buffer">
+                          <input type="submit" value="Submit" />
                     </div>
-                </div>
-                
-                <div class="row left-buffer">
-                    <div class="col-sm-4"><b><p>Subject:</p></b></div>
-                    <div class="col-sm-8">
-                        {% for c in categories %}
-                        <label class="radio-inline"><input type="radio" name="optradio">c</label>
-                        {% endfor %}
-                    </div>
-                      
-                      
-                </div>
-                
-                <div class="row top-buffer">
-                      <button type="button" class="btn pull-right" name="add-article">Submit</button>
-                </div>
-            
+                </form>
             </div>
         </div>
 {% endblock %}
