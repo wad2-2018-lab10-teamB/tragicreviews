@@ -11,6 +11,8 @@ document.getElementById("id_group").onchange = function(){
         document.getElementById("id_student_level").disabled = true;
     } else {
         alert("No input >.<");
+        document.getElementById("id_student_level").value = "";
+        document.getElementById("id_staff_level").value = "";
         document.getElementById("id_staff_level").disabled = true;
         document.getElementById("id_student_level").disabled = true;
     }
