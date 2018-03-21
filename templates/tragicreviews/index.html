@@ -22,25 +22,22 @@
             <div class="row">
                 <div class="col-xs-offset-3 col-xs-6">
                     <div class="carousel-inner">
+
+                        {% for c in categories %}
+                        <div class="item">
+                            <div class="carousel-content">
+                                <div>
+                                    <p id="trend-body">c.body</p>
+                                    <p><h3><center><a href=c.url>c.title</a></center></h3><p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %} 
+
+                        
                         <div class="item active">
                             <div class="carousel-content">
                                 <div>
-                                    <p>Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo sit blanditiis laborum dolore illum fuga veniam quae expedita libero accusamus quas harum ex numquam necessitatibus provident deleniti tenetur iusto officiis recusandae corporis culpa quaerat?</p>
-                                    <p><h3><center>Title</center></h3><p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="carousel-content">
-                                <div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, sint fuga temporibus nam saepe delectus expedita vitae magnam necessitatibus dolores tempore consequatur dicta cumque repellendus eligendi ducimus placeat! </p>
-                                    <p><h3><center>Title</center></h3><p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="carousel-content">
-                                <div>                          
                                     <p>Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo sit blanditiis laborum dolore illum fuga veniam quae expedita libero accusamus quas harum ex numquam necessitatibus provident deleniti tenetur iusto officiis recusandae corporis culpa quaerat?</p>
                                     <p><h3><center>Title</center></h3><p>
                                 </div>
@@ -72,30 +69,16 @@
             <div class="row">
                 <div class="col-xs-offset-3 col-xs-6">
                     <div class="carousel-inner">
-                        <div class="item active">
-                            <div class="carousel-content">
-                                <div>
-                                    <p>Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo sit blanditiis laborum dolore illum fuga veniam quae expedita libero accusamus quas harum ex numquam necessitatibus provident deleniti tenetur iusto officiis recusandae corporis culpa quaerat?</p>
-                                    <p><h3><center>Title</center></h3><p>
-                                </div>
-                            </div>
-                        </div>
+                        {% for c in categories %}
                         <div class="item">
                             <div class="carousel-content">
                                 <div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, sint fuga temporibus nam saepe delectus expedita vitae magnam necessitatibus dolores tempore consequatur dicta cumque repellendus eligendi ducimus placeat! </p>
-                                    <p><h3><center>Title</center></h3><p>
+                                    <p id="new-body">c.body</p>
+                                    <p><h3><center><a href=c.url>c.title</a></center></h3><p>
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="carousel-content">
-                                <div>                          
-                                    <p>Sapiente, ducimus, voluptas, mollitia voluptatibus nemo explicabo sit blanditiis laborum dolore illum fuga veniam quae expedita libero accusamus quas harum ex numquam necessitatibus provident deleniti tenetur iusto officiis recusandae corporis culpa quaerat?</p>
-                                    <p><h3><center>Title</center></h3><p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %} 
                         
                     </div>
                 </div>

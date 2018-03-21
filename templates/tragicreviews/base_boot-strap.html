@@ -81,17 +81,19 @@
                 <div class="row top-buffer">
                 
                     <ul class="nav nav-pills nav-stacked" data-offset-top="205">
+                        {% if user.is_authenticated %}
                         <li><a href="{% url 'add_article' %}">Submit Article</a></li>
+                        {% endif %} 
                         <h4>Subjects</h4>
                         <li class="active"><a href="#section1">Computing</a></li>
                         <li><a href="#section2">Mathematics</a></li>
                         <li><a href="#section3">Psychology</a></li>
 
-                        <!--ACTUAL SUBJECTS
+                        
                         <h4>Subjects</h4>
-                        { % for c in category % }
-                            <li><a href="c.url">c.name</a></li>
-                        { % end for % } -->
+                        { % for s in categories.subject % }
+                            <li><a href="#">s</a></li>
+                        { % end for % }
                     </ul>
                 </div>
             </nav>  
