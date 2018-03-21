@@ -25,7 +25,7 @@ def add_article(request):
     for subject in subjects:
         context_dict['categories'].append(subject)
 
-    return render(request, '/tragicreviews/add_article.html', context_dict)
+    return render(request, 'tragicreviews/add_article.html', context_dict)
 
 
 def article(request, req_title):
