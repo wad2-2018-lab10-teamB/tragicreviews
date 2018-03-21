@@ -3,13 +3,12 @@ from tragicreviews.models import Subject, Article, Rating, Comment, UserProfile,
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 import tragicreviews.unit_test.test_utils as test_utils
-from datetime import date, timedelta
+from datetime import datetime
 
 from django.db.utils import IntegrityError
 from django.db import transaction
 
-from django.utils import timezone
-from unittest.mock import patch, Mock
+from freezegun import freeze_time
 
 
 # Testing Models
@@ -194,21 +193,19 @@ class ModelTests(TestCase):
         article2 = Article(title="Even More Terrible Code", body=article1.body, author=article1.author,
                            category=article1.category)
         article2.save()
-        date1 = date(2018, 1, 30)
-        date2 = date(2018, 1, 31)
-        article_views = ArticleViews(article=article1, date=date1, views=1)
+        article_views = ArticleViews(article=article1, views=1)
         article_views.save()
 
         # test correct number of ArticleViews models
         self.assertEqual(ArticleViews.objects.all().count(), 1)
 
-        article_views2 = ArticleViews(article=article2, date=date2, views=3)
+        article_views2 = ArticleViews(article=article2, views=3)
         article_views2.save()
         # test correct number of ArticleViews models
         self.assertEqual(ArticleViews.objects.all().count(), 2)
 
         # test integrity
-        article_views3 = ArticleViews(article=article2, date=date2, views=45)
+        article_views3 = ArticleViews(article=article2, views=45)
         with transaction.atomic():
             self.assertRaises(IntegrityError, lambda: article_views3.save())
 
@@ -218,16 +215,16 @@ class ModelTests(TestCase):
 
         # test same article could have different views on different date
         # and on same date different articles could have different views
-        article_views = ArticleViews(article=article1, date=date1, views=5)
+        article_views = ArticleViews(article=article1, views=5)
         article_views.save()
-        article_views4 = ArticleViews(article=article2, date=date1, views=5)
+        article_views4 = ArticleViews(article=article2, views=5)
         self.assertIsNone(article_views4.save())
 
-        # strange.. currently still cannot pass
-        last_week = date(2018, 1, 31)
-        with patch('django.utils.timezone.now', Mock(return_value=last_week)):
-            article_views5 = ArticleViews(article=article1, date=last_week, views=5)
+        # pass.
+        with freeze_time(lambda: datetime(2018, 2, 4)):
+            article_views5 = ArticleViews(article=article1, views=5)
+            self.assertIsNone(article_views5.save())
         print(article_views.date)
         print(article_views5.date)
-        self.assertIsNone(article_views5.save())
+
 
