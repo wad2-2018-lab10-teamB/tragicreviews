@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import Group
-from tragicreviews.models import Subject, Article, Comment, UserLevelField
+from tragicreviews.models import Subject, Article, Comment, Rating, UserLevelField
 from registration.forms import RegistrationFormTermsOfService, RegistrationFormUniqueEmail
 
 
@@ -49,3 +49,10 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("text", )
         help_texts = {"text": "Please enter your comment"}
+
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ("rating", )
+        help_texts = {"rating": "Please enter your rating (1-5)"}

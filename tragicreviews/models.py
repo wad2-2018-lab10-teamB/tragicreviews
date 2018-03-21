@@ -142,3 +142,6 @@ class ArticleViews(models.Model):
 	class Meta:
 		unique_together = ("article", "date")
 		verbose_name_plural = "Article views"
+
+	def __str__(self):
+		return f"\"{self.article}\" - {self.views} views on {self.date}"
