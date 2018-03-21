@@ -18,10 +18,11 @@ body {
     border-color: DarkSlateGrey;
 }
 
-#search.panel-default {
+#search.container {
     background-color: AntiqueWhite;
     border-color: DarkSlateGrey;
-    padding-right: 200px;
+    padding-right: 600px;
+    padding-top: 50px;
 }
 
 
@@ -33,7 +34,7 @@ body {
     padding-left: 30px;
 }
 
-#category.panel-default div.row { 
+#category.panel-body div.row { 
   border: 1px solid;
   border-bottom: 0px;
 }
@@ -42,12 +43,13 @@ body {
      width: 1000px;
       }
 
+
 #cat.panel-body {
     max-height: 500px;
     overflow-y: scroll;
 }
 
-#category.panel-default div.row:last-child {
+#category.panel-body div.row:last-child {
   border-bottom: 1px solid;
 }
 
@@ -98,6 +100,10 @@ body {
 
 .top-buffer {
     margin-top:20px;
+}
+
+.extra-top-buffer {
+    margin-top:70px;
 }
 
 .left-buffer {
