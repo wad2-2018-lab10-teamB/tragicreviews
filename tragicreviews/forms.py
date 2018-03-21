@@ -1,14 +1,30 @@
 from django import forms
 from django.contrib.auth.models import Group
-from tragicreviews.models import Subject, Article, Comment
+from tragicreviews.models import Subject, Article, Comment, UserLevelField
 from registration.forms import RegistrationFormTermsOfService, RegistrationFormUniqueEmail
 
 
 class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfService):
+
+    def get_choices(lst):
+        choices = [('', '-----------'),]
+        for i in lst:
+            choice = (i, i)
+            choices.append(choice)
+        return choices
+
     image = forms.ImageField(required=False)  # temp
-    majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(), required=True)
+    majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
+                                            widget=forms.CheckboxSelectMultiple, required=True)
     group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
-    field_order = ['username', 'email', 'password1', 'password2', 'majors', 'image', 'group', 'tos']
+    # level will think about it later
+    student_levels = get_choices(UserLevelField.student_levels)
+    staff_levels = get_choices(UserLevelField.staff_levels)
+    student_level = forms.ChoiceField(required=False, widget=forms.Select, choices=student_levels)
+    staff_level = forms.ChoiceField(required=False, widget=forms.Select, choices=staff_levels)
+
+    field_order = ['username', 'email', 'password1', 'password2',
+                   'group', 'majors', 'student_level', 'staff_level', 'image', 'tos']
 
 
 class SubjectForm(forms.ModelForm):

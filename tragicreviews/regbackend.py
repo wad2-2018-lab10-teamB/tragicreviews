@@ -42,6 +42,16 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
             major.save()
             user_profile.majors.add(major)
         print(user_profile.majors.all())
+        # Current set level None
+
+        user_profile.level = None
+        if (group.name == 'student'):
+            level = data['student_level']
+        else:
+            level = data['staff_level']
+        print(level)
+        if (level != ''):
+            user_profile.level = level
         # Setting profile image
         user_profile.image = image
         user_profile.user.save()
