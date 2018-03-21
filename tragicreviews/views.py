@@ -38,7 +38,7 @@ def article(request, req_title):
         context_dict['author'] = article_object.author
         context_dict['text'] = article_object.body
         # according to bo :P
-        context_dict['comment_set'] = Comment.objects.get(article = article_object) # This will return a set rather than a single comment
+        context_dict['comment_set'] = Comment.objects.filter(article = article_object) # This will return a set rather than a single comment
     else:
         return False
 
