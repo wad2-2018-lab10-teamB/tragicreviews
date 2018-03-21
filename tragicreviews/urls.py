@@ -4,7 +4,7 @@ from tragicreviews import views
 urlpatterns = [
     url(r'^add_article/$', views.add_article, name='add_article'),
     url(r'^article/$', views.article, name='article'),
-    url(r'^category/(?P<category_name_url>[\w\-]+)/$', views.category, name='category'),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
     # url(r'^/tragicreviews/$', views.index, name='index'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^profile_reviews/$', views.profile_reviews, name='profile_reviews'),

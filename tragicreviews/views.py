@@ -62,18 +62,18 @@ def base_bootstrap(request):
     return render(request, 'tragicreviews/base_bootstrap.html', context_dict)
 
 
-def category(request, req_cat):
+def category(request, category_name_slug):
     #Needs a title, author and preview
     context_dict = {}
 
     try:
-        category = Category.objects.get(slug=category_name_slug)
+        category = Subject.objects.get(slug=category_name_slug)
         articles = Article.objects.filter(category=category)
 
         context_dict['articles'] = articles
         context_dict['category'] = category
 
-    except Category.DoesNotExist:
+    except Subject.DoesNotExist:
         context_dict['category'] = None
         context_dict['pages'] = None
 
