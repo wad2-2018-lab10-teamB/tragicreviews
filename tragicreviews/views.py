@@ -49,17 +49,19 @@ def base(request):
     context_dict = {}
     return render(request, 'tragicreviews/base.html', context_dict)
 
-
-def base_bootstrap(request):
-    context_dict = {'categories': []}
-
-    subjects = Subject.name.all()
-
-    for subject in subjects:
-        context_dict['categories'].append(subject)
-
-
-    return render(request, 'tragicreviews/base_bootstrap.html', context_dict)
+#
+# def base_bootstrap(request):
+#
+#
+#     context_dict = {'categories': []}
+#
+#     subjects = Subject.name.all()
+#
+#     for subject in subjects:
+#         context_dict['categories'].append(subject)
+#
+#
+#     return render(request, 'tragicreviews/base_bootstrap.html', context_dict)
 
 
 def category(request, category_name_slug):
@@ -81,16 +83,26 @@ def category(request, category_name_slug):
 
 
 def index(request):
+    context_dict = base_bootstrap()
 
-    trend_cat_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
+    trend_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
 
-    for cat in trend_cat_list:
-        cat.url = encode_url(cat.title)
+    for article in trend_article_list:
+        article.url = encode_url(article.title)
 
-    context_dict = {'categories': trend_cat_list}
+    new_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=1)
+
+    for article in new_article_list:
+        article.url = encode_url(article.title)
+
+    context_dict['trend_articles'] = trend_article_list
+    context_dict['new_articles'] = new_article_list
 
     return render(request, 'tragicreviews/index.html', context_dict)
 
+def getUserDetails():
+    dict = {}
+    return dict
 
 def profile(request):
     user_dictionary = {}
