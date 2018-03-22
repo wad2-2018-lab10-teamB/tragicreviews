@@ -31,7 +31,7 @@
                 
                     <div class="container">
                       <div class="media">
-                            {{ for c in comment_set }}
+                            {% for c in comment_set %}
                                 <div class="media-left">
                                     <img src={{ c.user.image }} class="media-object" style="width:60px">
                                 </div>
@@ -39,7 +39,7 @@
                                     <h4 class="media-heading"> {{ c.user.user }} </h4>
                                     <p> {{ c.text }} </p>
                                 </div>
-                            {{ endfor }}
+                            {% endfor %}
 
                       </div>
                     </div>
