@@ -22,7 +22,7 @@
                         {% for u in user_articles %}
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <h4><a href="u.url">{{ u.title }}</a></h4>
+                                    <h4><a href='{% url 'article' u.category.slug u.id %}'>{{ u.title }}</a></h4>
                                     <p>{{ u.body }}</p>
                                 </div>
                                 <div class="col-sm-5">

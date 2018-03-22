@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <h4><a href="{% url 'article' category.slug a.id %}">{{ a.title }}</a></h4>
-                                    <p>by <a href="{{ a.author.url }}">{{ a.author }}</a></p>
+                                    <p>by <a href="{% url 'profile' a.author %}">{{ a.author }}</a></p>
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="panel panel-default" id="category">

@@ -10,7 +10,7 @@
     <div class="panel panel-default" id="article">
             
               <div class="panel-heading">
-                  <h2>{{ title }} <small>by <a href='#'>{{ author }}</a></small></h2>
+                  <h2>{{ title }} <small>by <a href='{% url 'profile' author %}'>{{ author }}</a></small></h2>
               </div>
               
               <div class="panel-body" id="article-body">
@@ -19,6 +19,9 @@
                         <div class="panel-body" id="article-content">
                                 <p class="article">{{ text }}</p>
                     </div> </div>
+                    <div class="row">
+                        <p> Average Rating: {{rating_avg}}</p>
+                    </div>
                         <form method="post" action=".">
                             <div class="row">
                                 {% csrf_token %}
