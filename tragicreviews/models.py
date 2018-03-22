@@ -49,10 +49,10 @@ class UserLevelField(models.CharField):
 			return
 
 		valid = False
-		if model_instance.user.groups.filter(name="student").exists():
+		if model_instance.is_member("student"):
 			if value in self.student_levels:
 				valid = True
-		if not valid and model_instance.user.groups.filter(name="staff").exists():
+		if not valid and model_instance.is_member("staff"):
 			if value in self.staff_levels:
 				valid = True
 		if not valid:
@@ -76,6 +76,15 @@ class UserProfile(models.Model):
 	majors = models.ManyToManyField(Subject)
 
 	objects = UserProfileManager()
+
+	def is_member(self, group):
+		return self.user.groups.filter(name=group).exists()
+
+	def get_role(self):
+		if self.is_member("staff"):
+			return "Staff"
+		elif self.is_member("student"):
+			return "Student"
 
 	def save(self, *args, **kwargs):
 		self.full_clean()
