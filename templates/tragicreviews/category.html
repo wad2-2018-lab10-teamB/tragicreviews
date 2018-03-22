@@ -28,7 +28,7 @@
                          {% for a in articles %}
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <h4><a href="a.url">{{ a.title }}</a></h4>
+                                    <h4><a href="{% url 'article' category.slug a.id %}">{{ a.title }}</a></h4>
                                     <p>by <a href="{{ a.author.url }}">{{ a.author }}</a></p>
                                 </div>
                                 <div class="col-sm-7">
