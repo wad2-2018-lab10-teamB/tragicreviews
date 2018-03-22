@@ -5,6 +5,7 @@
 {% endblock %}
 {% block scripts %}
     <script src="{% static "js/authentication.js" %}" type="text/javascript" ></script>
+    <link href="{% static "css/tos_pop_up.css" %}" rel="stylesheet">
 {% endblock %}
 
 {% block body_block %}
@@ -17,6 +18,20 @@
                     <form onsubmit="return isValidEmail()" method="post" action="."  enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
+                        <div class="popup" onclick="showTos()"> See Details
+                            <span class="popuptext" id="tospopup">
+                                We will not use any of your personal details.
+                            </span>
+                            <script type="text/javascript">
+                                function showTos() {
+                                    var popup = document.getElementById("tospopup");
+                                    popup.classList.toggle("show");
+                                }
+                            </script>
+                        </div>
+
+                        <br />
+                        <br />
                         <input type="submit" value="Submit" />
                         <script src="{% static "js/level.js" %}" type="text/javascript"></script>
                     </form>
