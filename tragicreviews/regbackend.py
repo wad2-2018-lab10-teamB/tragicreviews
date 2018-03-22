@@ -76,20 +76,20 @@ def update_profile(request):
         else:
             form = UpdateStaffProfileForm(request.POST)
         if form.is_valid():
-            print("here")
             user_pf = UserProfile.objects.get(user=request.user)
-
-            print('image' in request.FILES)
-            print(request.FILES['image'] is not None)
             if 'image' in request.FILES:
                 user_pf.image = request.FILES['image']
-
-            user_pf.majors = form.cleaned_data['majors']
+            if form.cleaned_data['majors'] is not None:
+                user_pf.majors = form.cleaned_data['majors']
             if isinstance(form, UpdateStudentProfileForm):
                 new_level = form.cleaned_data['student_level']
             else:
                 new_level = form.cleaned_data['staff_level']
-            if user_pf.level != new_level:
+            if new_level == 'clear':
+                user_pf.level = None
+            elif new_level == '':
+                pass
+            else:
                 user_pf.level = new_level
             user_pf.save()
             return HttpResponseRedirect('/tragicreviews/')  # direct user to index page

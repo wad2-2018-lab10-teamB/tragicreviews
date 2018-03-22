@@ -12,6 +12,13 @@ def get_choices(lst):
     return choices
 
 
+def get_update_choices(lst):
+    choices = [('', '-----------'), ('clear', 'clear')]
+    for i in lst:
+        choice = (i, i)
+        choices.append(choice)
+    return choices
+
 class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfService):
 
     image = forms.ImageField(required=True)
@@ -32,7 +39,7 @@ class UpdateStudentProfileForm(forms.ModelForm):
     image = forms.ImageField(required=False)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=False)
-    student_levels = get_choices(UserLevelField.student_levels)
+    student_levels = get_update_choices(UserLevelField.student_levels)
     student_level = forms.ChoiceField(required=False, widget=forms.Select, choices=student_levels)
 
     class Meta:
@@ -45,7 +52,7 @@ class UpdateStaffProfileForm(forms.ModelForm):
     image = forms.ImageField(required=False)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=False)
-    staff_levels = get_choices(UserLevelField.staff_levels)
+    staff_levels = get_update_choices(UserLevelField.staff_levels)
     staff_level = forms.ChoiceField(required=False, widget=forms.Select, choices=staff_levels)
 
     class Meta:
