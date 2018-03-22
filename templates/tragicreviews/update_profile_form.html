@@ -1,0 +1,28 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+
+{% load staticfiles %}
+{% block title_block %}
+	Update Profile
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+
+{% block body_block %}
+
+
+    <div class="panel panel-default">
+
+              <div class="panel-heading">Public Profile</div>
+
+              <div class="panel-body" id="register">
+                  <form method="post" action="." enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+                      <input type="submit" value="Update Profile" />
+                  </form>
+              </div>
+    </div>
+
+
+
+{% endblock %}
