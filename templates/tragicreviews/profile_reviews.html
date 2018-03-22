@@ -11,8 +11,8 @@
             
               <div class="panel-heading"><ul class="nav nav-tabs">
                   <li><a href='{% url 'profile' %}'>My Account</a></li>
-                  <li><a href='{% url 'profile_reviews' %}'>Uploads</a></li>
-                  <li class="active"><a href='{% url 'profile_uploads' %}'>Reviews</a></li>
+                  <li><a href='{% url 'profile_uploads' %}'>Uploads</a></li>
+                  <li class="active"><a href='{% url 'profile_reviews' %}'>Reviews</a></li>
               </ul></div>
               
               <div class="panel-body" id="reviews">
@@ -31,7 +31,7 @@
                                     <p>Replies: u.replies</p>
                                 </div>
                             </div>
-                        {% end for %}
+                        {% endfor %}
                         -->
                         
                        <div class="row">
