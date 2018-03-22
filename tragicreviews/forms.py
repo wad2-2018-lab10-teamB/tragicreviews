@@ -13,7 +13,7 @@ def get_choices(lst):
 
 
 def get_update_choices(lst):
-    choices = [('', '-----------'), ('clear', 'clear')]
+    choices = [('', '-----------'), ('clear', 'Clear')]
     for i in lst:
         choice = (i, i)
         choices.append(choice)
@@ -21,7 +21,7 @@ def get_update_choices(lst):
 
 class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfService):
 
-    image = forms.ImageField(required=True)
+    image = forms.ImageField(required=False)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=True)
     group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
