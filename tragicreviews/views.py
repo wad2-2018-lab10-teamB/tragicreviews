@@ -17,7 +17,7 @@ def decode_url(str):
     return str.replace('_', ' ')
 
 @login_required
-def add_article(request):
+def add_article(request, category_name_slug):
     context_dict = base_bootstrap()
 
     form = ArticleForm()
@@ -25,14 +25,20 @@ def add_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
 
-        if form.is_valid():
-            form.save(commit=True)
+        try:
+            if form.is_valid():
+                article = form.save(commit=False)
+                article.author = UserProfile.objects.get(user=request.user)
+                article.category = Subject.objects.get(slug=category_name_slug)
+                article.save()
 
-            return index(request)
+                return index(request)
 
-        else:
+            else:
+                print(form.errors)
 
-            print(form.errors)
+        except Subject.DoesNotExist:
+            pass
 
 
     context_dict['form'] = form
