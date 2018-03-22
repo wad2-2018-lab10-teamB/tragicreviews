@@ -50,8 +50,11 @@ def article(request, req_title):
         context_dict['title'] = article_object.title
         context_dict['author'] = article_object.author
         context_dict['text'] = article_object.body
-        # according to bo :P
+
         context_dict['comment_set'] = Comment.objects.filter(article = article_object) # This will return a set rather than a single comment
+        context_dict['rating_avg'] = Rating.objects.get_average_rating()
+        context_dict['total_views'] = ArticleViews.objects.get_total_views()
+
     else:
         return False
 
@@ -129,7 +132,9 @@ def profile(request):
 def profile_reviews(request):
     context_dict = base_bootstrap()
 
-
+    Rating.article
+    Rating.user
+    Rating.rating
 
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
