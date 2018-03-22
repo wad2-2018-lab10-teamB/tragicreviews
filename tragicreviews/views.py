@@ -18,7 +18,7 @@ def decode_url(str):
 
 @login_required
 def add_article(request, category_name_slug):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     form = ArticleForm()
 
@@ -47,7 +47,7 @@ def add_article(request, category_name_slug):
 
 
 def article(request, article_id, category_name_slug):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     try:
         article_object = Article.objects.get(id = article_id)
@@ -86,7 +86,7 @@ def article(request, article_id, category_name_slug):
 
 
 def base(request):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     return render(request, 'tragicreviews/base.html', context_dict)
 
@@ -106,7 +106,7 @@ def base(request):
 
 
 def category(request, category_name_slug):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     #Needs a title, author and preview
     try:
@@ -124,7 +124,7 @@ def category(request, category_name_slug):
 
 
 def index(request):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     context_dict['username'] = UserProfile.user
 
@@ -143,7 +143,7 @@ def index(request):
 
 
 def profile(request, profile_id):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     user = UserProfile.objects.get_by_username(profile_id)
     context_dict['UserProfile'] = user
@@ -152,7 +152,7 @@ def profile(request, profile_id):
 
 
 def profile_reviews(request, profile_id):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     user = UserProfile.objects.get_by_username(profile_id)
     context_dict['UserProfile'] = user
@@ -164,7 +164,7 @@ def profile_reviews(request, profile_id):
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
 
 def profile_uploads(request, profile_id):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     user = UserProfile.objects.get_by_username(profile_id)
     context_dict['UserProfile'] = user
