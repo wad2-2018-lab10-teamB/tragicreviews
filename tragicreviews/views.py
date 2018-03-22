@@ -26,7 +26,21 @@ def add_article(request):
     for subject in subjects:
         context_dict['categories'].append(subject)
 
-    return render(request, 'tragicreviews/add_article.html', context_dict)
+    form = ArticleForm()
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+            return index(request)
+
+        else:
+
+            print(form.errors)
+
+    return render(request, 'tragicreviews/add_article.html', context_dict, {'form': form})
 
 
 def article(request, req_title):
@@ -120,6 +134,8 @@ def profile(request):
 
 def profile_reviews(request):
     context_dict = base_bootstrap()
+
+
 
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
