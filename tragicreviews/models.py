@@ -29,6 +29,9 @@ class UserProfileManager(models.Manager):
 		user_profile.save(using=self._db)
 		return user_profile
 
+	def get_by_username(self, username):
+		return self.get(user=User.objects.get(username=username))
+
 class UserLevelField(models.CharField):
 	student_levels = ["Level 1 undergraduate", "Level 2 undergraduate", "Level 3 undergraduate", "Level 4 undergraduate", "Level 5 undergraduate", "Postgraduate"]
 	staff_levels = ["Tutor", "Lecturer", "Senior lecturer", "Reader", "Professor"]
