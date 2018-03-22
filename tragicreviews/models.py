@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 from django.utils import timezone
 from datetime import timedelta
+import textwrap
 
 class Subject(models.Model):
 	name = models.CharField(max_length=32, unique=True)
@@ -125,11 +126,17 @@ class Rating(models.Model):
 		self.full_clean()
 		super().save(*args, **kwargs)
 
+	def __str__(self):
+		return f"{self.user} rated {self.rating}/5 on \"{self.article}\""
+
 
 class Comment(models.Model):
 	article = models.ForeignKey(Article)
 	user = models.ForeignKey(UserProfile)
 	text = models.TextField(max_length=500)
+
+	def __str__(self):
+		return f"{self.user} on \"{self.article}\": " + textwrap.shorten(self.text, width=40, placeholder="...")
 
 
 class ArticleViewsManager(models.Manager):
