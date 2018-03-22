@@ -32,7 +32,10 @@
                                     <p>by <a href="{{ a.author.url }}">{{ a.author }}</a></p>
                                 </div>
                                 <div class="col-sm-7">
-                                    <p>{{ a.body }}</p>
+                                    <div class="panel panel-default" id="category">
+                                    <div class="panel-body" id="cat-body">
+                                        <p class="article">{{ a.body }}</p>
+                                    </div></div>
                                 </div>
                             </div>
                         {% endfor %}
