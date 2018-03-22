@@ -3,7 +3,7 @@ from tragicreviews import views
 from tragicreviews.regbackend import update_profile
 
 urlpatterns = [
-    url(r'^article/$', views.article, name='article'),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/article/(?P<article_id>\d+)/$', views.article, name='article'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/add_article/$', views.add_article, name='add_article'),
     # url(r'^/tragicreviews/$', views.index, name='index'),
