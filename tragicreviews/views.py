@@ -132,10 +132,13 @@ def profile(request):
 def profile_reviews(request):
     context_dict = base_bootstrap()
 
-    rating_article = Rating.article
-    rating_user = Rating.user
-    rating_rating = Rating.rating
+    context_dict['UserProfile'] = {}
+    logged_user = UserProfile.objects.get(user=request.user)
+    context_dict['UserProfile'].update(getUserDetails(logged_user))
 
+    context_dict['rating_article'] = Rating.article
+    context_dict['rating_user'] = Rating.user
+    context_dict['rating_rating'] = Rating.rating
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
 
@@ -143,6 +146,9 @@ def profile_reviews(request):
 def profile_uploads(request):
     context_dict = base_bootstrap()
 
+    logged_user = UserProfile.objects.get(user=request.user)
+
+    context_dict['user_articles'] = Article.objects.filter(author=logged_user)
 
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
