@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from tragicreviews import views
+from tragicreviews.regbackend import update_profile
 
 urlpatterns = [
     url(r'^add_article/$', views.add_article, name='add_article'),
@@ -10,6 +11,8 @@ urlpatterns = [
     url(r'^profile_reviews/$', views.profile_reviews, name='profile_reviews'),
     url(r'^profile_uploads/$', views.profile_uploads, name='profile_uploads'),
     url(r'^$', views.index, name='index'),
+
+    url(r'^update_profile/$', update_profile, name='update_profile'),
     # url(r'^restricted/$', views.restricted, name='restricted'),
     # url(r'^category/(?P<category_name_url>\w+)/add_article/$', views.add_page, name='add_page'),
     # #url(r'^search/$', views.search, name='search'),

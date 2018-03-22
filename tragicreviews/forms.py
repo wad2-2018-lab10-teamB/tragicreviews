@@ -1,23 +1,23 @@
 from django import forms
 from django.contrib.auth.models import Group
-from tragicreviews.models import Subject, Article, Comment, Rating, UserLevelField
+from tragicreviews.models import Subject, Article, Comment, Rating, UserLevelField, UserProfile
 from registration.forms import RegistrationFormTermsOfService, RegistrationFormUniqueEmail
+
+
+def get_choices(lst):
+    choices = [('', '-----------'), ]
+    for i in lst:
+        choice = (i, i)
+        choices.append(choice)
+    return choices
 
 
 class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfService):
 
-    def get_choices(lst):
-        choices = [('', '-----------'),]
-        for i in lst:
-            choice = (i, i)
-            choices.append(choice)
-        return choices
-
-    image = forms.ImageField(required=False)  # temp
+    image = forms.ImageField(required=True)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=True)
     group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
-    # level will think about it later
     student_levels = get_choices(UserLevelField.student_levels)
     staff_levels = get_choices(UserLevelField.staff_levels)
     student_level = forms.ChoiceField(required=False, widget=forms.Select, choices=student_levels)
@@ -25,6 +25,32 @@ class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfS
 
     field_order = ['username', 'email', 'password1', 'password2',
                    'group', 'majors', 'student_level', 'staff_level', 'image', 'tos']
+
+
+class UpdateStudentProfileForm(forms.ModelForm):
+    # currently we do not allow user to update their email
+    image = forms.ImageField(required=False)
+    majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
+                                            widget=forms.CheckboxSelectMultiple, required=False)
+    student_levels = get_choices(UserLevelField.student_levels)
+    student_level = forms.ChoiceField(required=False, widget=forms.Select, choices=student_levels)
+
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'level')
+
+
+class UpdateStaffProfileForm(forms.ModelForm):
+    # currently we do not allow user to update their email
+    image = forms.ImageField(required=False)
+    majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
+                                            widget=forms.CheckboxSelectMultiple, required=False)
+    staff_levels = get_choices(UserLevelField.staff_levels)
+    staff_level = forms.ChoiceField(required=False, widget=forms.Select, choices=staff_levels)
+
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'image', 'majors', 'level')
 
 
 class SubjectForm(forms.ModelForm):

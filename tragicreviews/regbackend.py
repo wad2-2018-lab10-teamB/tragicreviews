@@ -1,8 +1,10 @@
 from registration.backends.simple.views import RegistrationView
-from tragicreviews.models import UserProfile, Subject
+from django.contrib.auth.decorators import login_required
+from tragicreviews.models import UserProfile
 from django.contrib.auth.models import Group
-from tragicreviews.forms import UserRegistrationForm
+from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 import os
 
 
@@ -62,7 +64,37 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
         return self.success_url
 
 
-# for testing, will be removed later
-def index(request):
-    response = render(request, 'tragicreviews/index.html')
-    return response
+@login_required
+def update_profile(request):
+    if request.user.groups.filter(name='student').exists():
+        form = UpdateStudentProfileForm()
+    else:
+        form = UpdateStaffProfileForm()
+    if request.method == 'POST':
+        if request.user.groups.filter(name='student').exists():
+            form = UpdateStudentProfileForm(request.POST)
+        else:
+            form = UpdateStaffProfileForm(request.POST)
+        if form.is_valid():
+            print("here")
+            user_pf = UserProfile.objects.get(user=request.user)
+
+            print('image' in request.FILES)
+            print(request.FILES['image'] is not None)
+            if 'image' in request.FILES:
+                user_pf.image = request.FILES['image']
+
+            user_pf.majors = form.cleaned_data['majors']
+            if isinstance(form, UpdateStudentProfileForm):
+                new_level = form.cleaned_data['student_level']
+            else:
+                new_level = form.cleaned_data['staff_level']
+            if user_pf.level != new_level:
+                user_pf.level = new_level
+            user_pf.save()
+            return HttpResponseRedirect('/tragicreviews/')  # direct user to index page
+        else:
+            print(form.errors)
+    # handle bad forms
+    return render(request, 'tragicreviews/update_profile_form.html', {'form': form})
+
