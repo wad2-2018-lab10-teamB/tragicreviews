@@ -18,8 +18,9 @@ def decode_url(str):
 
 @login_required
 def add_article(request):
+    context_dict = base_bootstrap()
 
-    context_dict = {'categories': []}
+    context_dict['categories'] = ""
     subjects = Subject.objects.all()
 
     for subject in subjects:
@@ -29,7 +30,11 @@ def add_article(request):
 
 
 def article(request, req_title):
-    context_dict = {'title': [], 'author':"", 'text':"", }
+    context_dict = base_bootstrap()
+
+    context_dict['title'] = []
+    context_dict['author'] = ""
+    context_dict['text'] = ""
     # 'comment_author': "", 'comment_date':"", 'comment_author_pic':""
 
     article_object = Article.objects.filter(title = req_title)
@@ -46,7 +51,8 @@ def article(request, req_title):
 
 
 def base(request):
-    context_dict = {}
+    context_dict = base_bootstrap()
+
     return render(request, 'tragicreviews/base.html', context_dict)
 
 #
@@ -65,9 +71,9 @@ def base(request):
 
 
 def category(request, category_name_slug):
-    #Needs a title, author and preview
-    context_dict = {}
+    context_dict = base_bootstrap()
 
+    #Needs a title, author and preview
     try:
         category = Subject.objects.get(slug=category_name_slug)
         articles = Article.objects.filter(category=category)
@@ -85,53 +91,44 @@ def category(request, category_name_slug):
 def index(request):
     context_dict = base_bootstrap()
 
-    trend_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
+    context_dict['username'] = UserProfile.user
 
+    trend_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
     for article in trend_article_list:
         article.url = encode_url(article.title)
+    context_dict['trend_articles'] = trend_article_list
 
     new_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=1)
-
     for article in new_article_list:
         article.url = encode_url(article.title)
-
-    context_dict['trend_articles'] = trend_article_list
     context_dict['new_articles'] = new_article_list
 
     return render(request, 'tragicreviews/index.html', context_dict)
 
-def getUserDetails():
-    dict = {}
-    return dict
+
 
 def profile(request):
-    user_dictionary = {}
+    context_dict = base_bootstrap()
 
-    # Map a username to all the user's details
-    user_dictionary[UserProfile.user.username] = {
-        'user': UserProfile.user.username,
-        'image': UserProfile.image if bool(UserProfile.image) else False,
-        'levels': UserProfile.level,
-        'majors': UserProfile.majors.all(),
-    }
+    context_dict['UserProfile'] = {}
 
-    context_dict = {'userProfile': {}}
-    loggedUser = UserProfile.objects.get(user=request.user)
-
-    context_dict['userProfile'].update(getUserDetails(loggedUser))
+    logged_user = UserProfile.objects.get(user=request.user)
+    context_dict['UserProfile'].update(getUserDetails(logged_user))
 
     return render(request, 'tragicreviews/profile.html', context_dict)
 
 
 def profile_reviews(request):
-    context_dict = {}
+    context_dict = base_bootstrap()
 
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
 
 @login_required
 def profile_uploads(request):
-    context_dict = {}
+    context_dict = base_bootstrap()
+
+
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
 
