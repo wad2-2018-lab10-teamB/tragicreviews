@@ -21,7 +21,7 @@
   
 </head>
 
-<body>
+<body >
 
     <nav class="navbar navbar-fixed-bottom" id="bottomLinks">
   <div class="container-fluid">
@@ -52,13 +52,14 @@
     <div class="col-xs-2 align-self-end">
         <div id="login" class="container">
             {% if user.is_authenticated %}
-            <h4><p>
-            <a href='{% url 'auth_logout' %}?next=/tragicreviews/'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
+            <h4><p>Logged in as: <a href='{% url 'profile' %}'>{{ user }}</a>
             </p><p>
+            <a href='{% url 'auth_logout' %}?next=/tragicreviews/'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
+            </p></h4><h5><p>
             <a href='/accounts/password/change/'><span class="glyphicon glyphicon-edit"></span> Change Password </a>
             </p><p>
             <a href='{% url 'update_profile' %}'><span class="glyphicon glyphicon-pencil"></span> Update Profile</a>
-            </p></h4>
+            </p></h5>
             {% else %}
             <h4><p>
             <a href='{% url 'registration_register' %}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
