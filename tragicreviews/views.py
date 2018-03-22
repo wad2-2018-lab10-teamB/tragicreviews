@@ -49,11 +49,6 @@ def add_article(request, category_name_slug):
 def article(request, article_id, category_name_slug):
     context_dict = base_bootstrap()
 
-    context_dict['title'] = []
-    context_dict['author'] = ""
-    context_dict['text'] = ""
-    # 'comment_author': "", 'comment_date':"", 'comment_author_pic':""
-
     try:
         article_object = Article.objects.get(id = article_id)
         context_dict['title'] = article_object.title
@@ -64,6 +59,8 @@ def article(request, article_id, category_name_slug):
         context_dict['comment_set'] = Comment.objects.filter(article = article_object) # This will return a set rather than a single comment
         context_dict['rating_avg'] = Rating.objects.get_average_rating(article_object)
         context_dict['total_views'] = ArticleViews.objects.get_total_views(article_object)
+
+        ArticleViews.objects.add_view(article_object)
 
     except Article.DoesNotExist:
         pass

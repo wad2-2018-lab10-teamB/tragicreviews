@@ -150,10 +150,15 @@ class ArticleViewsManager(models.Manager):
 			trending_articles = trending_articles[:limit]
 		return [Article.objects.get(pk=record["article"]) for record in trending_articles]
 
+	def add_view(self, article):
+		article_views = self.get_or_create(article=article, date=timezone.now())[0]
+		article_views.views += 1
+		article_views.save()
+
 class ArticleViews(models.Model):
 	article = models.ForeignKey(Article)
 	date = models.DateField(auto_now_add=True)
-	views = models.PositiveIntegerField()
+	views = models.PositiveIntegerField(default=0)
 
 	objects = ArticleViewsManager()
 
