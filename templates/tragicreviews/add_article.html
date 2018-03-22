@@ -10,7 +10,7 @@
             <div class="panel-body" id="new-article">
                 <form method="POST" action=".">
                     <div class="row">
-                        
+                        {% csrf_token %}
                         {{ form.as_p }}
                     </div>
                     <div class="row top-buffer">
