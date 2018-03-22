@@ -1,4 +1,4 @@
-# tragicreviews
+# TragicReviews
 WAD2 project
 
 ## Additional Package: 
@@ -9,6 +9,9 @@ Installation: `pip install django-registration-redux`
 [bcrypt v3.1.4](https://pypi.python.org/pypi/bcrypt/3.1.4)
 
 Installation: `pip install bcrypt`
+
+[freezegun v0.3.10](https://github.com/spulec/freezegun)
+Installation: `pip install freezegun`
 
 ## Running Unit Test:
 `python manage.py test tragicreviews.unit_test.your_test`
