@@ -132,9 +132,9 @@ def profile(request):
 def profile_reviews(request):
     context_dict = base_bootstrap()
 
-    Rating.article
-    Rating.user
-    Rating.rating
+    rating_article = Rating.article
+    rating_user = Rating.user
+    rating_rating = Rating.rating
 
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)

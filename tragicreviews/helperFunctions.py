@@ -12,9 +12,7 @@ def base_bootstrap():
 
 def getUserDetails(UserProfile):
 
-    user_dictionary = {}
-
-    user_dictionary[UserProfile.user] = {
+    user_dictionary = {
         'user': UserProfile.user,
         'image': UserProfile.image if bool(UserProfile.image) else False,
         'levels': UserProfile.level,
