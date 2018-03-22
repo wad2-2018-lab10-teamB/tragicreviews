@@ -65,7 +65,7 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
 
 @login_required
 def update_profile(request):
-    context_dict = base_bootstrap()
+    context_dict = {}
 
     if request.user.groups.filter(name='student').exists():
         form = UpdateStudentProfileForm()
