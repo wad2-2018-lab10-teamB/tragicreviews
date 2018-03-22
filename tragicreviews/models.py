@@ -95,10 +95,16 @@ class Article(models.Model):
 		return self.title + " - " + self.category.name
 
 
+class RatingManager(models.Manager):
+	def get_average_rating(self, article):
+		return self.filter(article=article).aggregate(models.Avg("rating"))["rating__avg"] or 0
+
 class Rating(models.Model):
 	article = models.ForeignKey(Article)
 	user = models.ForeignKey(UserProfile)
 	rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+
+	objects = RatingManager()
 
 	class Meta:
 		unique_together = ('article', 'user')
