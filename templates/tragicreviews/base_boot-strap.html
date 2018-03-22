@@ -52,7 +52,7 @@
     <div class="col-xs-2 align-self-end">
         <div id="login" class="container">
             {% if user.is_authenticated %}
-            <h4><p>Logged in as: <a href='{% url 'profile' %}'>{{ user }}</a>
+            <h4><p>Logged in as: <a href='{% url 'profile' user %}'>{{ user }}</a>
             </p><p>
             <a href='{% url 'auth_logout' %}?next=/tragicreviews/'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
             </p></h4><h5><p>

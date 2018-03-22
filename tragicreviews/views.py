@@ -145,20 +145,17 @@ def index(request):
 def profile(request, profile_id):
     context_dict = base_bootstrap()
 
-    context_dict['UserProfile'] = {}
-
     user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['UserProfile'].update(user)
+    context_dict['UserProfile'] = user
 
     return render(request, 'tragicreviews/profile.html', context_dict)
 
 
-def profile_reviews(request):
+def profile_reviews(request, profile_id):
     context_dict = base_bootstrap()
 
-    context_dict['UserProfile'] = {}
-    logged_user = UserProfile.objects.get(user=request.user)
-    context_dict['UserProfile'].update(getUserDetails(logged_user))
+    user = UserProfile.objects.get_by_username(profile_id)
+    context_dict['UserProfile'] = user
 
     context_dict['rating_article'] = Rating.article
     context_dict['rating_user'] = Rating.user
@@ -166,13 +163,13 @@ def profile_reviews(request):
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
 
-@login_required
-def profile_uploads(request):
+def profile_uploads(request, profile_id):
     context_dict = base_bootstrap()
 
-    logged_user = UserProfile.objects.get(user=request.user)
+    user = UserProfile.objects.get_by_username(profile_id)
+    context_dict['UserProfile'] = user
 
-    context_dict['user_articles'] = Article.objects.filter(author=logged_user)
+    context_dict['user_articles'] = Article.objects.filter(author=user)
 
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
