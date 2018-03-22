@@ -71,6 +71,8 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
 
 @login_required
 def update_profile(request):
+    context_dict = base_bootstrap()
+
     if request.user.groups.filter(name='student').exists():
         form = UpdateStudentProfileForm()
     else:
@@ -101,5 +103,6 @@ def update_profile(request):
         else:
             print(form.errors)
     # handle bad forms
-    return render(request, 'tragicreviews/update_profile_form.html', {'form': form})
+    context_dict['form'] = form
+    return render(request, 'tragicreviews/update_profile_form.html', context_dict)
 
