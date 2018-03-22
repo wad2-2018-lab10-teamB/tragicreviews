@@ -84,7 +84,7 @@ def article(request, article_id, category_name_slug):
         except Subject.DoesNotExist:
             pass
     context_dict['form'] = form
-    
+
     return render(request, 'tragicreviews/article.html', context_dict)
 
 
@@ -145,13 +145,13 @@ def index(request):
 
 
 
-def profile(request):
+def profile(request, profile_id):
     context_dict = base_bootstrap()
 
     context_dict['UserProfile'] = {}
 
-    logged_user = UserProfile.objects.get(user=request.user)
-    context_dict['UserProfile'].update(getUserDetails(logged_user))
+    user = UserProfile.objects.get_by_username(profile_id)
+    context_dict['UserProfile'].update(user)
 
     return render(request, 'tragicreviews/profile.html', context_dict)
 
