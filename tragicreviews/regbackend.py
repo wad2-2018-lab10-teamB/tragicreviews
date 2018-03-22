@@ -19,8 +19,7 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
         password = data['password1']
         group = Group.objects.get(name=data['group'])
         majors = data['majors']
-        script_dir = os.path.dirname(__file__)
-        default_img = os.path.join(script_dir, '../media/profile_images/default_avatar.jpg')
+        default_img = 'profile_images/default_avatar.jpg'
         image = default_img
         if 'image' in data and data['image'] is not None:
             print("image found")
