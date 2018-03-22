@@ -18,141 +18,20 @@
               <div class="panel-body" id="uploads">
                   <div class="container" id="uploadRow">
 
-                        <! -- ACTUAL UPLOADS
-                        {% for u in uploads}
+
+                        {% for u in user_articles %}
                             <div class="row">
                                 <div class="col-sm-7">
-                                    <h4><a href="u.url">u.title</a></h4>
-                                    <p>u.preview</p>
+                                    <h4><a href="u.url">{{ u.title }}</a></h4>
+                                    <p>{{ u.body }}</p>
                                 </div>
                                 <div class="col-sm-5">
-                                    <p>Number of Reviews: u.noReviews</p>
-                                    <p>Last Review: u.lastReview</p>
+                                    <p>Category: {{u.category}}</p>
                                 </div>
                             </div>
-                        {% end for}
-                        -->
+                        {% endfor %}
                   
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
-                       <div class="row">
-                            <div class="col-sm-7">
-                                <h4><a href="#">Title</a></h4>
-                                <p>Your Review</p>
-                            </div>
-                            <div class="col-sm-5">
-                                <p>Number of Reviews: Number</p>
-                                <p>Last Review: Date</p>
-                            </div>
-                       </div>
+                      
                        
                   </div>
                 </div>
