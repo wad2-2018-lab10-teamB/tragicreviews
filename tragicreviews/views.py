@@ -34,7 +34,10 @@ def add_article(request):
 
             print(form.errors)
 
-    return render(request, 'tragicreviews/add_article.html', context_dict, {'form': form})
+
+    context_dict['form'] = form
+
+    return render(request, 'tragicreviews/add_article.html', context_dict)
 
 
 def article(request, req_title):
