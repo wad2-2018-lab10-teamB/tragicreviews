@@ -33,7 +33,7 @@ SECRET_KEY = '6pn4!p34@*2-0jb))3=7t+noxi1=uz(8b6k)w7tuz5&5r7-@_%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["tragicreviews.pythonanywhere.com"]
+ALLOWED_HOSTS = ["tragicreviews.pythonanywhere.com", 'localhost']
 
 
 # Application definition

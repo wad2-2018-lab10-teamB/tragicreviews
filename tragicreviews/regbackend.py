@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from tragicreviews.helperFunctions import base_bootstrap
 import os
 
 
@@ -61,6 +62,11 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
 
     def get_success_url(self, user):
         return self.success_url
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(base_bootstrap())
+        return context
 
 
 @login_required
