@@ -46,7 +46,7 @@ def add_article(request, category_name_slug):
     return render(request, 'tragicreviews/add_article.html', context_dict)
 
 
-def article(request, req_title):
+def article(request, article_id, category_name_slug):
     context_dict = base_bootstrap()
 
     context_dict['title'] = []
@@ -54,11 +54,12 @@ def article(request, req_title):
     context_dict['text'] = ""
     # 'comment_author': "", 'comment_date':"", 'comment_author_pic':""
 
-    article_object = Article.objects.filter(title = req_title)
+    article_object = Article.objects.get(id = article_id)
     if article_object.exists():
         context_dict['title'] = article_object.title
         context_dict['author'] = article_object.author
         context_dict['text'] = article_object.body
+        context_dict['category'] = article_object.category
 
         context_dict['comment_set'] = Comment.objects.filter(article = article_object) # This will return a set rather than a single comment
         context_dict['rating_avg'] = Rating.objects.get_average_rating()
