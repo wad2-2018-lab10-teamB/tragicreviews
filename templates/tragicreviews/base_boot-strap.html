@@ -47,7 +47,7 @@
     </div>
     <div class="col-xs-2">
             <div class="panel-body extra-top-buffer left-buffer"><center>
-                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                <input class="form-control" id="myInput" type="text" placeholder="Search...">
             </center></div>
     </div>
     <div class="col-xs-2 align-self-end">
@@ -55,9 +55,9 @@
             {% if user.is_authenticated %}
             <h4><p>Logged in as: <a href='{% url 'profile' user %}'>{{ user }}</a>
             </p><p>
-            <a href='{% url 'auth_logout' %}?next=/tragicreviews/'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
+            <a href='{% url 'auth_logout' %}?next={% url 'index' %}'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
             </p></h4><h5><p>
-            <a href='/accounts/password/change/'><span class="glyphicon glyphicon-edit"></span> Change Password </a>
+            <a href='{% url 'auth_password_change' %}'><span class="glyphicon glyphicon-edit"></span> Change Password </a>
             </p><p>
             <a href='{% url 'update_profile' %}'><span class="glyphicon glyphicon-pencil"></span> Update Profile</a>
             </p></h5>
@@ -87,7 +87,7 @@
                     <ul class="nav nav-pills nav-stacked" data-offset-top="205">
                         <h4>Subjects</h4>
                         {% for c in categories %}
-                            <li><a href='/tragicreviews/category/{{c.slug}}/'>{{ c }}</a></li>
+                            <li><a href='{% url 'category' c.slug %}'>{{ c }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
