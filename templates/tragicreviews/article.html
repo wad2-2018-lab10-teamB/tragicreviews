@@ -10,7 +10,12 @@
     <div class="panel panel-default" id="article">
             
               <div class="panel-heading">
-                  <h2>{{ title }} <small>by <a href='{% url 'profile' author %}'>{{ author }}</a></small></h2>
+                  <h2>{{ title }} <small>by <a href='{% url 'profile' author %}'>{{ author }}</a></small>
+                  <a href="https://twitter.com/share" class="twitter-share-button"
+                   data-text="Good article"
+                   data-show-count="false">Tweet</a>
+                   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                  </h2>
               </div>
               
               <div class="panel-body" id="article-body">
