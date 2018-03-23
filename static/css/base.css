@@ -72,8 +72,9 @@ p.profile {
 
 p.article {
     word-wrap: break-word;
-    white-space: pre;
+    white-space: pre-wrap;
 }
+
 
 #article-content.panel-body {
     max-height: 25vh;
