@@ -48,21 +48,25 @@
                     <p class="article">{{ text }}</p>
                 </div>
             </div>
-            <div class="top-buffer">
-              <p>Average Rating: {{ rating_avg }}</p>
-              <form method="post" action=".">
-                  {% csrf_token %}
-                  {% bootstrap_form sub_form %}
-                  <input type="submit" name="ratingbtn" value="Submit"/>
-              </form>
-            </div>
-            <div class="top-buffer">
-              <form method="POST" action=".">
-                  {% csrf_token %}
-                  {% bootstrap_form form %}
-                  <input type="submit" name="commentbtn" value="Submit"/>
-              </form>
-            </div>
+            {% if sub_form %}
+                <div class="top-buffer">
+                    <p>Average Rating: {{ rating_avg }}</p>
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        {% bootstrap_form sub_form %}
+                        <input type="submit" name="ratingbtn" value="Submit"/>
+                    </form>
+                </div>
+            {% endif %}
+            {% if form %}
+                <div class="top-buffer">
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <input type="submit" name="commentbtn" value="Submit"/>
+                    </form>
+                </div>
+            {% endif %}
 
             <div class="container top-buffer">
 
