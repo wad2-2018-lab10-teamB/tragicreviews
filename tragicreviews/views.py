@@ -62,26 +62,25 @@ def article(request, article_id, category_name_slug):
 
         ArticleViews.objects.add_view(article_object)
 
+        if request.user.is_authenticated():
+            form = CommentForm()
+            if request.method == 'POST':
+                form = CommentForm(request.POST)
+                try:
+                    if form.is_valid():
+                        comment = form.save(commit=False)
+                        comment.user = UserProfile.objects.get(user=request.user)
+                        comment.article = article_object
+                        comment.save()
+                    else:
+                        print(form.errors)
+
+                except Subject.DoesNotExist:
+                    pass
+            context_dict['form'] = form
+
     except Article.DoesNotExist:
         pass
-
-    if request.user.is_authenticated():
-        form = CommentForm()
-        if request.method == 'POST':
-            form = CommentForm(request.POST)
-            try:
-                if form.is_valid():
-                    comment = form.save(commit=False)
-                    comment.author = UserProfile.objects.get(user=request.user)
-                    comment.category = Subject.objects.get(slug=category_name_slug)
-                    comment.save()
-                    return index(request)
-                else:
-                    print(form.errors)
-
-            except Subject.DoesNotExist:
-                pass
-        context_dict['form'] = form
 
     return render(request, 'tragicreviews/article.html', context_dict)
 
