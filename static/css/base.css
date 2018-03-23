@@ -65,6 +65,11 @@ p.index {
     overflow-y: hidden;
 }
 
+p.profile {
+    max-height: 8vh;
+    overflow-y: hidden;
+}
+
 p.article {
         word-wrap: break-word
     }
