@@ -1,7 +1,7 @@
 # TragicReviews
 WAD2 project
 
-## Additional Package: 
+## Additional Packages: 
 [django-registration-redux v2.2](https://django-registration-redux.readthedocs.io/en/latest/index.html)
 
 Installation: `pip install django-registration-redux`
@@ -10,10 +10,14 @@ Installation: `pip install django-registration-redux`
 
 Installation: `pip install bcrypt`
 
+[django-bootstrap4 v0.0.6](https://pypi.python.org/pypi/django-bootstrap4/0.0.6)
+
+Installation: `pip install django-bootstrap4`
+
 [freezegun v0.3.10](https://github.com/spulec/freezegun)
 Installation: `pip install freezegun`
 
-## Running Unit Test:
+## Running Unit Tests:
 `python manage.py test tragicreviews.unit_test.your_test`
 
 example:

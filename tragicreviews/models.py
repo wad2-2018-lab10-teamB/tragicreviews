@@ -139,7 +139,7 @@ class Rating(models.Model):
 		super().save(*args, **kwargs)
 
 	def __str__(self):
-		return f"{self.user} rated {self.rating}/5 on \"{self.article}\""
+		return f"{self.user.user} rated {self.rating}/5 on \"{self.article}\""
 
 
 class Comment(models.Model):
@@ -148,7 +148,7 @@ class Comment(models.Model):
 	text = models.TextField(max_length=500)
 
 	def __str__(self):
-		return f"{self.user} on \"{self.article}\": " + textwrap.shorten(self.text, width=40, placeholder="...")
+		return f"{self.user.user} on \"{self.article}\": " + textwrap.shorten(self.text, width=40, placeholder="...")
 
 
 class ArticleViewsManager(models.Manager):

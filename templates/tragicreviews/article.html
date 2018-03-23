@@ -1,5 +1,6 @@
 {% extends 'tragicreviews/base_boot-strap.html' %}
 {% load staticfiles %}
+{% load bootstrap4 %}
 
 {% block title_block %}
     {{ title }}
@@ -47,27 +48,21 @@
                     <p class="article">{{ text }}</p>
                 </div>
             </div>
-            <div class="row">
-                <p> Average Rating: {{ rating_avg }}</p>
+            <div class="top-buffer">
+              <p>Average Rating: {{ rating_avg }}</p>
+              <form method="post" action=".">
+                  {% csrf_token %}
+                  {% bootstrap_form sub_form %}
+                  <input type="submit" name="ratingbtn" value="Submit"/>
+              </form>
             </div>
-            <form method="post" action=".">
-                <div class="row">
-                    {% csrf_token %}
-                    {{ sub_form.as_p }}
-                </div>
-                <div class="row left-buffer">
-                    <input type="submit" name="ratingbtn" value="Submit"/>
-                </div>
-            </form>
-            <form method="POST" action=".">
-                <div class="row">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                </div>
-                <div class="row left-buffer">
-                    <input type="submit" name="commentbtn" value="Submit"/>
-                </div>
-            </form>
+            <div class="top-buffer">
+              <form method="POST" action=".">
+                  {% csrf_token %}
+                  {% bootstrap_form form %}
+                  <input type="submit" name="commentbtn" value="Submit"/>
+              </form>
+            </div>
 
             <div class="container top-buffer">
 

@@ -1,5 +1,7 @@
 {% extends 'tragicreviews/base_boot-strap.html' %}
 {% load staticfiles %}
+{% load bootstrap4 %}
+
 {% block title_block %}
 	Registration
 {% endblock %}
@@ -17,7 +19,7 @@
               <div class="panel-body" id="register">
                     <form onsubmit="return isValidEmail()" method="post" action="."  enctype="multipart/form-data">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {% bootstrap_form form %}
                         <div class="popup" onclick="showTos()"> See Details
                             <span class="popuptext" id="tospopup">
                                 We will not use any of your personal details.
