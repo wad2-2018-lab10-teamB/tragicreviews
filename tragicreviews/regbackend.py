@@ -80,7 +80,7 @@ def update_profile(request):
             user_pf = UserProfile.objects.get(user=request.user)
             if 'image' in request.FILES:
                 user_pf.image = request.FILES['image']
-            if form.cleaned_data['majors'] is not None:
+            if len(form.cleaned_data['majors']) > 0:
                 user_pf.majors = form.cleaned_data['majors']
             if isinstance(form, UpdateStudentProfileForm):
                 new_level = form.cleaned_data['student_level']
