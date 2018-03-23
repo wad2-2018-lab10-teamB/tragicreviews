@@ -66,20 +66,14 @@ def article(request, article_id, category_name_slug):
             form = CommentForm(prefix="com")
             sub_form = RatingForm(prefix="rev")
             user_profile=UserProfile.objects.get(user=request.user)
-            if request.method == 'POST':
+            if request.method == 'POST' and 'ratingbtn' in request.POST:
                 try:
                     rating = Rating.objects.get(user=user_profile, article = article_object)
                 except Rating.DoesNotExist:
                     rating = None
-                form = CommentForm(request.POST, prefix="com")
                 sub_form = RatingForm(request.POST, prefix="rev", instance=rating)
                 try:
-                    if form.is_valid():
-                        comment = form.save(commit=False)
-                        comment.user = user_profile
-                        comment.article = article_object
-                        comment.save()
-                    elif sub_form.is_valid():
+                    if sub_form.is_valid():
                         review = sub_form.save(commit=False)
                         review.user = user_profile
                         review.article = article_object
@@ -89,6 +83,22 @@ def article(request, article_id, category_name_slug):
 
                 except Subject.DoesNotExist:
                     pass
+                
+            if request.method == 'POST' and 'commentbtn' in request.POST:
+                form = CommentForm(request.POST, prefix="com")
+
+                try:
+                    if form.is_valid():
+                        comment = form.save(commit=False)
+                        comment.user = user_profile
+                        comment.article = article_object
+                        comment.save()
+                    else:
+                        print(form.errors)
+
+                except Subject.DoesNotExist:
+                    pass
+                
             context_dict['form'] = form
             context_dict['sub_form'] = sub_form
 

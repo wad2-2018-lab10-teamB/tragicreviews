@@ -28,16 +28,16 @@
                                 {{ sub_form.as_p }}
                             </div>
                             <div class="row left-buffer">
-                                  <input type="submit" value="Submit" />
+                                  <input type="submit" name="ratingbtn" value="Submit" />
                             </div>
                     </form>
-                        <form method="post" action=".">
+                        <form method="POST" action=".">
                             <div class="row">
                                 {% csrf_token %}
                                 {{ form.as_p }}
                             </div>
                             <div class="row left-buffer">
-                                  <input type="submit" value="Submit" />
+                                  <input type="submit" name="commentbtn" value="Submit" />
                             </div>
                         </form>
                 
