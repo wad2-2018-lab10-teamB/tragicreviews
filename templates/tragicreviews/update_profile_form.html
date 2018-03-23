@@ -1,6 +1,7 @@
 {% extends 'tragicreviews/base_boot-strap.html' %}
-
 {% load staticfiles %}
+{% load bootstrap4 %}
+
 {% block title_block %}
 	Update Profile
 {% endblock %}
@@ -17,7 +18,7 @@
               <div class="panel-body" id="register">
                   <form method="post" action="." enctype="multipart/form-data">
                       {% csrf_token %}
-                      {{ form.as_p }}
+                      {% bootstrap_form form %}
                       <input type="submit" value="Update Profile" />
                   </form>
               </div>

@@ -78,6 +78,10 @@ class ArticleForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["text"].widget.attrs["rows"] = 4
+        
     class Meta:
         model = Comment
         fields = ("text", )

@@ -1,5 +1,6 @@
 {% extends 'tragicreviews/base_boot-strap.html' %}
 {% load staticfiles %}
+{% load bootstrap4 %}
 
 {% block title_block %}
 	Article Name
@@ -9,13 +10,9 @@
         <div class="panel panel-default">
             <div class="panel-body" id="new-article">
                 <form method="POST" action=".">
-                    <div class="row">
-                        {% csrf_token %}
-                        {{ form.as_p }} 
-                    </div>
-                    <div class="row top-buffer">
-                          <input type="submit" value="Submit" />
-                    </div>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
         </div>

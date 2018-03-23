@@ -1,5 +1,6 @@
 {% extends 'tragicreviews/base_boot-strap.html' %}
 {% load staticfiles %}
+{% load bootstrap4 %}
 
 {% block title_block %}
 	Login
@@ -14,7 +15,7 @@
               <div class="panel-body">
                     <form method="post" action=".">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {% bootstrap_form form %}
                         <input type="submit" value="Log in" />
                         <input type="hidden" name="next" value="{{ next }}" />
                         <p id="loginReg">

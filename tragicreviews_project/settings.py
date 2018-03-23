@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tragicreviews',
-    # 'bootstrap_toolkit'  # bootstrap toolkit, probably will not be used
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [
