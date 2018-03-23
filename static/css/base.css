@@ -1,7 +1,7 @@
 body {
     background-color: white;
     color: DarkSlateGrey;
-    padding-bottom: 60px;
+    padding-bottom: 10vh;
 }
 
 .jumbotron {
@@ -10,8 +10,8 @@ body {
 
 
 #login.container { 
-    padding-top: 70px;
-    padding-left: 200px;
+    padding-top: 5vh;
+    padding-left: 20vh;
 }
 
 #about.panel-default {
@@ -60,6 +60,11 @@ body {
     
 }
 
+p.index {
+    max-height: 20vh;
+    overflow-y: hidden;
+}
+
 p.article {
         word-wrap: break-word
     }
@@ -70,8 +75,9 @@ p.article {
     overflow-y: scroll;
 }
 
+
 #cat-body.panel-body {
-    max-height: 80px;
+    max-height: 10vh;
     overflow-y: hidden;
 }
 
