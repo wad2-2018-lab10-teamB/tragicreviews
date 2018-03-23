@@ -54,12 +54,6 @@ body {
   border-bottom: 1px solid;
 }
 
-#article-body.panel-body {
-    max-height: 58vh;
-    overflow-y: scroll;
-    
-}
-
 p.index {
     max-height: 20vh;
     overflow-y: hidden;
