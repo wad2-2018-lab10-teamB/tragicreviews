@@ -28,7 +28,7 @@
                             <div class="carousel-content">
                                 <div>
                                     <p id="trend-body">{{ c.body }}</p>
-                                    <p><h3><center><a href={{c.url}}>{{ c.title }}</a></center></h3><p>
+                                    <p><h3><center><a href='{% url 'article' c.category.slug c.id %}'>{{ c.title }}</a></center></h3><p>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 <div>
                                     
                                     <p id="trend-body">{{ c.body }}</p>
-                                    <p><h3><center><a href={{c.url}}>{{ c.title }}</a></center></h3><p>
+                                    <p><h3><center><a href='{% url 'article' c.category.slug c.id %}'>{{ c.title }}</a></center></h3><p>
                                 </div>
                             </div>
                         </div>

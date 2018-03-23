@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 # from django.bing_search import run_query
 # from tragicreviews.template import RequestContext
 from tragicreviews.models import Subject, UserProfile, UserLevelField, UserProfileManager, Article, Rating, Comment, ArticleViews
-from tragicreviews.forms import UserRegistrationForm, SubjectForm, ArticleForm, CommentForm
+from tragicreviews.forms import UserRegistrationForm, SubjectForm, ArticleForm, CommentForm, RatingForm
 from datetime import datetime
 from tragicreviews.helperFunctions import *
 
@@ -63,21 +63,34 @@ def article(request, article_id, category_name_slug):
         ArticleViews.objects.add_view(article_object)
 
         if request.user.is_authenticated():
-            form = CommentForm()
+            form = CommentForm(prefix="com")
+            sub_form = RatingForm(prefix="rev")
+            user_profile=UserProfile.objects.get(user=request.user)
             if request.method == 'POST':
-                form = CommentForm(request.POST)
+                try:
+                    rating = Rating.objects.get(user=user_profile, article = article_object)
+                except Rating.DoesNotExist:
+                    rating = None
+                form = CommentForm(request.POST, prefix="com")
+                sub_form = RatingForm(request.POST, prefix="rev", instance=rating)
                 try:
                     if form.is_valid():
                         comment = form.save(commit=False)
-                        comment.user = UserProfile.objects.get(user=request.user)
+                        comment.user = user_profile
                         comment.article = article_object
                         comment.save()
+                    elif sub_form.is_valid():
+                        review = sub_form.save(commit=False)
+                        review.user = user_profile
+                        review.article = article_object
+                        review.save()
                     else:
                         print(form.errors)
 
                 except Subject.DoesNotExist:
                     pass
             context_dict['form'] = form
+            context_dict['sub_form'] = sub_form
 
     except Article.DoesNotExist:
         pass

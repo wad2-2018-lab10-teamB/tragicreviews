@@ -22,6 +22,15 @@
                     <div class="row">
                         <p> Average Rating: {{rating_avg}}</p>
                     </div>
+                    <form method="post" action=".">
+                        <div class="row">
+                                {% csrf_token %}
+                                {{ sub_form.as_p }}
+                            </div>
+                            <div class="row left-buffer">
+                                  <input type="submit" value="Submit" />
+                            </div>
+                    </form>
                         <form method="post" action=".">
                             <div class="row">
                                 {% csrf_token %}
@@ -32,19 +41,21 @@
                             </div>
                         </form>
                 
-                    <div class="container">
-                      <div class="media">
+                    <div class="container top-buffer">
+                    
                             {% for c in comment_set %}
+                      <div class="media">
                                 <div class="media-left">
-                                    <img src={{ c.user.image }} class="media-object" style="width:60px">
+                                    <img src="{{ MEDIA_URL }}{{ c.user.image }}" class="media-object" style="width:60px">
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading"> {{ c.user.user }} </h4>
+                                    <h4 class="media-heading"><a href="{% url 'profile' c.user.user  %}"> {{ c.user.user }} </a></h4>
                                     <p> {{ c.text }} </p>
                                 </div>
-                            {% endfor %}
+                                
 
                       </div>
+                            {% endfor %}
                     </div>
                     
               </div>
