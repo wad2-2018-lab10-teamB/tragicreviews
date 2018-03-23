@@ -22,13 +22,13 @@ body {
 #search.container {
     background-color: white;
     border-color: DarkSlateGrey;
-    padding-right: 600px;
-    padding-top: 50px;
+    padding-right: 30vh;
+    padding-top: 10vh;
 }
 
 
 #sidebar.container {
-    padding-left: 30px;
+    padding-left: 2vh;
 }
 
 #user.p {
@@ -41,12 +41,12 @@ body {
 }
 
 #catRow.container{
-     width: 1000px;
+     width: 80vh;
       }
 
 
 #cat.panel-body {
-    max-height: 500px;
+    max-height: 70vh;
     overflow-y: scroll;
 }
 
@@ -55,7 +55,7 @@ body {
 }
 
 #article-body.panel-body {
-    max-height: 500px;
+    max-height: 58vh;
     overflow-y: scroll;
     
 }
@@ -70,7 +70,7 @@ p.article {
     }
 
 #article-content.panel-body {
-    max-height: 200px;
+    max-height: 25vh;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -82,12 +82,12 @@ p.article {
 }
 
 #new-article.panel-body {
-    max-height: 500px;
+    max-height: 50vh;
     overflow-y: scroll;
 }
 
 #submit-btn.container { 
-    padding-top: 70px;
+    padding-top: 20vh;
 }
 
 #profile.panel-default div.row { 
@@ -101,31 +101,31 @@ p.article {
 
 
 #uploadRow.container{
-     width: 1000px;
+     width: 85vh;
       }
 
 #uploads.panel-body {
-    max-height: 500px;
+    max-height: 60vh;
     overflow-y: scroll;
     overflow-x: scroll;
 }
 
 #reviews.panel-body {
-    max-height: 500px;
+    max-height: 60vh;
     overflow-y: scroll;
     overflow-x: scroll;
 }
 
 .top-buffer {
-    margin-top:20px;
+    margin-top:3vh;
 }
 
 .extra-top-buffer {
-    margin-top:70px;
+    margin-top:10vh;
 }
 
 .left-buffer {
-    margin-left:20px;
+    margin-left:3vh;
 }
 
 .navbar-nav {
@@ -156,7 +156,7 @@ p.article {
 #text-carousel {
   width: 100%;
   height: auto;
-  padding: 50px;
+  padding: 2vh;
 }
 
 a {
