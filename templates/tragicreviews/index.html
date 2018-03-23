@@ -24,7 +24,7 @@
                     <div class="carousel-inner">
 
                         {% for c in trend_articles %}
-                        <div class="item">
+                        <div class="item {% if forloop.first %} active {% endif %}">
                             <div class="carousel-content">
                                 <div>
                                     <p id="trend-body">{{ c.body }}</p>
@@ -60,7 +60,7 @@
                 <div class="col-xs-offset-3 col-xs-6">
                     <div class="carousel-inner">
                         {% for c in new_articles %}
-                        <div class="item">
+                        <div class="item {% if forloop.first %} active {% endif %}">
                             <div class="carousel-content">
                                 <div>
                                     
