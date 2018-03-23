@@ -181,9 +181,7 @@ def profile_reviews(request, profile_id):
     user = UserProfile.objects.get_by_username(profile_id)
     context_dict['UserProfile'] = user
 
-    context_dict['rating_article'] = Rating.article
-    context_dict['rating_user'] = Rating.user
-    context_dict['rating_rating'] = Rating.rating
+    context_dict['ratings'] = Rating.objects.filter(user=user)
 
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
 
