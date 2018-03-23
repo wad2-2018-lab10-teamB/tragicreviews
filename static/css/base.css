@@ -153,6 +153,10 @@ p.article {
     align-items:center;
 }
 
+.carousel-content > div {
+    width: 100%;
+}
+
 .carousel-caption {
     color:black;
     display:block;
