@@ -2,70 +2,93 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Article Name
+    {{ title }}
 {% endblock %}
 
 {% block body_block %}
 
     <div class="panel panel-default" id="article">
-            
-              <div class="panel-heading">
-                  <h2>{{ title }} <small>by <a href='{% url 'profile' author.user %}'>{{ author }}</a></small>
-                  <a href="https://twitter.com/share" class="twitter-share-button"
+        <div id="fb-root"></div>
+
+
+        <div class="panel-heading">
+            <h2>{{ title }}
+                <small>by <a href='{% url 'profile' author.user %}'>{{ author }}</a></small>
+                <div>
+                <div>
+                <a href="https://twitter.com/share" class="twitter-share-button"
                    data-text="Good article"
                    data-show-count="false">Tweet</a>
-                   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                  </h2>
-              </div>
-              
-              <div class="panel-body" id="article-body">
-              
-                    <div class="panel panel-default">
-                        <div class="panel-body" id="article-content">
-                                <p class="article">{{ text }}</p>
-                    </div> </div>
-                    <div class="row">
-                        <p> Average Rating: {{rating_avg}}</p>
-                    </div>
-                    <form method="post" action=".">
-                        <div class="row">
-                                {% csrf_token %}
-                                {{ sub_form.as_p }}
-                            </div>
-                            <div class="row left-buffer">
-                                  <input type="submit" name="ratingbtn" value="Submit" />
-                            </div>
-                    </form>
-                        <form method="POST" action=".">
-                            <div class="row">
-                                {% csrf_token %}
-                                {{ form.as_p }}
-                            </div>
-                            <div class="row left-buffer">
-                                  <input type="submit" name="commentbtn" value="Submit" />
-                            </div>
-                        </form>
-                
-                    <div class="container top-buffer">
-                    
-                            {% for c in comment_set %}
-                      <div class="media">
-                                <div class="media-left">
-                                    <img src="{{ MEDIA_URL }}{{ c.user.image }}" class="media-object" style="width:60px">
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="{% url 'profile' c.user.user  %}"> {{ c.user }} </a></h4>
-                                    <p> {{ c.text }} </p>
-                                </div>
-                                
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+                <div class="fb-share-button"
+                     data-href=""
+                     data-layout="button"
+                     data-size="small"
+                     data-mobile-iframe="true">
+                </div>
+                <div id="fb-root"></div>
+                <script>(function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.12';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+                </div>
+            </h2>
+        </div>
 
-                      </div>
-                            {% endfor %}
+        <div class="panel-body" id="article-body">
+
+            <div class="panel panel-default">
+                <div class="panel-body" id="article-content">
+                    <p class="article">{{ text }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <p> Average Rating: {{ rating_avg }}</p>
+            </div>
+            <form method="post" action=".">
+                <div class="row">
+                    {% csrf_token %}
+                    {{ sub_form.as_p }}
+                </div>
+                <div class="row left-buffer">
+                    <input type="submit" name="ratingbtn" value="Submit"/>
+                </div>
+            </form>
+            <form method="POST" action=".">
+                <div class="row">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <div class="row left-buffer">
+                    <input type="submit" name="commentbtn" value="Submit"/>
+                </div>
+            </form>
+
+            <div class="container top-buffer">
+
+                {% for c in comment_set %}
+                    <div class="media">
+                        <div class="media-left">
+                            <img src="{{ MEDIA_URL }}{{ c.user.image }}" class="media-object" style="width:60px">
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="{% url 'profile' c.user.user %}"> {{ c.user }} </a></h4>
+                            <p> {{ c.text }} </p>
+                        </div>
+
+
                     </div>
-                    
-              </div>
-              
+                {% endfor %}
+            </div>
+
+        </div>
+
     </div>
 
-            
+
 {% endblock %}
