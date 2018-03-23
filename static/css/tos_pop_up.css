@@ -12,7 +12,7 @@
 .popup .popuptext {
     visibility: hidden;
     width: 160px;
-    background-color: AntiqueWhite;
+    background-color: #FFFFFF;
     color: DarkSlateGrey;
     text-align: center;
     border-radius: 6px;
@@ -22,6 +22,7 @@
     bottom: 125%;
     left: 100%;
     margin-left: -80px;
+    border: 1px solid DarkSlateGrey;
 }
 
 .popup .popuptext::after {
@@ -32,7 +33,7 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: AntiqueWhite transparent transparent transparent;
+    border-color: DarkSlateGrey transparent transparent transparent;
 }
 
 .popup .show {
