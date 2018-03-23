@@ -10,7 +10,7 @@
     <div class="panel panel-default" id="article">
             
               <div class="panel-heading">
-                  <h2>{{ title }} <small>by <a href='{% url 'profile' author %}'>{{ author }}</a></small></h2>
+                  <h2>{{ title }} <small>by <a href='{% url 'profile' author.user %}'>{{ author }}</a></small></h2>
               </div>
               
               <div class="panel-body" id="article-body">
@@ -49,7 +49,7 @@
                                     <img src="{{ MEDIA_URL }}{{ c.user.image }}" class="media-object" style="width:60px">
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="{% url 'profile' c.user.user  %}"> {{ c.user.user }} </a></h4>
+                                    <h4 class="media-heading"><a href="{% url 'profile' c.user.user  %}"> {{ c.user }} </a></h4>
                                     <p> {{ c.text }} </p>
                                 </div>
                                 

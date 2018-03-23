@@ -95,7 +95,10 @@ class UserProfile(models.Model):
 		super().save(*args, **kwargs)
 
 	def __str__(self):
-		return self.user.username
+		str_repr = self.user.username
+		if self.is_member("staff"):
+			str_repr += " ✔"
+		return str_repr
 
 
 class ArticleManager(models.Manager):
