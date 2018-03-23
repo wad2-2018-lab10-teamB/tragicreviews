@@ -133,7 +133,7 @@ def index(request):
         article.url = encode_url(article.title)
     context_dict['trend_articles'] = trend_article_list
 
-    new_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=1)
+    new_article_list = Article.objects.get_new_articles(limit=5)
     for article in new_article_list:
         article.url = encode_url(article.title)
     context_dict['new_articles'] = new_article_list

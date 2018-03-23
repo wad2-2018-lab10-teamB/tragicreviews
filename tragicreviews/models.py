@@ -98,11 +98,20 @@ class UserProfile(models.Model):
 		return self.user.username
 
 
+class ArticleManager(models.Manager):
+	def get_new_articles(self, *, limit=0):
+		new_articles = self.order_by("-id")
+		if limit > 0:
+			new_articles = new_articles[:limit]
+		return new_articles
+
 class Article(models.Model):
 	category = models.ForeignKey(Subject)
 	title = models.CharField(max_length=128)
 	body = models.TextField(max_length=5000)
 	author = models.ForeignKey(UserProfile)
+
+	objects = ArticleManager()
 
 	def __str__(self):
 		return self.title + " - " + self.category.name
