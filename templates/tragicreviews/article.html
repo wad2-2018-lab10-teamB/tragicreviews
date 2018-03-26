@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="top-buffer">
-                <p>Average Rating: {{ rating_avg }}</p>
+                <p>Average Rating: {{ rating_avg|floatformat:2 }}</p>
                 {% if sub_form %}
                     <form method="post" action=".">
                         {% csrf_token %}
