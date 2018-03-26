@@ -83,7 +83,7 @@ class ModelTests(TestCase):
         user_pf1.save()
         user_pf2.save()
 
-        # Test lecture user profile
+        # Test staff user profile
         self.held, sys.stdout = sys.stdout, StringIO()
         print(user_pf1)
         self.assertEqual("mummy ✔", sys.stdout.getvalue().strip())

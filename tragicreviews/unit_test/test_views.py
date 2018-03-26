@@ -31,4 +31,18 @@ class TestViews(TestCase):
         self.assertEqual(len(response.context['trend_articles']), 1)
         self.assertEqual(len(response.context['new_articles']), 1)
 
+    def test_category_exist(self):
+        test_utils.create_article()  # s = Subject(name="bar")
+        response = self.client.get(reverse('category', args=['bar']))
+        self.assertEqual(response.context['category'].name, 'bar')
+        self.assertEqual(len(response.context['articles']), 1)
+
+    def test_category_not_exist(self):
+        response = self.client.get(reverse('category', args=['bar']))
+        self.assertIsNone(response.context['category'])
+        self.assertIsNone(response.context['articles'])
+
+    def test_article(self):
+        pass
+
 

@@ -32,6 +32,7 @@ def create_article():
     a.save()
     return a
 
+
 def create_article_views():
     a = create_article()
     article_views = ArticleViews(article=a, views=100)
