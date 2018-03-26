@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/static/js/tragicreviews.js"></script>
   <link href="{% static "css/base.css" %}" rel="stylesheet">
   {% block scripts %}
       <!--Insert your scripts-->
@@ -23,6 +24,25 @@
 </head>
 
 <body>
+  <!-- Top navbar -->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#sidebar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <form class="navbar-form navbar-left">
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Search...">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
   <nav class="navbar navbar-fixed-bottom" id="bottomLinks">
     <ul class="nav navbar-nav">
       <li><a href='{% url 'index' %}'>Index</a></li>
@@ -33,7 +53,7 @@
 
 <div class="container-fluid">
    <div class="row" >
-    <div class="col-xs-6">
+    <div class="col-xs-5">
        <div class="container" id="title">
             <!-- <div class="jumbotron">
                 <h1><a href='{% url 'index' %}'>TragicReviews</a></h1>
@@ -41,59 +61,51 @@
             <a href='{% url 'index' %}'><img src="{% static "images/tragicreviews_logo.png" %}" width=300px/></a>
         </div>
     </div>
-    <div class="col-xs-2">
-            <div class="panel-body extra-top-buffer left-buffer"><center>
-                <input class="form-control" id="myInput" type="text" placeholder="Search...">
-            </center></div>
+    <div class="col-xs-3" id="search-col">
+        <form class="panel-body extra-top-buffer left-buffer"><center>
+            <input class="form-control" type="text" placeholder="Search...">
+        </center></form>
     </div>
-    <div class="col-xs-4 align-self-end">
-        <div id="account-panel">
-            {% if user.is_authenticated %}
-            <h4><p>Logged in as: <a href='{% url 'profile' user %}'>{{ user }}</a>
-            </p><p>
-            <a href='{% url 'auth_logout' %}?next={% url 'index' %}'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
-            </p></h4><h5><p>
-            <a href='{% url 'auth_password_change' %}'><span class="glyphicon glyphicon-edit"></span> Change Password </a>
-            </p><p>
-            <a href='{% url 'update_profile' %}'><span class="glyphicon glyphicon-pencil"></span> Update Profile</a>
-            </p></h5>
-            {% else %}
-            <h4><p>
-            <a href='{% url 'registration_register' %}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
-            </p><p>
-            <a href='{% url 'auth_login' %}'><span class="glyphicon glyphicon-log-in"></span> Login</a>
-            </p></h4>
-            {% endif %}
-        </div>
+    <div class="col-xs-4 align-self-end" id="account-col">
+        {% if user.is_authenticated %}
+        <h4><p>Logged in as: <a href='{% url 'profile' user %}'>{{ user }}</a>
+        </p><p>
+        <a href='{% url 'auth_logout' %}?next={% url 'index' %}'><span class="glyphicon glyphicon-log-out"></span> Log Out </a>
+        </p></h4><h5><p>
+        <a href='{% url 'auth_password_change' %}'><span class="glyphicon glyphicon-edit"></span> Change Password </a>
+        </p><p>
+        <a href='{% url 'update_profile' %}'><span class="glyphicon glyphicon-pencil"></span> Update Profile</a>
+        </p></h5>
+        {% else %}
+        <h4><p>
+        <a href='{% url 'registration_register' %}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        </p><p>
+        <a href='{% url 'auth_login' %}'><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        </p></h4>
+        {% endif %}
     </div>
   </div>
-  <div class="row top-buffer">
-    <div class="col-xs-2">
-       <div class="container" id="sidebar">
-            <nav class="col-xs-2">
-                <div class="row">
-                    <div class="panel panel-default" id="about">
-                        <div class="panel-body"><h4><b>About</b></h4>
-                        <p>TragicReviews is a review site where you can get feedback on coursework, essays and other work while also commenting on other peoples.</div>
-                    </div>
-                </div>
-                <div class="row top-buffer">
-                
-                    <ul class="nav nav-pills nav-stacked" data-offset-top="205">
-                        <h4>Subjects</h4>
-                        {% for c in categories %}
-                            <li><a href='{% url 'category' c.slug %}'>{{ c }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </nav>  
-        </div>       
-    </div>
-    <div class="col-xs-10">
-        <div id="pageBody">
-          {% block body_block %}
-          {% endblock %}
+  <div class="row top-buffer" id="main-row">
+    <nav class="col-xs-2" id="sidebar">
+        <div class="row">
+            <div class="panel panel-default" id="about">
+                <div class="panel-body"><h4><b>About</b></h4>
+                <p>TragicReviews is a review site where you can get feedback on coursework, essays and other work while also commenting on other peoples.</div>
+            </div>
         </div>
+        <div class="row top-buffer">
+        
+            <ul class="nav nav-pills nav-stacked" data-offset-top="205">
+                <h4>Subjects</h4>
+                {% for c in categories %}
+                    <li><a href='{% url 'category' c.slug %}'>{{ c }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+    <div class="col-xs-10" id="pageBody">
+        {% block body_block %}
+        {% endblock %}
     </div>
   </div>
   
