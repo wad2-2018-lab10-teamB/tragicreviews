@@ -48,16 +48,16 @@
                     <p class="article">{{ text }}</p>
                 </div>
             </div>
-            {% if sub_form %}
-                <div class="top-buffer">
-                    <p>Average Rating: {{ rating_avg }}</p>
+            <div class="top-buffer">
+                <p>Average Rating: {{ rating_avg }}</p>
+                {% if sub_form %}
                     <form method="post" action=".">
                         {% csrf_token %}
                         {% bootstrap_form sub_form %}
                         <input class="btn btn-default" type="submit" name="ratingbtn" value="Submit"/>
                     </form>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
             {% if form %}
                 <div class="top-buffer">
                     <form method="POST" action=".">
@@ -69,7 +69,6 @@
             {% endif %}
 
             <div class="container top-buffer">
-
                 {% for c in comment_set %}
                     <div class="media">
                         <div class="media-left">
