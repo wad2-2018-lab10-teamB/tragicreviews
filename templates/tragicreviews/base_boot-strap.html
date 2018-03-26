@@ -50,8 +50,8 @@
                 <input class="form-control" id="myInput" type="text" placeholder="Search...">
             </center></div>
     </div>
-    <div class="col-xs-2 align-self-end">
-        <div id="login" class="container">
+    <div class="col-xs-4 align-self-end">
+        <div id="login">
             {% if user.is_authenticated %}
             <h4><p>Logged in as: <a href='{% url 'profile' user %}'>{{ user }}</a>
             </p><p>
