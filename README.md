@@ -10,7 +10,7 @@ Installation: `pip install django-registration-redux`
 
 Installation: `pip install bcrypt`
 
-[django-bootstrap4 v0.0.6](https://pypi.python.org/pypi/django-bootstrap4/0.0.6)
+[django-bootstrap3 v9.1.0](https://pypi.python.org/pypi/django-bootstrap3/9.1.0)
 
 Installation: `pip install django-bootstrap4`
 
