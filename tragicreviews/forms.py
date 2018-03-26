@@ -21,7 +21,7 @@ def get_update_choices(lst):
 
 class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfService):
 
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(required=False, widget=forms.FileInput)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=True)
     group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
@@ -36,7 +36,7 @@ class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfS
 
 class UpdateStudentProfileForm(forms.ModelForm):
     # currently we do not allow user to update their email
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(required=False, widget=forms.FileInput)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=False)
     student_levels = get_update_choices(UserLevelField.student_levels)
@@ -49,7 +49,7 @@ class UpdateStudentProfileForm(forms.ModelForm):
 
 class UpdateStaffProfileForm(forms.ModelForm):
     # currently we do not allow user to update their email
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(required=False, widget=forms.FileInput)
     majors = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(),
                                             widget=forms.CheckboxSelectMultiple, required=False)
     staff_levels = get_update_choices(UserLevelField.staff_levels)

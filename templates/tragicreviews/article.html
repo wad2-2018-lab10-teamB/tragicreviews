@@ -54,7 +54,7 @@
                     <form method="post" action=".">
                         {% csrf_token %}
                         {% bootstrap_form sub_form %}
-                        <input type="submit" name="ratingbtn" value="Submit"/>
+                        <input class="btn btn-default" type="submit" name="ratingbtn" value="Submit"/>
                     </form>
                 </div>
             {% endif %}
@@ -63,7 +63,7 @@
                     <form method="POST" action=".">
                         {% csrf_token %}
                         {% bootstrap_form form %}
-                        <input type="submit" name="commentbtn" value="Submit"/>
+                        <input class="btn btn-default" type="submit" name="commentbtn" value="Submit"/>
                     </form>
                 </div>
             {% endif %}
