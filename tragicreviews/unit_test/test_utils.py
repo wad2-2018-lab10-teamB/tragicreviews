@@ -24,6 +24,7 @@ def create_user():
 
 def create_article():
     s = Subject(name="bar")
+    s.save()
     user_pf = UserProfile.objects.create_user("zombie")
     title = "Title"
     body = "Hello World!"
@@ -31,4 +32,7 @@ def create_article():
     a.save()
     return a
 
-
+def create_article_views():
+    a = create_article()
+    article_views = ArticleViews(article=a, views=100)
+    article_views.save()
