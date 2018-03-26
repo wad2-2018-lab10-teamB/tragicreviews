@@ -6,6 +6,10 @@ from django.utils import timezone
 from datetime import timedelta
 import textwrap
 
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
+
+
 class Subject(models.Model):
 	name = models.CharField(max_length=32, unique=True)
 	slug = models.SlugField(max_length=32, primary_key=True)
@@ -187,3 +191,10 @@ class ArticleViews(models.Model):
 
 	def __str__(self):
 		return f"\"{self.article}\" - {self.views} views on {self.date}"
+
+
+# When we delete a user profile, we also want to automatically delete the corresponding user
+@receiver(post_delete, sender=UserProfile)
+def post_delete_user(sender, instance, *args, **kwargs):
+	if instance.user:  # just in case user is not specified
+		instance.user.delete()
