@@ -129,13 +129,17 @@ p.article {
     margin-left:3vh;
 }
 
+.navbar-fixed-bottom {
+    background-color: white;
+    border-top: 1px solid #ddd;
+}
+
 .navbar-nav {
     float:none;
     margin:0 auto;
     display: block;
     text-align: center;
 }
-
 
 .navbar-nav > li {
     display: inline-block;
