@@ -64,9 +64,9 @@ def populate_examples():
 		example_users.append(setup_user("staff", i + 1))
 
 	print("Adding example articles...")
-	example_body = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ex eros, dignissim eu sollicitudin et, aliquet sit amet libero."
-	"Pellentesque sit amet tellus elementum, consequat dolor quis, facilisis diam. Donec porttitor turpis velit, at dictum mi tincidunt ut."
-	"Nam at risus id enim eleifend posuere. Sed fermentum cursus tempor. Praesent pharetra quam sit amet luctus porttitor. Praesent accumsan justo nec mi varius,"
+	example_body = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ex eros, dignissim eu sollicitudin et, aliquet sit amet libero. "
+	"Pellentesque sit amet tellus elementum, consequat dolor quis, facilisis diam. Donec porttitor turpis velit, at dictum mi tincidunt ut. "
+	"Nam at risus id enim eleifend posuere. Sed fermentum cursus tempor. Praesent pharetra quam sit amet luctus porttitor. Praesent accumsan justo nec mi varius, "
 	"sit amet molestie lacus commodo. Praesent sodales feugiat nunc, sodales rhoncus lorem feugiat id. Suspendisse elementum ex erat, et vestibulum quam aliquet et.")
 	for cat in Subject.objects.all():
 		for i in range(random.randint(1, 3)):

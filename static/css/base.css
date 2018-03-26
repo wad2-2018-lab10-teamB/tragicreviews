@@ -40,10 +40,6 @@ body {
   border-bottom: 0px;
 }
 
-#catRow.container{
-    width: 80vh;
-}
-
 #category.panel-body div.row:last-child {
   border-bottom: 1px solid;
 }
@@ -72,7 +68,7 @@ p.article {
 
 
 #cat-body.panel-body {
-    max-height: 10vh;
+    max-height: 10rem;
     overflow-y: hidden;
 }
 #submit-btn.container { 
