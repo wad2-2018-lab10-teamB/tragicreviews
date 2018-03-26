@@ -7,9 +7,9 @@ urlpatterns = [
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/add_article/$', views.add_article, name='add_article'),
     # url(r'^/tragicreviews/$', views.index, name='index'),
-    url(r'^profile/(?P<profile_id>[\w\-]+)/$', views.profile, name='profile'),
-    url(r'^profile/(?P<profile_id>[\w\-]+)/reviews/$', views.profile_reviews, name='profile_reviews'),
-    url(r'^profile/(?P<profile_id>[\w\-]+)/uploads/$', views.profile_uploads, name='profile_uploads'),
+    url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/$', views.profile, name='profile'),
+    url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/reviews/$', views.profile_reviews, name='profile_reviews'),
+    url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/uploads/$', views.profile_uploads, name='profile_uploads'),
     url(r'^$', views.index, name='index'),
 
     url(r'^update_profile/$', update_profile, name='update_profile'),
