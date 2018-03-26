@@ -32,6 +32,14 @@
                                 </div>
                             </div>
                         </div>
+                        {% empty %}
+                        <div class="item active">
+                            <div class="carousel-content">
+                                <div>
+                                    <h3><center>No current trending articles</center></h3>
+                                </div>
+                            </div>
+                        </div>
                         {% endfor %} 
                         
                     </div>
@@ -68,6 +76,14 @@
                                     
                                     <p class="article index">{{ c.body }}</p>
                                     <p><h3><center><a href='{% url 'article' c.category.slug c.id %}'>{{ c.title }}</a></center></h3><p>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="item active">
+                            <div class="carousel-content">
+                                <div>
+                                    <h3><center>No articles found</center></h3>
                                 </div>
                             </div>
                         </div>
