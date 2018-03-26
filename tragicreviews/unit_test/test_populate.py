@@ -7,7 +7,7 @@ import populate_tragicreviews
 class PopulateTests(TestCase):
 
     def test_populate_tragicreviews(self):
-        populate_tragicreviews.populate()
+        populate_tragicreviews.populate_core()
         cats = Subject.objects.all()
 
         # Tests the number of categories is correct
