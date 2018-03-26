@@ -141,8 +141,8 @@ def category(request, category_name_slug):
         context_dict['category'] = category
 
     except Subject.DoesNotExist:
+        context_dict['articles'] = None
         context_dict['category'] = None
-        context_dict['pages'] = None
 
     return render(request, 'tragicreviews/category.html', context_dict)
 
