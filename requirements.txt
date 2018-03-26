@@ -1,7 +1,6 @@
 bcrypt==3.1.4
-Django==1.11.9
-django-bootstrap-toolkit==2.15.0
-django-bootstrap4==0.0.6
+Django==1.11.11
+django-bootstrap3==9.1.0
 django-registration-redux==2.2
 freezegun==0.3.10
-Pillow==4.3.0
+Pillow==5.0.0
