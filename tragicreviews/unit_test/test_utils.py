@@ -37,3 +37,15 @@ def create_article_views():
     a = create_article()
     article_views = ArticleViews(article=a, views=100)
     article_views.save()
+
+
+def create_article_for_testing_article_view():
+    a = create_article()
+    user_pf = UserProfile.objects.get_by_username("zombie")
+    comment_text = "This is comment"
+    comment = Comment(user=user_pf, article=a, text=comment_text)
+    comment.save()
+    rating = Rating(user=user_pf, article=a, rating=4)
+    rating.save()
+    article_views = ArticleViews(article=a, views=100)
+    article_views.save()

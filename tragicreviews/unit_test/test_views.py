@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from tragicreviews.models import Article, Comment, Rating, ArticleViews
 import tragicreviews.unit_test.test_utils as test_utils
 
 
@@ -42,7 +43,29 @@ class TestViews(TestCase):
         self.assertIsNone(response.context['category'])
         self.assertIsNone(response.context['articles'])
 
-    def test_article(self):
-        pass
+    def test_article_not_login(self):
+        test_utils.create_article_for_testing_article_view()  # s = Subject(name="bar")
+        article_object = Article.objects.all()[0]
+        article_id = article_object.id
+        comment_set = Comment.objects.filter(article=article_object)
+        rating_avg = Rating.objects.get_average_rating(article_object)
+        views = ArticleViews.objects.get_total_views(article_object)
+        response = self.client.get(reverse('article', args=['bar', article_id]))
+
+        # Test correctness of article title, author, body text, category and average rating
+        self.assertEqual(response.context['title'], article_object.title)
+        self.assertEqual(response.context['author'], article_object.author)
+        self.assertEqual(response.context['text'], article_object.body)
+        self.assertEqual(response.context['category'], article_object.category)
+        self.assertEqual(response.context['rating_avg'], rating_avg)
+
+        # Test the number of comments in comment set is correct
+        self.assertEqual(len(response.context['comment_set']), len(comment_set))
+
+        # Article views should be increase by 1
+        self.assertEqual(response.context['total_views'], (views + 1))
+        # Article views in database should also be increased
+        self.assertEqual(response.context['total_views'], ArticleViews.objects.get_total_views(article_object))
+
 
 
