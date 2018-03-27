@@ -30,12 +30,7 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
         user_profile.user.email = email
         user_profile.user.set_password(password)
         user_profile.user.groups.add(group)
-        '''
-        user_profile = UserProfile.objects.create_user(form.cleaned_data['username'])
-        user_profile.user.email = form.cleaned_data['email']
-        user_profile.user.set_password(form.cleaned_data['password1'])
-        user_profile.user.groups.add(Group.objects.get(name=form.cleaned_data['group']))
-        '''
+
         # Adding majors
         print(form.cleaned_data['majors'])
         for major in majors:
@@ -43,22 +38,24 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
             major.save()
             user_profile.majors.add(major)
         print(user_profile.majors.all())
-        # Current set level None
 
+        # default set level None
         user_profile.level = None
-        if (group.name == 'student'):
+        if group.name == 'student':
             level = data['student_level']
         else:
             level = data['staff_level']
         print(level)
-        if (level != ''):
+        if level != '':
             user_profile.level = level
+
         # Setting profile image
         user_profile.image = image
         user_profile.user.save()
         user_profile.save()
-        login(self.request, user_profile.user)
 
+        # Auto login
+        login(self.request, user_profile.user)
         return user_profile.user
 
     def get_success_url(self, user):
