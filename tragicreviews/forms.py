@@ -57,7 +57,7 @@ class UpdateStudentProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        exclude = ('user', 'level')
+        exclude = ('user', 'image', 'majors', 'level')
 
 
 class UpdateStaffProfileForm(forms.ModelForm):
@@ -70,7 +70,7 @@ class UpdateStaffProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        exclude = ('user', 'level')
+        exclude = ('user', 'image', 'majors', 'level')
 
 
 class SubjectForm(forms.ModelForm):

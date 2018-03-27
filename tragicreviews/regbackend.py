@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from tragicreviews.models import UserProfile
 from django.contrib.auth.models import Group, User
 from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm, DeleteUserAccountForm
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login
+from django.core.urlresolvers import reverse
 
 
 class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of FormView
@@ -92,7 +93,7 @@ def update_profile(request):
             else:
                 user_pf.level = new_level
             user_pf.save()
-            return HttpResponseRedirect('/tragicreviews/')  # direct user to index page
+            return HttpResponseRedirect(reverse('index'))  # redirect user to index page
         else:
             print(form.errors)
     # handle bad forms
@@ -113,7 +114,7 @@ def delete_account(request):
                 if target_user.check_password(form.cleaned_data['password']) and target_user.check_password(form.cleaned_data['password_confirmation']):
                     if form.cleaned_data['email'] == target_user.email:
                         User.objects.get(username=target_user.get_username()).delete()
-                        return render(request, 'tragicreviews/delete_account_done.html')
+                        return HttpResponseRedirect(reverse('delete_account_done'))
                     else:
                         context_dict['message'] = "Incorrect email address."
                 else:

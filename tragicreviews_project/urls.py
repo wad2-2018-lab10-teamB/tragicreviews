@@ -26,9 +26,9 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
-    url(r'^accounts/profile/edit$', update_profile, name='update_profile'),
+    url(r'^accounts/profile/edit/$', update_profile, name='update_profile'),
     url(r'^accounts/account/delete/$', delete_account, name='delete_account'),
-    url(r'^accounts/delete-account-done/$', delete_account_done, name='delete_account_done'),
+    url(r'^accounts/account/delete/done/$', delete_account_done, name='delete_account_done'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^tragicreviews/', include('tragicreviews.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
