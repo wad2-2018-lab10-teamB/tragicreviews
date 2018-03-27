@@ -119,16 +119,21 @@ class TestViews(TestCase):
         test_utils.create_article_for_testing_article_view()  # s = Subject(name="bar")
         article_object = Article.objects.all()[0]
         article_id = article_object.id
+        '''
         comment_set = Comment.objects.filter(article=article_object)
         rating_avg = Rating.objects.get_average_rating(article_object)
         views = ArticleViews.objects.get_total_views(article_object)
-        rating_response = self.client.post(reverse('article', args=['bar', article_id]),
-                         data={'rating': 1, 'ratingbtn': 'ratingbtn'})
-        print(rating_response)
 
         self.client.post(reverse('article', args=['bar', article_id]),
-                         data={'text': 'Some new comments', 'commentbtn': 'commentbtn'},)
+                         data={'ratingbtn': 'Submit', 'name': 'ratingbtn', 'rating': 1}, follow=True)
+        rating_response = self.client.get(reverse('article', args=['bar', article_id]))
+        print(rating_response.context['rating_avg'])
+        '''
+
+        self.client.post(reverse('article', args=['bar', article_id]),
+                         data={'text': 'Some new comments', 'commentbtn': 'Submit'})
         response = self.client.get(reverse('article', args=['bar', article_id]))
+        print(response.context['comment_set'])
         print(Comment.objects.filter(article=article_object))
-        print(Rating.objects.get_average_rating(article_object))
+
 
