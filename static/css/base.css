@@ -178,6 +178,23 @@ p.article {
     float:none;
 }
 
+.panel {
+    position: relative;
+}
+
+.carousel-single .carousel-control {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+a.carousel-control:link {
+    color: white;
+}
+
+a.carousel-control:visited {
+    color: white;
+}
+
 .carousel-content {
     color:black;
     display:flex;
@@ -198,6 +215,23 @@ p.article {
   width: 100%;
   height: auto;
   padding: 2vh;
+}
+
+.carousel-indicators {
+    width: auto;
+    bottom: auto;
+    left: auto;
+    right: 0;
+    top: -44px;
+}
+
+.carousel-indicators li {
+    background-color: #999;
+    background-color: rgba(70, 70, 70, .25);
+}
+
+.carousel-indicators .active {
+    background-color: #444;
 }
 
 a {

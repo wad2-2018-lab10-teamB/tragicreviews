@@ -17,7 +17,7 @@
           
           <div class="panel-body">
             
-            <div id="carousel1" class="carousel slide" data-ride="carousel">
+            <div id="carousel1" class="carousel slide {% if trend_articles|length_is:0 or trend_articles|length_is:1 %} carousel-single {% endif %}" data-ride="carousel">
             
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-8">
@@ -47,10 +47,16 @@
             </div>
             <a class="left carousel-control" href="#carousel1" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-             <a class="right carousel-control" href="#carousel1" data-slide="next">
+            </a>
+            <a class="right carousel-control" href="#carousel1" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
+            </a>
+
+            <ol class="carousel-indicators">
+                {% for c in trend_articles %}
+                    <li data-target="#carousel1" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active" {% endif %}></li>
+                {% endfor %}
+            </ol>
 
             </div>
 
@@ -64,7 +70,7 @@
           
           <div class="panel-body">
           
-            <div id="carousel2" class="carousel slide" data-ride="carousel">
+            <div id="carousel2" class="carousel slide {% if new_articles|length_is:0 or new_articles|length_is:1 %} carousel-single {% endif %}" data-ride="carousel">
             
             <div class="row">
                 <div class="col-xs-offset-2 col-xs-8">
@@ -94,10 +100,16 @@
             </div>
             <a class="left carousel-control" href="#carousel2" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-             <a class="right carousel-control" href="#carousel2" data-slide="next">
+            </a>
+            <a class="right carousel-control" href="#carousel2" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
+            </a>
+
+            <ol class="carousel-indicators">
+                {% for c in new_articles %}
+                    <li data-target="#carousel2" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active" {% endif %}></li>
+                {% endfor %}
+            </ol>
 
             </div>
 
