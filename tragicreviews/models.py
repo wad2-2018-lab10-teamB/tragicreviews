@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User, Group
 from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
+from django.urls import reverse
 from django.utils import timezone
 from datetime import timedelta
 import textwrap
@@ -94,6 +95,9 @@ class UserProfile(models.Model):
 		elif self.is_member("student"):
 			return "Student"
 
+	def get_absolute_url(self):
+		return reverse("profile", args=[self.user.username])
+
 	def save(self, *args, **kwargs):
 		self.full_clean()
 		super().save(*args, **kwargs)
@@ -120,8 +124,11 @@ class Article(models.Model):
 
 	objects = ArticleManager()
 
+	def get_absolute_url(self):
+		return reverse("article", args=[self.category.slug, self.id])
+
 	def __str__(self):
-		return self.title + " - " + self.category.name
+		return f"{self.title} [{self.category.name}]"
 
 
 class RatingManager(models.Manager):

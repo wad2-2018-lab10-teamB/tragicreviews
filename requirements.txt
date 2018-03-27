@@ -1,6 +1,8 @@
 bcrypt==3.1.4
 Django==1.11.11
 django-bootstrap3==9.1.0
+django-haystack==2.8.0
 django-registration-redux==2.2
 freezegun==0.3.10
 Pillow==5.0.0
+Whoosh==2.7.4

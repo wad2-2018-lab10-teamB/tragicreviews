@@ -1,0 +1,38 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+{% load bootstrap3 %}
+
+{% block title_block %}
+    Search
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="panel panel-default" id="login">
+        <div class="panel-heading">Search</div>
+
+        <div class="panel-body">
+            <form method="get" action=".">
+                {% bootstrap_form form %}
+                <input class="btn btn-default" type="submit" value="Search">
+            </form>
+
+            {% if query %}
+                <h3>Results</h3>
+
+                {% for result in page.object_list %}
+                    <p>
+                        <a href="{{ result.object.get_absolute_url }}">{{ result.object }}</a>
+                    </p>
+                {% empty %}
+                    <p>No results found.</p>
+                {% endfor %}
+
+                <div id="search-pagination-wrapper">
+                    {% if page.has_previous %}<a class="btn btn-default" href="?q={{ query }}&amp;page={{ page.previous_page_number }}">&laquo; Previous</a>{% endif %}
+                    {% if page.has_next %}<a class="btn btn-default" href="?q={{ query }}&amp;page={{ page.next_page_number }}">Next &raquo;</a>{% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+{% endblock %}

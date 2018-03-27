@@ -17,3 +17,6 @@ migrations/
 
 # ignore testing profile images
 media/profile_images/
+
+# ignore search index
+tragicreviews_project/whoosh_index

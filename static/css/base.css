@@ -264,3 +264,7 @@ a.carousel-control:visited {
 #loginReg {
     margin: 10px 0 0;
 }
+
+#search-pagination-wrapper a + a {
+    margin-left: 4px;
+}
