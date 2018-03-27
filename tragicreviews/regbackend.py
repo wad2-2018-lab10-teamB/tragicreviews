@@ -1,11 +1,11 @@
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from tragicreviews.models import UserProfile
-from django.contrib.auth.models import Group
-from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm
+from django.contrib.auth.models import Group, User
+from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm, DeleteUserAccountForm
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-import os
+from django.contrib.auth import login
 
 
 class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of FormView
@@ -57,6 +57,8 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
         user_profile.image = image
         user_profile.user.save()
         user_profile.save()
+        login(self.request, user_profile.user)
+
         return user_profile.user
 
     def get_success_url(self, user):
@@ -100,3 +102,31 @@ def update_profile(request):
     context_dict['form'] = form
     return render(request, 'tragicreviews/update_profile_form.html', context_dict)
 
+
+# If a user delete the account, all articles, comments and ratings under that account will be deleted
+@login_required
+def delete_account(request):
+    context_dict = {}
+    form = DeleteUserAccountForm()
+    if request.method == 'POST':
+        form = DeleteUserAccountForm(request.POST)
+        if form.is_valid():
+            target_user = request.user
+            if form.cleaned_data['username'] == target_user.get_username():
+                if target_user.check_password(form.cleaned_data['password']) and target_user.check_password(form.cleaned_data['password_confirmation']):
+                    if form.cleaned_data['email'] == target_user.email:
+                        User.objects.get(username=target_user.get_username()).delete()
+                        return render(request, 'tragicreviews/delete_account_done.html')
+                    else:
+                        context_dict['message'] = "Incorrect email address."
+                else:
+                    context_dict['message'] = "Incorrect password or incorrect password confirmation."
+            else:
+                context_dict['message'] = "Incorrect username."
+    context_dict['form'] = form
+    return render(request, 'tragicreviews/delete_account.html', context_dict)
+
+
+def delete_account_done(request):
+    response = render(request, 'tragicreviews/delete_account_done.html')
+    return response

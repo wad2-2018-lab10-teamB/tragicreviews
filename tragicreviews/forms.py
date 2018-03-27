@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from tragicreviews.models import Subject, Article, Comment, Rating, UserLevelField, UserProfile
 from registration.forms import RegistrationFormTermsOfService, RegistrationFormUniqueEmail
 
@@ -19,6 +19,7 @@ def get_update_choices(lst):
         choices.append(choice)
     return choices
 
+
 class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfService):
 
     image = forms.ImageField(required=False)
@@ -32,6 +33,19 @@ class UserRegistrationForm(RegistrationFormUniqueEmail, RegistrationFormTermsOfS
 
     field_order = ['username', 'email', 'password1', 'password2',
                    'group', 'majors', 'student_level', 'staff_level', 'image', 'tos']
+
+
+class DeleteUserAccountForm(forms.ModelForm):
+    username = forms.CharField(max_length=128, required=True)
+    password_confirmation = forms.CharField(widget=forms.PasswordInput, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
+
+    field_order = ['username', 'password', 'password_confirmation', 'email']
+
+    class Meta:
+        model = User
+        fields = ['password', 'password_confirmation', 'email']
+
 
 
 class UpdateStudentProfileForm(forms.ModelForm):
@@ -57,7 +71,7 @@ class UpdateStaffProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        exclude = ('user', 'image', 'majors', 'level')
+        exclude = ('user', 'level')
 
 
 class SubjectForm(forms.ModelForm):
