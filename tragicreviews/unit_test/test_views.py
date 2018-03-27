@@ -106,7 +106,6 @@ class TestViews(TestCase):
         # Test the number of articles is correct
         self.assertEqual(response.context['user_articles'].count(), Article.objects.filter(author=user_pf).count())
 
-    # Fix test post rating and comment later
     def test_article_with_user_login(self):
         # User login
         user_pf = test_utils.create_user()
@@ -119,21 +118,18 @@ class TestViews(TestCase):
         test_utils.create_article_for_testing_article_view()  # s = Subject(name="bar")
         article_object = Article.objects.all()[0]
         article_id = article_object.id
-        '''
-        comment_set = Comment.objects.filter(article=article_object)
-        rating_avg = Rating.objects.get_average_rating(article_object)
-        views = ArticleViews.objects.get_total_views(article_object)
 
-        self.client.post(reverse('article', args=['bar', article_id]),
-                         data={'ratingbtn': 'Submit', 'name': 'ratingbtn', 'rating': 1}, follow=True)
+        # Test rating an article
+        self.client.post(reverse('article', args=['bar', article_id]), data={'ratingbtn': 'Submit', 'rev-rating': 1})
         rating_response = self.client.get(reverse('article', args=['bar', article_id]))
-        print(rating_response.context['rating_avg'])
-        '''
+        self.assertEqual(rating_response.context['rating_avg'], (1+4)/2.0)
+        self.assertEqual(article_object.rating_set.count(), 2)
 
+        # Test adding a comment to an article
         self.client.post(reverse('article', args=['bar', article_id]),
-                         data={'text': 'Some new comments', 'commentbtn': 'Submit'})
+                         data={'com-text': 'Some new comments', 'commentbtn': 'Submit'})
         response = self.client.get(reverse('article', args=['bar', article_id]))
-        print(response.context['comment_set'])
-        print(Comment.objects.filter(article=article_object))
+        self.assertEqual(response.context['comment_set'].count(), 2)
+        self.assertEqual(Comment.objects.filter(article=article_object).count(), 2)
 
 
