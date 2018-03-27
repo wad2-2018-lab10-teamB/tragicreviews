@@ -18,17 +18,17 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
 from tragicreviews import views
-from tragicreviews.regbackend import MyRegistrationView
+from tragicreviews.regbackend import MyRegistrationView, update_profile, delete_account, delete_account_done
 from django.conf import settings
 from django.conf.urls.static import static
-#from tragicreviews import regbackend
 
 urlpatterns = [
-    # url(r'^$', regbackend.index, name='index'),  # for testing, will be deleted later. comment last line when testing.
-    # url(r'^tragicreviews/$', regbackend.index, name='index'),  # same as above
     url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/profile/edit$', update_profile, name='update_profile'),
+    url(r'^accounts/account/delete/$', delete_account, name='delete_account'),
+    url(r'^accounts/delete-account-done/$', delete_account_done, name='delete_account_done'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^tragicreviews/', include('tragicreviews.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
