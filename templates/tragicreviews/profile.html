@@ -11,28 +11,28 @@
     <div class="panel panel-default">
             
               <div class="panel-heading"><ul class="nav nav-tabs">
-                  <li class="active"><a href='{% url 'profile' UserProfile.user %}'>My Account</a></li>
-                  <li><a href='{% url 'profile_uploads' UserProfile.user %}'>Uploads</a></li>
-                  <li><a href='{% url 'profile_reviews' UserProfile.user %}'>Reviews</a></li>
+                  <li class="active"><a href='{% url 'profile' user_profile.user %}'>My Account</a></li>
+                  <li><a href='{% url 'profile_uploads' user_profile.user %}'>Uploads</a></li>
+                  <li><a href='{% url 'profile_reviews' user_profile.user %}'>Reviews</a></li>
               </ul></div>
               
               <div class="panel-body">
-                    <p id="user"><h1>{{ UserProfile.user }} <small>{{UserProfile.get_role}}</small></h1></p>
+                    <p id="user"><h1>{{ user_profile.user }} <small>{{user_profile.get_role}}</small></h1></p>
                     <div class="container-fluid">
                       <div class="row">
                         <div class="col-sm-3">
-                          <img src="{{ MEDIA_URL }}{{UserProfile.image}}" class="img-thumbnail">
+                          <img src="{{ MEDIA_URL }}{{user_profile.image}}" class="img-thumbnail">
                         </div>
                         <div class="col-sm-9">
                           <div class="row"><h3>Subjects:
                               <ul>
-                              {% for s in UserProfile.majors.all %}
+                              {% for s in user_profile.majors.all %}
                                   <li>{{ s }}
                               {% endfor %}
                               </ul>
                           </h3></div>
-                          <div class="row">{% if UserProfile.get_role == "Student" %}
-                          <h3>Year: {{ UserProfile.level }} </h3></div> {% endif %}
+                          <div class="row">{% if user_profile.get_role == "Student" %}
+                          <h3>Year: {{ user_profile.level }} </h3></div> {% endif %}
                         </div>
                       </div>
                     </div>

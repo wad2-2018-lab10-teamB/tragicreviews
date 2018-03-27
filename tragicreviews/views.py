@@ -1,20 +1,17 @@
-# from django.http import HttpResponse, HttpResponseRedirect, Http404
-# from django.urls import reverse
-from django.shortcuts import redirect, render
-# from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
-# from django.bing_search import run_query
-# from tragicreviews.template import RequestContext
-from tragicreviews.models import Subject, UserProfile, UserLevelField, UserProfileManager, Article, Rating, Comment, ArticleViews
-from tragicreviews.forms import UserRegistrationForm, SubjectForm, ArticleForm, CommentForm, RatingForm
-from datetime import datetime
-from tragicreviews.helperFunctions import *
+from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment, ArticleViews
+from tragicreviews.forms import ArticleForm, CommentForm, RatingForm
 
+
+# Helper functions
 def encode_url(str):
     return str.replace(' ', '_')
+
+
 def decode_url(str):
     return str.replace('_', ' ')
+
 
 @login_required
 def add_article(request, category_name_slug):
@@ -40,7 +37,6 @@ def add_article(request, category_name_slug):
         except Subject.DoesNotExist:
             pass
 
-
     context_dict['form'] = form
 
     return render(request, 'tragicreviews/add_article.html', context_dict)
@@ -50,17 +46,17 @@ def article(request, article_id, category_name_slug):
     context_dict = {}
 
     try:
-        article_object = Article.objects.get(id = article_id)
+        article_object = Article.objects.get(id=article_id)
 
         ArticleViews.objects.add_view(article_object)
 
         if request.user.is_authenticated():
             form = CommentForm(prefix="com")
             sub_form = RatingForm(prefix="rev")
-            user_profile=UserProfile.objects.get(user=request.user)
+            user_profile = UserProfile.objects.get(user=request.user)
             if request.method == 'POST' and 'ratingbtn' in request.POST:
                 try:
-                    rating = Rating.objects.get(user=user_profile, article = article_object)
+                    rating = Rating.objects.get(user=user_profile, article=article_object)
                 except Rating.DoesNotExist:
                     rating = None
                 sub_form = RatingForm(request.POST, prefix="rev", instance=rating)
@@ -99,7 +95,7 @@ def article(request, article_id, category_name_slug):
         context_dict['text'] = article_object.body
         context_dict['category'] = article_object.category
 
-        context_dict['comment_set'] = Comment.objects.filter(article = article_object) # This will return a set rather than a single comment
+        context_dict['comment_set'] = Comment.objects.filter(article=article_object) # This will return a set rather than a single comment
         context_dict['rating_avg'] = Rating.objects.get_average_rating(article_object)
         context_dict['total_views'] = ArticleViews.objects.get_total_views(article_object)
 
@@ -114,25 +110,11 @@ def base(request):
 
     return render(request, 'tragicreviews/base.html', context_dict)
 
-#
-# def base_bootstrap(request):
-#
-#
-#     context_dict = {'categories': []}
-#
-#     subjects = Subject.name.all()
-#
-#     for subject in subjects:
-#         context_dict['categories'].append(subject)
-#
-#
-#     return render(request, 'tragicreviews/base_bootstrap.html', context_dict)
-
 
 def category(request, category_name_slug):
     context_dict = {}
 
-    #Needs a title, author and preview
+    # Needs a title, author and preview
     try:
         category = Subject.objects.get(slug=category_name_slug)
         articles = Article.objects.filter(category=category)
@@ -149,7 +131,6 @@ def category(request, category_name_slug):
 
 def index(request):
     context_dict = {}
-
     context_dict['username'] = UserProfile.user
 
     trend_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
@@ -165,34 +146,26 @@ def index(request):
     return render(request, 'tragicreviews/index.html', context_dict)
 
 
-
 def profile(request, profile_id):
     context_dict = {}
-
     user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['UserProfile'] = user
-
+    context_dict['user_profile'] = user
     return render(request, 'tragicreviews/profile.html', context_dict)
 
 
 def profile_reviews(request, profile_id):
     context_dict = {}
-
     user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['UserProfile'] = user
-
+    context_dict['user_profile'] = user
     context_dict['ratings'] = Rating.objects.filter(user=user)
-
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
+
 
 def profile_uploads(request, profile_id):
     context_dict = {}
-
     user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['UserProfile'] = user
-
+    context_dict['user_profile'] = user
     context_dict['user_articles'] = Article.objects.filter(author=user)
-
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
 
