@@ -1,17 +1,16 @@
 body {
     background-color: white;
     color: DarkSlateGrey;
-    padding-bottom: 10vh;
+    padding-bottom: 50px;
 }
 
 .jumbotron {
     background-color: AntiqueWhite; 
 }
 
-
-#account-panel { 
-    padding-top: 5vh;
-    padding-left: 20vh;
+#account-col { 
+    padding-top: 50px;
+    text-align: right;
 }
 
 #about.panel-default {
@@ -26,9 +25,70 @@ body {
     padding-top: 10vh;
 }
 
+.navbar-fixed-top {
+    display: none;
+}
 
-#sidebar.container {
-    padding-left: 2vh;
+#sidebar {
+    padding-left: 31px;
+}
+
+/* Collapsed sidebar styles */
+@media screen and (max-width: 767px)
+{
+    body {
+        padding-top: 50px;
+    }
+
+    .navbar-fixed-top {
+        display: block;
+    }
+
+    .navbar-form {
+        border: none;
+        padding: 0;
+        margin: 8px 15px;
+        display: flex;
+    }
+
+    .navbar-form .form-group {
+        width: 100%;
+        margin-right: 15px;
+    }
+
+    #search-col {
+        display: none;
+    }
+
+    #account-col {
+        width: 58.33333333%;
+    }
+
+    #main-row {
+        position: relative;
+        left: 0;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        -o-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
+
+    #sidebar {
+        position: absolute;
+        top: 0;
+        left: -30%;
+        width: 30%;
+        padding-left: 40px;
+        padding-bottom: 50px;
+    }
+
+    #main-row.active {
+        left: 30%;
+    }
+
+    #pageBody {
+        width: 100%;
+    }
 }
 
 #user.p {
@@ -146,7 +206,6 @@ a {
 
 }
 
-
 a:link {
     color: CadetBlue
     text-decoration: none
@@ -163,3 +222,6 @@ a:hover {
     color: LightSteelBlue;
 }
 
+.fb_iframe_widget > span {
+    vertical-align: baseline !important;
+}
