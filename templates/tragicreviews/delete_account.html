@@ -1,0 +1,27 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title_block %}
+	Delete Account
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="panel panel-default">
+
+              <div class="panel-heading"> Delete Account </div>
+
+              <div class="panel-body">
+                  <form method="post" action=".">
+                      {% csrf_token %}
+                      {% bootstrap_form form %}
+                      <p>{{ message }}</p>
+                      <input class="btn btn-default" type="submit" value="Confirm Delete" />
+                  </form>
+              </div>
+    </div>
+
+{% endblock %}

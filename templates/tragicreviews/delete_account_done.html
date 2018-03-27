@@ -1,0 +1,24 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title_block %}
+	Delete Account
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+
+{% block body_block %}
+
+    <div class="panel panel-default">
+
+              <div class="panel-heading"> Delete Account </div>
+
+              <div class="panel-body">
+                      <p>Your Account is deleted successfully.<br/> We will miss you >.<
+                      <p/>
+                      <a href="{% url 'index' %}"> Back </a>
+              </div>
+    </div>
+
+{% endblock %}
