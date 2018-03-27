@@ -24,15 +24,20 @@
                           <img src="{{ MEDIA_URL }}{{user_profile.image}}" class="img-thumbnail">
                         </div>
                         <div class="col-sm-9">
-                          <div class="row"><h3>Subjects:
-                              <ul>
-                              {% for s in user_profile.majors.all %}
-                                  <li>{{ s }}
-                              {% endfor %}
-                              </ul>
-                          </h3></div>
-                          <div class="row">{% if user_profile.get_role == "Student" %}
-                          <h3>Year: {{ user_profile.level }} </h3></div> {% endif %}
+                          <div class="row">
+                            <h3>Majors:</h3>
+                            <ul>
+                            {% for s in user_profile.majors.all %}
+                                <li>{{ s }}
+                            {% endfor %}
+                            </ul>
+                          </div>
+                          
+                          <div class="row">
+                            {% if user_profile.get_role == "Student" %}
+                            <h3 class="profile-year">Year: </h3> {{ user_profile.level }}
+                            {% endif %}
+                          </div> 
                         </div>
                       </div>
                     </div>
