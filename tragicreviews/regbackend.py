@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from tragicreviews.models import UserProfile
 from django.contrib.auth.models import Group, User
 from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm, DeleteUserAccountForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login
 from django.core.urlresolvers import reverse

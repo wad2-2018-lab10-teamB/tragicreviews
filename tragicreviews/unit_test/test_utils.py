@@ -54,6 +54,7 @@ def create_article_for_testing_article_view():
 def create_user_profile_for_testing():
     user_pf = create_user()
     user_pf.user.set_password('test1234')
+    user_pf.user.email = 'test@test.com'
     user_pf.user.save()
     user_pf.save()
     subject = create_subject()
@@ -67,4 +68,26 @@ def create_user_profile_for_testing():
     rating2 = Rating(user=user_pf, article=user_article, rating=5)
     rating1.save()
     rating2.save()
+    return user_pf.user.username
+
+
+def create_student_user_profile():
+    create_groups()
+    user_pf = create_user()
+    user_pf.user.set_password('test1234')
+    group = Group.objects.get(name='student')
+    user_pf.user.groups.add(group)
+    user_pf.user.save()
+    user_pf.save()
+    return user_pf.user.username
+
+
+def create_staff_user_profile():
+    create_groups()
+    user_pf = create_user()
+    user_pf.user.set_password('test1234')
+    group = Group.objects.get(name='staff')
+    user_pf.user.groups.add(group)
+    user_pf.user.save()
+    user_pf.save()
     return user_pf.user.username
