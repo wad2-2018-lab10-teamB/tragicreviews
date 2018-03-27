@@ -14,4 +14,3 @@ urlpatterns = [
     url(r'^delete_account/$', delete_account, name='delete_account'),
     url(r'^delete_account_done/$', delete_account_done, name='delete_account_done'),
 ]
-

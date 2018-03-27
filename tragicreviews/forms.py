@@ -47,7 +47,6 @@ class DeleteUserAccountForm(forms.ModelForm):
         fields = ['password', 'password_confirmation', 'email']
 
 
-
 class UpdateStudentProfileForm(forms.ModelForm):
     # currently we do not allow user to update their email
     image = forms.ImageField(required=False)
