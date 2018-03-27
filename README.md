@@ -15,16 +15,30 @@ Installation: `pip install bcrypt`
 Installation: `pip install django-bootstrap4`
 
 [freezegun v0.3.10](https://github.com/spulec/freezegun)
+
 Installation: `pip install freezegun`
 
 [django-haystack 2.8.0](http://haystacksearch.org)
+
 Installation: `pip install django-haystack`
 
 [Whoosh 2.7.4](https://pypi.python.org/pypi/Whoosh/2.7.4)
+
 Installation: `pip install Whoosh`
 
-## Running Unit Tests:
+[coverage v4.5.1](https://coverage.readthedocs.io/en/coverage-4.5.1/)
+
+Installation: `pip install coverage`
+
+## Testing
+### Running Unit Tests:
 `python manage.py test tragicreviews.unit_test.your_test`
 
 example:
 `python manage.py test tragicreviews.unit_test.test_models`
+
+
+### Code Coverage Testing:
+Running tests: `coverage run --source='.' manage.py test tragicreviews`
+
+Viewing report: `coverage report`
