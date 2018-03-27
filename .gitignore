@@ -20,3 +20,6 @@ media/profile_images/
 
 # ignore search index
 tragicreviews_project/whoosh_index
+
+# ignore coverage test report
+.coverage
