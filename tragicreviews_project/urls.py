@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
-from tragicreviews import views
+from tragicreviews import views, ajax
 from tragicreviews.regbackend import MyRegistrationView, update_profile, delete_account, delete_account_done
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^accounts/account/delete/done/$', delete_account_done, name='delete_account_done'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^search/', include('haystack.urls')),
+    url(r'^ajax/search/autocomplete/$', ajax.search_autocomplete, name='ajax_search_autocomplete'),
     url(r'^tragicreviews/', include('tragicreviews.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

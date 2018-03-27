@@ -268,3 +268,22 @@ a.carousel-control:visited {
 #search-pagination-wrapper a + a {
     margin-left: 4px;
 }
+
+.search-autocomplete .form-group {
+    position: relative;
+}
+
+.autocomplete-results {
+    display: block;
+    top: 90%;
+    right: 0;
+}
+
+.autocomplete-results p {
+    margin: 3px 20px;
+}
+
+.autocomplete-result {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

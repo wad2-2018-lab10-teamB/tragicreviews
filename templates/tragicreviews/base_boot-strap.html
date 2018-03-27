@@ -33,9 +33,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <form class="navbar-form navbar-left" method="get" action="{% url 'haystack_search' %}">
+        <form class="navbar-form navbar-left search-autocomplete" method="get" action="{% url 'haystack_search' %}">
           <div class="form-group">
-            <input class="form-control" type="text" name="q" placeholder="Search...">
+            <input class="form-control" type="text" autocomplete="off" name="q" placeholder="Search...">
           </div>
         </form>
       </div>
@@ -62,9 +62,11 @@
         </div>
     </div>
     <div class="col-xs-3" id="search-col">
-        <form class="panel-body extra-top-buffer left-buffer" method="get" action="{% url 'haystack_search' %}"><center>
-            <input class="form-control" type="text" name="q" placeholder="Search...">
-        </center></form>
+        <form class="panel-body extra-top-buffer left-buffer search-autocomplete" method="get" action="{% url 'haystack_search' %}">
+            <center class="form-group">
+                <input class="form-control" type="text" autocomplete="off" name="q" placeholder="Search...">
+            </center>
+        </form>
     </div>
     <div class="col-xs-4 align-self-end" id="account-col">
         {% if user.is_authenticated %}
