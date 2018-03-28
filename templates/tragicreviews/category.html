@@ -2,52 +2,61 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{{ category.name }}
+    {{ category.name }}
 {% endblock %}
 
 {% block body_block %}
 
     <div class="panel panel-default" id="category">
-            
-              <div class="panel-heading">
-              <div class="row">
-                  <div class="col-sm-8">
-                      <h3>{{ category.name }}</h3>
-                  </div>
-                  <div class="col-sm-4">
-                  {% if user.is_authenticated %}
-                      <a href="{% url 'add_article' category.slug %}" class="btn btn-default pull-right" role="button">Submit Article</a>
-                  {% endif %}
-                  </div>
-              </div></div>
-              
-              <div class="panel-body" id="cat">
-                    <div id="catRow">
 
-                        {% for a in articles %}
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h4><a href="{% url 'article' category.slug a.id %}">{{ a.title }}</a></h4>
-                                    <p>by <a href="{% url 'profile' a.author.user %}">{{ a.author }}</a></p>
-                                </div>
-                                <div class="col-sm-7">
-                                    <div class="panel panel-default" id="category">
-                                    <div class="panel-body" id="cat-body">
-                                        <div class="row-fade">
-                                            <p class="article truncated">{{ a.body }}</p>
-                                        </div>
-                                    </div></div>
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h3>{{ category.name }}</h3>
+                </div>
+                <div class="col-sm-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'add_article' category.slug %}" class="btn btn-default pull-right"
+                           role="button">Submit Article</a>
+                        {% if perms.tragicreviews.add_subject %}
+                            <a href="{% url 'delete_category' category.slug %}" class="btn btn-default pull-right"
+                           role="button" name="deletebtn">Delete Category</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body" id="cat">
+            <div id="catRow">
+
+                {% for a in articles %}
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h4><a href="{% url 'article' category.slug a.id %}">{{ a.title }}</a></h4>
+                            <p>by <a href="{% url 'profile' a.author.user %}">{{ a.author }}</a></p>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="panel panel-default" id="category">
+                                <div class="panel-body" id="cat-body">
+                                    <div class="row-fade">
+                                        <p class="article truncated">{{ a.body }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        {% empty %}
-                            <div class="row">
-                                <h3><center>No articles found in this category</center></h3>
-                            </div>
-                        {% endfor %}
-                           
+                        </div>
                     </div>
-              </div>
+                {% empty %}
+                    <div class="row">
+                        <h3>
+                            <center>No articles found in this category</center>
+                        </h3>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
     </div>
 
-            
+
 {% endblock %}

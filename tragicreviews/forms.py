@@ -113,3 +113,7 @@ class SubjectForm(forms.ModelForm):
         model = Subject
         fields = ("name", )
         help_texts = {"name": "Please enter your subject name"}
+
+
+class DeleteSubjectForm(forms.Form):
+    confirm_delete = forms.BooleanField(required=True)

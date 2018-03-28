@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment, ArticleViews
-from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm
+from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm, DeleteSubjectForm
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.core.exceptions import PermissionDenied
 
@@ -210,12 +210,24 @@ def add_category(request):
     return render(request, 'tragicreviews/add_category.html', context_dict)
 
 
-class CategoryDeleteView(DeleteView):
-    model = Subject
+@permission_required('tragicreviews.delete_subject', raise_exception=True)
+def delete_category(request, category_name_slug):
+    context_dict = {}
 
-    def get_success_url(self):
-        return reverse('index')
+    subject = get_object_or_404(Subject, slug=category_name_slug)
+    print(subject)
+    if request.method == 'POST':
+        form = DeleteSubjectForm(request.POST)
+        if form.is_valid():
+            # All articles under that category will be deleted
+            Subject.objects.filter(slug=subject.slug).delete()
+            Article.objects.filter(category=subject).delete()
+            print("done!")
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            print(form.errors)
+    else:
+        form = DeleteSubjectForm()
+    context_dict['form'] = form
+    return render(request, 'tragicreviews/subject_confirm_delete.html', context_dict)
 
-    @permission_required('tragicreviews.add_subject', raise_exception=True)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CategoryDeleteView, self).dispatch(request, *args, **kwargs)

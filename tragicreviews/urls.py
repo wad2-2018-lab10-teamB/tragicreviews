@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/uploads/$', views.profile_uploads, name='profile_uploads'),
     url(r'^$', views.index, name='index'),
     url(r'^add-category/$', views.add_category, name='add_category'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/delete-category/$', views.CategoryDeleteView.as_view(), name='delete_category'),
+    url(r'^category/(?P<category_name_slug>[\w\-]+)/delete-category/$', views.delete_category, name='delete_category'),
 ]
