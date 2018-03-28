@@ -19,10 +19,10 @@
                   <div class="panel panel-default profile-article-list">
                       <div class="panel-body">
                           {% for u in user_articles %}
-                              <div class="row">
+                              <div class="row row-fade">
                                   <div class="col-sm-7">
                                       <h4><a href='{% url 'article' u.category.slug u.id %}'>{{ u.title }}</a></h4>
-                                      <p>{{ u.body }}</p>
+                                      <p class="article truncated">{{ u.body }}</p>
                                   </div>
                                   <div class="col-sm-5">
                                       <p>Category: {{u.category}}</p>

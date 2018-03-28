@@ -19,10 +19,10 @@
                   <div class="panel panel-default profile-article-list">
                       <div class="panel-body">
                           {% for u in ratings %}
-                              <div class="row">
+                              <div class="row row-fade">
                                   <div class="col-sm-7">
                                       <h4><a href='{% url 'article' u.article.category.slug u.article.id %}'>{{u.article.title}}</a></h4>
-                                      <p class="article profile">{{u.article.body}}</p>
+                                      <p class="article truncated">{{u.article.body}}</p>
                                   </div>
                                   <div class="col-sm-5">
                                       <p>Rated: {{u.rating}}</p>

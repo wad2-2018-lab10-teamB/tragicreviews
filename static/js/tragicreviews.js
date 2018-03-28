@@ -6,6 +6,17 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
+	$(window).trigger("resize");
+	$(".row-fade").each(function() {
+		var para = $(this).find("p.truncated").last();
+		if (para.length > 0 && para[0].scrollHeight > para.innerHeight()) {
+			$(this).addClass("overflowed");
+		}
+	});
+});
+
+
+$(document).ready(function() {
 	ratingEl = $("#article-rating");
 	ratingEl.css("display", "inline-block");
 	ratingEl.width(Math.round(ratingEl.width() * (ratingEl.data("rating") / 5)));

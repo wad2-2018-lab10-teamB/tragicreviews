@@ -31,9 +31,11 @@
                                     <p>by <a href="{% url 'profile' a.author.user %}">{{ a.author }}</a></p>
                                 </div>
                                 <div class="col-sm-7">
-                                    <div class="panel panel-default" id="category">
+                                    <div class="panel panel-default article-list" id="category">
                                     <div class="panel-body" id="cat-body">
-                                        <p class="article">{{ a.body }}</p>
+                                        <div class="row-fade">
+                                            <p class="article truncated">{{ a.body }}</p>
+                                        </div>
                                     </div></div>
                                 </div>
                             </div>
