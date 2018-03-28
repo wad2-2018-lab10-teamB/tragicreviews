@@ -4,6 +4,7 @@ from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment,
 from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.generic.edit import DeleteView
 
 
 # Helper functions
@@ -95,8 +96,8 @@ def article(request, article_id, category_name_slug):
         context_dict['author'] = article_object.author
         context_dict['text'] = article_object.body
         context_dict['category'] = article_object.category
-
-        context_dict['comment_set'] = Comment.objects.filter(article=article_object) # This will return a set rather than a single comment
+        # This will return a set rather than a single comment
+        context_dict['comment_set'] = Comment.objects.filter(article=article_object)
         context_dict['rating_avg'] = Rating.objects.get_average_rating(article_object)
         context_dict['total_views'] = ArticleViews.objects.get_total_views(article_object)
 
@@ -183,3 +184,14 @@ def add_category(request):
             print(form.errors)
     context_dict['form'] = form
     return render(request, 'tragicreviews/add_category.html', context_dict)
+
+
+class CategoryDeleteView(DeleteView):
+    model = Subject
+
+    def get_success_url(self):
+        return reverse('index')
+
+    @permission_required('tragicreviews.add_subject', raise_exception=True)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CategoryDeleteView, self).dispatch(request, *args, **kwargs)
