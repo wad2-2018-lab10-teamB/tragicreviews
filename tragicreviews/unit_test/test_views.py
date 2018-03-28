@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from tragicreviews.models import Article, Comment, Rating, ArticleViews, UserProfile, Subject
 import tragicreviews.unit_test.test_utils as test_utils
+from tragicreviews.forms import ArticleForm
 
 """
 Unit tests for views and forms which are used by views.
@@ -13,24 +14,10 @@ class TestViews(TestCase):
         response = self.client.get(reverse('index'))
         # Test HttpResponse OK
         self.assertEqual(response.status_code, 200)
-        # Test no user login
-        self.assertEqual(response.context['username'].get_queryset().count(), 0)
         # Test no trending articles
         self.assertEqual(len(response.context['trend_articles']), 0)
         # Test no new articles
         self.assertEqual(len(response.context['new_articles']), 0)
-
-    def test_index_with_user_login(self):
-        user_pf = test_utils.create_user()
-        user_pf.user.set_password('test1234')
-        user_pf.user.save()
-        user_pf.save()
-        response = self.client.login(username='dummy', password='test1234')
-        # Test user login successful
-        self.assertTrue(response)
-        # Test the number of login user is correct
-        response = self.client.get(reverse('index'))
-        self.assertEqual(response.context['username'].get_queryset().count(), 1)
 
     def test_index_with_articles(self):
         test_utils.create_article_views()
@@ -92,6 +79,23 @@ class TestViews(TestCase):
         # Test correctly redirect to index page after adding article
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('article', args=[a.category, a.id]))
+
+    def test_delete_article(self):
+        # Login a user
+        username = test_utils.create_user_profile_for_testing()
+        response = self.client.login(username='dummy', password='test1234')
+        self.assertTrue(response)
+        a = Article.objects.filter(author=UserProfile.objects.get_by_username(username))[0]
+        response = self.client.get(reverse('delete_article', args=[a.category.slug, a.id]), follow=True)
+        self.assertContains(response, 'Are you sure you want to delete')
+
+    def test_edit_article(self):
+        # Login a user
+        username = test_utils.create_user_profile_for_testing()
+        response = self.client.login(username='dummy', password='test1234')
+        self.assertTrue(response)
+        a = Article.objects.filter(author=UserProfile.objects.get_by_username(username))[0]
+
 
     def test_profile(self):
         user_pf_id = test_utils.create_user_profile_for_testing()  # user_pf_id is username
