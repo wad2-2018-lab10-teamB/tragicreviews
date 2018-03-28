@@ -1,0 +1,12 @@
+{% load bootstrap3 %}
+<div class="panel panel-default">
+	<div class="panel-heading">{{ title }}</div>
+    <div class="panel-body">
+        <form method="POST" action=".">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <p>{{ message }}</p>
+            <input class="btn btn-default" type="submit" value="{{ submit_text }}" />
+        </form>
+    </div>
+</div>

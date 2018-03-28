@@ -36,7 +36,7 @@ def add_article(request, category_name_slug):
             article.category = category
             article.save()
 
-            return HttpResponseRedirect(reverse('article', args=[article.category, article.id]))
+            return HttpResponseRedirect(reverse('article', args=[article.category.slug, article.id]))
         else:
             print(form.errors)
 
