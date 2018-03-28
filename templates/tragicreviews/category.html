@@ -19,8 +19,10 @@
                         <a href="{% url 'add_article' category.slug %}" class="btn btn-default pull-right"
                            role="button">Submit Article</a>
                         {% if perms.tragicreviews.add_subject %}
-                            <a href="{% url 'delete_category' category.slug %}" class="btn btn-default pull-right"
-                           role="button" name="deletebtn">Delete Category</a>
+                            <a href="{% url 'update_category' category.slug %}" class="btn btn-default pull-right"
+                           role="button">Update Category</a>
+                            <a href="{% url 'delete_category' category.slug %}" class="btn btn-danger pull-right"
+                           role="button">Delete Category</a>
                         {% endif %}
                     {% endif %}
                 </div>

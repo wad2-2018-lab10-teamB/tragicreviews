@@ -231,14 +231,12 @@ def delete_category(request, category_name_slug):
     context_dict = {}
 
     subject = get_object_or_404(Subject, slug=category_name_slug)
-    print(subject)
     if request.method == 'POST':
         form = DeleteSubjectForm(request.POST)
         if form.is_valid():
             # All articles under that category will be deleted
             Subject.objects.filter(slug=subject.slug).delete()
             Article.objects.filter(category=subject).delete()
-            print("done!")
             return HttpResponseRedirect(reverse('index'))
         else:
             print(form.errors)
@@ -246,4 +244,28 @@ def delete_category(request, category_name_slug):
         form = DeleteSubjectForm()
     context_dict['form'] = form
     return render(request, 'tragicreviews/subject_confirm_delete.html', context_dict)
+
+
+@permission_required('tragicreviews.change_subject', raise_exception=True)
+def update_category(request, category_name_slug):
+    context_dict = {}
+
+    subject = get_object_or_404(Subject, slug=category_name_slug)
+    if request.method == 'POST':
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            new_category_name = form.cleaned_data['name']
+            for a in Article.objects.filter(category=subject):
+                a.category = Subject.objects.get(name=new_category_name)
+                a.save()
+            # Remove all articles under new category and delete old one
+            Subject.objects.filter(slug=subject.slug).delete()
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            print(form.errors)
+    else:
+        form = SubjectForm()
+    context_dict['form'] = form
+    return render(request, 'tragicreviews/update_category.html', context_dict)
 
