@@ -63,7 +63,7 @@ Example:
 `python manage.py test tragicreviews.unit_test.test_models`
 
 
-### Code Coverage Testing
+### Testing Code Coverage 
 Running tests: `coverage run --source='.' manage.py test tragicreviews`
 
 Viewing report: `coverage report`
