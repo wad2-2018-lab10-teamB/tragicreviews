@@ -7,7 +7,7 @@
 
 {% block body_block %}
 
-    <div class="panel panel-default" id="profile">
+    <div class="panel-group panel panel-default">
             
               <div class="panel-heading"><ul class="nav nav-tabs">
                   <li><a href='{% url 'profile' user_profile.user %}'>My Account</a></li>
@@ -15,26 +15,25 @@
                   <li><a href='{% url 'profile_reviews' user_profile.user %}'>Reviews</a></li>
               </ul></div>
               
-              <div class="panel-body" id="uploads">
-                  <div class="container" id="uploadRow">
-
-
-                        {% for u in user_articles %}
-                            <div class="row">
-                                <div class="col-sm-7">
-                                    <h4><a href='{% url 'article' u.category.slug u.id %}'>{{ u.title }}</a></h4>
-                                    <p>{{ u.body }}</p>
-                                </div>
-                                <div class="col-sm-5">
-                                    <p>Category: {{u.category}}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                  
-                      
-                       
+              <div class="panel-body">
+                  <div class="panel panel-default profile-article-list">
+                      <div class="panel-body">
+                          {% for u in user_articles %}
+                              <div class="row">
+                                  <div class="col-sm-7">
+                                      <h4><a href='{% url 'article' u.category.slug u.id %}'>{{ u.title }}</a></h4>
+                                      <p>{{ u.body }}</p>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <p>Category: {{u.category}}</p>
+                                  </div>
+                              </div>
+                          {% empty %}
+                              <center><h4>This user has not submitted any articles yet</h4></center>
+                          {% endfor %}
+                      </div>
                   </div>
-                </div>
+              </div>
     </div>
 
             

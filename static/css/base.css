@@ -128,13 +128,11 @@ p.article {
     margin: 0;
 }
 
-
 #article-content.panel-body {
     max-height: 25vh;
     overflow-x: hidden;
     overflow-y: scroll;
 }
-
 
 #cat-body.panel-body {
     max-height: 10rem;
@@ -144,18 +142,30 @@ p.article {
     padding-top: 20vh;
 }
 
-#profile.panel-default div.row { 
-  border: 1px solid;
-  border-bottom: 0px;
+#profile h1 {
+    margin-top: 0;
 }
 
-#profile.panel-default div.row:last-child {
-  border-bottom: 1px solid;
+.profile-article-list .row {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
 }
 
+.profile-article-list .row:first-child {
+    padding-top: 0;
+}
 
-#uploadRow.container {
-    width: 85vh;
+.profile-article-list .row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.profile-article-list .row h4 {
+    margin-top: 0;
+}
+
+.profile-article-list .row p {
+    margin-bottom: 0;
 }
 
 .top-buffer {
