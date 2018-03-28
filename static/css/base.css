@@ -287,3 +287,14 @@ a.carousel-control:visited {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#article-rating {
+    font-size: 16px;
+    color: #ffb900;
+    display: none; /* Shown if JS is enabled */
+    overflow: hidden;
+}
+
+#article-rating:before { 
+    content: "\2605\2605\2605\2605\2605"; 
+}
