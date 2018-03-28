@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment, ArticleViews
 from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import DeleteView
+from django.core.exceptions import PermissionDenied
+
 
 
 # Helper functions
@@ -92,12 +94,10 @@ def article(request, article_id, category_name_slug):
             context_dict['form'] = form
             context_dict['sub_form'] = sub_form
 
-        context_dict['title'] = article_object.title
-        context_dict['author'] = article_object.author
-        context_dict['text'] = article_object.body
-        context_dict['category'] = article_object.category
-        # This will return a set rather than a single comment
-        context_dict['comment_set'] = Comment.objects.filter(article=article_object)
+
+        context_dict['article'] = article_object
+
+        context_dict['comment_set'] = Comment.objects.filter(article=article_object) # This will return a set rather than a single comment
         context_dict['rating_avg'] = Rating.objects.get_average_rating(article_object)
         context_dict['total_views'] = ArticleViews.objects.get_total_views(article_object)
 
@@ -105,6 +105,30 @@ def article(request, article_id, category_name_slug):
         pass
 
     return render(request, 'tragicreviews/article.html', context_dict)
+
+
+@login_required
+def edit_article(request, article_id, category_name_slug):
+    context_dict = {}
+
+    article = get_object_or_404(Article, id=article_id)
+    if request.user != article.author.user:
+        raise PermissionDenied("You are not allowed to edit this article.")
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('article', args=[category_name_slug, article_id]))
+        else:
+            print(form.errors)
+    else:
+        form = ArticleForm(instance=article)
+
+    context_dict['form'] = form
+
+    return render(request, 'tragicreviews/edit_article.html', context_dict)
 
 
 def base(request):

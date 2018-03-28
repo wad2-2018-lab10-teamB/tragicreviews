@@ -281,7 +281,7 @@ a.carousel-control:visited {
 
 .share-buttons {
     line-height: 0;
-    margin-top: 8px;
+    margin: 8px 0;
 }
 
 .fb_iframe_widget > span {
