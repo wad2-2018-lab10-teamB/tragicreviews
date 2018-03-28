@@ -6,6 +6,14 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
+	$('.carousel').on('slide.bs.carousel', function(event) {
+	    var nextHeight = $(event.relatedTarget).height();
+	    $(this).find('.carousel-inner').animate({ height: nextHeight }, 500);
+	});
+});
+
+
+$(document).ready(function() {
 	$(window).trigger("resize");
 	$(".row-fade").each(function() {
 		var para = $(this).find("p.truncated").last();
