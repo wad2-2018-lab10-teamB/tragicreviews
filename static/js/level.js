@@ -1,3 +1,6 @@
+/*
+ * Disable one of the level input according to the user group a user chooses
+ */
 document.getElementById("id_staff_level").disabled = true;
 document.getElementById("id_student_level").disabled = true;
 document.getElementById("id_group").onchange = function () {

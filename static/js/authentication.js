@@ -1,4 +1,7 @@
-// checking whether a new password is same as old one or not
+/*
+ * checking whether a new password is same as old one or not
+ * and checking whether two new password matches or not
+ */
 function isDifferentNewPwd() {
     var old_pwd = document.getElementById("id_old_password").value;
     var new_pwd = document.getElementById("id_new_password1").value;
@@ -9,13 +12,15 @@ function isDifferentNewPwd() {
     } else if(new_pwd !== new_pwd2){
         alert("The two password fields didn't match >.<");
         return false;
-    }else {
+    } else {
         return true;
     }
 }
 
-// a naive implementation of user authorisation
-// too lazy to use regExp :<
+/*
+ * A naive implementation of user authorisation
+ * Checking whether the user's email domain is UofG email domain or not
+ */
 function isValidEmail() {
     var email = document.getElementById("id_email").value;
     var domain = email.split("@")[1].toLowerCase();
@@ -41,6 +46,9 @@ function isValidEmail() {
     return true;
 }
 
+/*
+ * Showing term or service pop up in user registration
+ */
 function showTos() {
     var popup = document.getElementById("tospopup");
     popup.classList.toggle("show");
