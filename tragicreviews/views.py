@@ -171,7 +171,7 @@ def profile_uploads(request, profile_id):
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
 
-@permission_required('tragicreviews.add_subject')
+@permission_required('tragicreviews.add_subject', raise_exception=True)
 def add_category(request):
     context_dict = {}
     form = SubjectForm()
