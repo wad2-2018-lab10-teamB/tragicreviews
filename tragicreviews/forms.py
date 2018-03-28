@@ -73,13 +73,6 @@ class UpdateStaffProfileForm(forms.ModelForm):
         exclude = ('user', 'image', 'majors', 'level')
 
 
-class SubjectForm(forms.ModelForm):
-    class Meta:
-        model = Subject
-        fields = ("name", )
-        help_texts = {"name": "Please enter a subject name"}
-
-
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
