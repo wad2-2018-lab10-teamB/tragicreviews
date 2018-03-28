@@ -1,6 +1,8 @@
 # TragicReviews
 WAD2 project
 
+**The master branch represents all changes up to and including the day of the deadline, Wednesday 28 March 2018. After this date the branch was protected, meaning all future pushes must be through an approved pull request.**
+
 ## Environment Requiments
 Python 3.6 or later is __required__ for the web application to run. Earlier 3.x versions will not work and will result in syntax errors. The version of Python used in the labs satisfies this requirement.
 
