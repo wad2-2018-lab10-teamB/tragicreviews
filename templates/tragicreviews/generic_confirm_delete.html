@@ -1,0 +1,22 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title_block %}
+    Confirm Deletion
+{% endblock %}
+
+{% block body_block %}
+    <div class="panel panel-default">
+        <div class="panel-heading">Confirm Delete</div>
+
+        <div class="panel-body">
+            <form method="post" action=".">
+                {% csrf_token %}
+                <p>Are you sure you want to delete <strong>{{ object }}</strong>?</p>
+                <p>This action cannot be undone.</p>
+                <input class="btn btn-danger" type="submit" value="Confirm Delete" />
+            </form>
+        </div>
+    </div>
+{% endblock %}

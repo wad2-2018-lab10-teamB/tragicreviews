@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment, ArticleViews
 from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm, DeleteSubjectForm
 from django.http import HttpResponseRedirect
@@ -129,6 +130,21 @@ def edit_article(request, article_id, category_name_slug):
     context_dict['form'] = form
 
     return render(request, 'tragicreviews/edit_article.html', context_dict)
+
+
+class DeleteArticleView(DeleteView, LoginRequiredMixin):
+    model = Article
+    template_name = 'tragicreviews/generic_confirm_delete.html'
+    success_url = reverse_lazy('index')
+    slug_field = 'id'
+    slug_url_kwarg = 'article_id'
+
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        article = super().get_object()
+        if self.request.user != article.author.user:
+            raise PermissionDenied
+        return article
 
 
 def base(request):

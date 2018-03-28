@@ -26,15 +26,7 @@ body {
 }
 
 #about.panel-default {
-    background-color: white;
-    border-color: DarkSlateGrey;
-}
-
-#search.container {
-    background-color: white;
-    border-color: DarkSlateGrey;
-    padding-right: 30vh;
-    padding-top: 10vh;
+    margin-bottom: 0;
 }
 
 .navbar-fixed-top {
@@ -203,7 +195,7 @@ p.article {
 }
 
 .left-buffer {
-    margin-left:3vh;
+    margin-left: 4px;
 }
 
 .navbar-fixed-bottom {
