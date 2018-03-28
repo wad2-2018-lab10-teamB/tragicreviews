@@ -35,7 +35,7 @@ def add_article(request, category_name_slug):
                 article.category = Subject.objects.get(slug=category_name_slug)
                 article.save()
 
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('article', args=[article.category, article.id]))
             else:
                 print(form.errors)
 
