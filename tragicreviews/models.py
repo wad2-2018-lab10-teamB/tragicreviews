@@ -42,6 +42,8 @@ class UserProfileManager(models.Manager):
 		try:
 			return self.get(user=User.objects.get(username=username))
 		except User.DoesNotExist:
+			# We don't want to throw an exception about the internals of how this works.
+			# It makes more sense to expect that a UserProfile.objects method returns an exception relating to UserProfile.
 			raise UserProfile.DoesNotExist
 
 class UserLevelField(models.CharField):
@@ -79,6 +81,7 @@ class UserLevelField(models.CharField):
 
 	def deconstruct(self):
 		name, path, args, kwargs = super().deconstruct()
+		# Don't serialise hardcoded values.
 		del kwargs["max_length"]
 		del kwargs["blank"]
 		del kwargs["null"]
@@ -105,7 +108,7 @@ class UserProfile(models.Model):
 		return reverse("profile", args=[self.user.username])
 
 	def save(self, *args, **kwargs):
-		self.full_clean()
+		self.full_clean() # Validate fields
 		super().save(*args, **kwargs)
 
 	def __str__(self):
@@ -152,7 +155,7 @@ class Rating(models.Model):
 		unique_together = ('article', 'user')
 
 	def save(self, *args, **kwargs):
-		self.full_clean()
+		self.full_clean() # Validate fields
 		super().save(*args, **kwargs)
 
 	def __str__(self):

@@ -9,16 +9,6 @@ from django.views.generic.edit import DeleteView
 from django.core.exceptions import PermissionDenied
 
 
-
-# Helper functions
-def encode_url(str):
-    return str.replace(' ', '_')
-
-
-def decode_url(str):
-    return str.replace('_', ' ')
-
-
 @login_required
 def add_article(request, category_name_slug):
     context_dict = {}
@@ -56,7 +46,10 @@ def article(request, article_id, category_name_slug):
         form = CommentForm(prefix="com")
         sub_form = RatingForm(prefix="rev")
         user_profile = UserProfile.objects.get(user=request.user)
+
+        # Was the rating form submitted?
         if request.method == 'POST' and 'ratingbtn' in request.POST:
+            # Find an existing rating to update, if available.
             try:
                 rating = Rating.objects.get(user=user_profile, article=article_object)
             except Rating.DoesNotExist:
@@ -72,7 +65,8 @@ def article(request, article_id, category_name_slug):
                 return HttpResponseRedirect(request.path_info)
             else:
                 print(form.errors)
-            
+        
+        # Was the comment form submitted?
         if request.method == 'POST' and 'commentbtn' in request.POST:
             form = CommentForm(request.POST, prefix="com")
             if form.is_valid():
@@ -133,7 +127,7 @@ class DeleteArticleView(DeleteView, LoginRequiredMixin):
         """ Hook to ensure object is owned by request.user. """
         article = super().get_object()
         if self.request.user != article.author.user:
-            raise PermissionDenied
+            raise PermissionDenied("You are not allowed to delete this article.")
         return article
 
 
@@ -151,18 +145,8 @@ def category(request, category_name_slug):
 
 def index(request):
     context_dict = {}
-    context_dict['username'] = UserProfile.user
-
-    trend_article_list = ArticleViews.objects.get_trending_articles(limit=5, days=14)
-    for article in trend_article_list:
-        article.url = encode_url(article.title)
-    context_dict['trend_articles'] = trend_article_list
-
-    new_article_list = Article.objects.get_new_articles(limit=5)
-    for article in new_article_list:
-        article.url = encode_url(article.title)
-    context_dict['new_articles'] = new_article_list
-
+    context_dict['trend_articles'] = ArticleViews.objects.get_trending_articles(limit=5, days=14)
+    context_dict['new_articles'] = Article.objects.get_new_articles(limit=5)
     return render(request, 'tragicreviews/index.html', context_dict)
 
 
@@ -270,4 +254,3 @@ def update_category(request, category_name_slug):
         form = SubjectForm()
     context_dict['form'] = form
     return render(request, 'tragicreviews/update_category.html', context_dict)
-

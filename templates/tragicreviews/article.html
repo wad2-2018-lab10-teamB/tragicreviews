@@ -36,7 +36,7 @@
                     {% if user == article.author.user %}
                         <div class="pull-right">
                             <a href="{% url 'edit_article' article.category.slug article.id %}" class="btn btn-default" role="button">Edit</a>
-                            <a href="{% url 'delete_article' article.category.slug article.id %}" class="btn btn-danger left-buffer" role="button">Delete</a>
+                            <a href="{% url 'delete_article' article.category.slug article.id %}" class="btn btn-danger" role="button">Delete</a>
                         </div>
                     {% endif %}
                 </div>

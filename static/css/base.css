@@ -4,10 +4,6 @@ body {
     padding-bottom: 50px;
 }
 
-.jumbotron {
-    background-color: AntiqueWhite; 
-}
-
 #header {
     display: flex;
     align-items: center;
@@ -187,15 +183,7 @@ p.article {
 }
 
 .top-buffer {
-    margin-top:3vh;
-}
-
-.extra-top-buffer {
-    margin-top:10vh;
-}
-
-.left-buffer {
-    margin-left: 4px;
+    margin-top: 15px;
 }
 
 .navbar-fixed-bottom {
