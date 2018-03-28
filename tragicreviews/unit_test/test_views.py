@@ -59,10 +59,10 @@ class TestViews(TestCase):
         response = self.client.get(reverse('article', args=['bar', article_id]))
 
         # Test correctness of article title, author, body text, category and average rating
-        self.assertEqual(response.context['title'], article_object.title)
-        self.assertEqual(response.context['author'], article_object.author)
-        self.assertEqual(response.context['text'], article_object.body)
-        self.assertEqual(response.context['category'], article_object.category)
+        self.assertEqual(response.context['article'].title, article_object.title)
+        self.assertEqual(response.context['article'].author, article_object.author)
+        self.assertEqual(response.context['article'].body, article_object.body)
+        self.assertEqual(response.context['article'].category, article_object.category)
         self.assertEqual(response.context['rating_avg'], rating_avg)
 
         # Test the number of comments in comment set is correct
@@ -176,3 +176,17 @@ class TestViews(TestCase):
         response = self.client.post(reverse('add_category'), data={'name': 'New Category'})
         self.assertEqual(Subject.objects.filter(name='New Category').count(), 0)
         self.assertEqual(response.status_code, 403)
+
+
+    def test_delete_category(self):
+        # Login a staff account
+        staff = test_utils.create_staff_user_profile()
+        test_utils.create_subject()
+        response = self.client.login(username=staff, password='test1234')
+        self.assertTrue(response)
+
+        # Test delete a category
+        response = self.client.post(reverse('delete_category', args=['foo', ]), data={'confirm_delete': True})
+        self.assertEqual(Subject.objects.all().count(), 0)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('index'))
