@@ -68,6 +68,8 @@ def article(request, article_id, category_name_slug):
                 review.user = user_profile
                 review.article = article_object
                 review.save()
+
+                return HttpResponseRedirect(request.path_info)
             else:
                 print(form.errors)
             
@@ -78,6 +80,8 @@ def article(request, article_id, category_name_slug):
                 comment.user = user_profile
                 comment.article = article_object
                 comment.save()
+
+                return HttpResponseRedirect(request.path_info)
             else:
                 print(form.errors)
             
