@@ -11,19 +11,21 @@
 
         <div class="panel-heading">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-lg-6">
                     <h3>{{ category.name }}</h3>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'add_article' category.slug %}" class="btn btn-default pull-right"
-                           role="button">Submit Article</a>
-                        {% if perms.tragicreviews.add_subject %}
-                            <a href="{% url 'update_category' category.slug %}" class="btn btn-default pull-right"
-                           role="button">Update Category</a>
-                            <a href="{% url 'delete_category' category.slug %}" class="btn btn-danger pull-right"
-                           role="button">Delete Category</a>
-                        {% endif %}
+                        <div class="pull-right">
+                            <a href="{% url 'add_article' category.slug %}" class="btn btn-default"
+                               role="button">Submit Article</a>
+                            {% if perms.tragicreviews.add_subject %}
+                                <a href="{% url 'update_category' category.slug %}" class="btn btn-default"
+                               role="button">Update Category</a>
+                                <a href="{% url 'delete_category' category.slug %}" class="btn btn-danger"
+                               role="button">Delete Category</a>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 </div>
             </div>
