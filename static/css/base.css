@@ -8,9 +8,22 @@ body {
     background-color: AntiqueWhite; 
 }
 
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #account-col { 
-    padding-top: 50px;
     text-align: right;
+}
+
+#account-col :first-child {
+    margin-top: 0;
+}
+
+#account-col :last-child {
+    margin-bottom: 0;
 }
 
 #about.panel-default {
@@ -278,7 +291,7 @@ a.carousel-control:visited {
     margin-left: 4px;
 }
 
-.search-autocomplete .form-group {
+.search-autocomplete, .search-autocomplete .form-group {
     position: relative;
 }
 

@@ -52,7 +52,7 @@
 
 
 <div class="container-fluid">
-   <div class="row" >
+   <div class="row" id="header">
     <div class="col-xs-5">
        <div class="container" id="title">
             <!-- <div class="jumbotron">
@@ -62,10 +62,8 @@
         </div>
     </div>
     <div class="col-xs-3" id="search-col">
-        <form class="panel-body extra-top-buffer left-buffer search-autocomplete" method="get" action="{% url 'haystack_search' %}">
-            <center class="form-group">
-                <input class="form-control" type="text" autocomplete="off" name="q" placeholder="Search...">
-            </center>
+        <form class="search-autocomplete" method="get" action="{% url 'haystack_search' %}">
+            <input class="form-control" type="text" autocomplete="off" name="q" placeholder="Search...">
         </form>
     </div>
     <div class="col-xs-4 align-self-end" id="account-col">
