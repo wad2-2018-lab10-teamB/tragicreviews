@@ -35,7 +35,9 @@
                           
                           <div class="row">
                             {% if user_profile.get_role == "Student" %}
-                            <h3 class="profile-year">Year: </h3> {{ user_profile.level }}
+                                <h3 class="profile-year">Year: </h3> {{ user_profile.level }}
+                            {% elif user_profile.get_role == "Staff"  %}
+                                <h3 class="profile-year">Job: </h3> {{ user_profile.level }}
                             {% endif %}
                           </div> 
                         </div>
