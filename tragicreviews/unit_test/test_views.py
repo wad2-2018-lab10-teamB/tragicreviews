@@ -46,8 +46,7 @@ class TestViews(TestCase):
 
     def test_category_not_exist(self):
         response = self.client.get(reverse('category', args=['bar']))
-        self.assertIsNone(response.context['category'])
-        self.assertIsNone(response.context['articles'])
+        self.assertEqual(response.status_code, 404)
 
     def test_article_not_login(self):
         test_utils.create_article_for_testing_article_view()  # s = Subject(name="bar")

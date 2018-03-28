@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment, ArticleViews
 from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm, DeleteSubjectForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.core.exceptions import PermissionDenied
@@ -23,24 +23,22 @@ def decode_url(str):
 def add_article(request, category_name_slug):
     context_dict = {}
 
+    category = get_object_or_404(Subject, slug=category_name_slug)
+
     form = ArticleForm()
 
     if request.method == 'POST':
         form = ArticleForm(request.POST)
 
-        try:
-            if form.is_valid():
-                article = form.save(commit=False)
-                article.author = UserProfile.objects.get(user=request.user)
-                article.category = Subject.objects.get(slug=category_name_slug)
-                article.save()
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = UserProfile.objects.get(user=request.user)
+            article.category = category
+            article.save()
 
-                return HttpResponseRedirect(reverse('article', args=[article.category, article.id]))
-            else:
-                print(form.errors)
-
-        except Subject.DoesNotExist:
-            pass
+            return HttpResponseRedirect(reverse('article', args=[article.category, article.id]))
+        else:
+            print(form.errors)
 
     context_dict['form'] = form
 
@@ -50,60 +48,48 @@ def add_article(request, category_name_slug):
 def article(request, article_id, category_name_slug):
     context_dict = {}
 
-    try:
-        article_object = Article.objects.get(id=article_id)
+    article_object = get_object_or_404(Article, id=article_id)
 
-        ArticleViews.objects.add_view(article_object)
+    ArticleViews.objects.add_view(article_object)
 
-        if request.user.is_authenticated():
-            form = CommentForm(prefix="com")
-            sub_form = RatingForm(prefix="rev")
-            user_profile = UserProfile.objects.get(user=request.user)
-            if request.method == 'POST' and 'ratingbtn' in request.POST:
-                try:
-                    rating = Rating.objects.get(user=user_profile, article=article_object)
-                except Rating.DoesNotExist:
-                    rating = None
-                sub_form = RatingForm(request.POST, prefix="rev", instance=rating)
-                try:
-                    if sub_form.is_valid():
-                        review = sub_form.save(commit=False)
-                        review.user = user_profile
-                        review.article = article_object
-                        review.save()
-                    else:
-                        print(form.errors)
+    if request.user.is_authenticated():
+        form = CommentForm(prefix="com")
+        sub_form = RatingForm(prefix="rev")
+        user_profile = UserProfile.objects.get(user=request.user)
+        if request.method == 'POST' and 'ratingbtn' in request.POST:
+            try:
+                rating = Rating.objects.get(user=user_profile, article=article_object)
+            except Rating.DoesNotExist:
+                rating = None
 
-                except Subject.DoesNotExist:
-                    pass
-                
-            if request.method == 'POST' and 'commentbtn' in request.POST:
-                form = CommentForm(request.POST, prefix="com")
-
-                try:
-                    if form.is_valid():
-                        comment = form.save(commit=False)
-                        comment.user = user_profile
-                        comment.article = article_object
-                        comment.save()
-                    else:
-                        print(form.errors)
-
-                except Subject.DoesNotExist:
-                    pass
-                
-            context_dict['form'] = form
-            context_dict['sub_form'] = sub_form
+            sub_form = RatingForm(request.POST, prefix="rev", instance=rating)
+            if sub_form.is_valid():
+                review = sub_form.save(commit=False)
+                review.user = user_profile
+                review.article = article_object
+                review.save()
+            else:
+                print(form.errors)
+            
+        if request.method == 'POST' and 'commentbtn' in request.POST:
+            form = CommentForm(request.POST, prefix="com")
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.user = user_profile
+                comment.article = article_object
+                comment.save()
+            else:
+                print(form.errors)
+            
+        context_dict['form'] = form
+        context_dict['sub_form'] = sub_form
 
 
-        context_dict['article'] = article_object
+    context_dict['article'] = article_object
 
-        context_dict['comment_set'] = Comment.objects.filter(article=article_object) # This will return a set rather than a single comment
-        context_dict['rating_avg'] = Rating.objects.get_average_rating(article_object)
-        context_dict['total_views'] = ArticleViews.objects.get_total_views(article_object)
-
-    except Article.DoesNotExist:
-        pass
+    context_dict['comment_set'] = Comment.objects.filter(article=article_object) # This will return a set rather than a single comment
+    context_dict['rating_avg'] = Rating.objects.get_average_rating(article_object)
+    context_dict['total_views'] = ArticleViews.objects.get_total_views(article_object)
 
     return render(request, 'tragicreviews/article.html', context_dict)
 
@@ -150,17 +136,11 @@ class DeleteArticleView(DeleteView, LoginRequiredMixin):
 def category(request, category_name_slug):
     context_dict = {}
 
-    # Needs a title, author and preview
-    try:
-        category = Subject.objects.get(slug=category_name_slug)
-        articles = category.get_articles()
+    category = get_object_or_404(Subject, slug=category_name_slug)
+    articles = category.get_articles()
 
-        context_dict['articles'] = articles
-        context_dict['category'] = category
-
-    except Subject.DoesNotExist:
-        context_dict['articles'] = None
-        context_dict['category'] = None
+    context_dict['articles'] = articles
+    context_dict['category'] = category
 
     return render(request, 'tragicreviews/category.html', context_dict)
 
@@ -188,24 +168,39 @@ def sitemap(request):
 
 def profile(request, profile_id):
     context_dict = {}
-    user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['user_profile'] = user
+
+    try:
+        user = UserProfile.objects.get_by_username(profile_id)
+        context_dict['user_profile'] = user
+    except UserProfile.DoesNotExist:
+        raise Http404
+
     return render(request, 'tragicreviews/profile.html', context_dict)
 
 
 def profile_reviews(request, profile_id):
     context_dict = {}
-    user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['user_profile'] = user
-    context_dict['ratings'] = Rating.objects.filter(user=user)
+    
+    try:
+        user = UserProfile.objects.get_by_username(profile_id)
+        context_dict['user_profile'] = user
+        context_dict['ratings'] = Rating.objects.filter(user=user)
+    except UserProfile.DoesNotExist:
+        raise Http404
+
     return render(request, 'tragicreviews/profile_reviews.html', context_dict)
 
 
 def profile_uploads(request, profile_id):
     context_dict = {}
-    user = UserProfile.objects.get_by_username(profile_id)
-    context_dict['user_profile'] = user
-    context_dict['user_articles'] = Article.objects.filter(author=user)
+    
+    try:
+        user = UserProfile.objects.get_by_username(profile_id)
+        context_dict['user_profile'] = user
+        context_dict['user_articles'] = Article.objects.filter(author=user)
+    except UserProfile.DoesNotExist:
+        raise Http404
+
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
 
