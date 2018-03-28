@@ -10,7 +10,6 @@ body {
 
 #header {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
@@ -174,6 +173,8 @@ p.article {
 .profile-article-list .row {
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
+    display: flex;
+    align-items: center;
 }
 
 .profile-article-list .row:first-child {
@@ -337,7 +338,6 @@ a.carousel-control:visited {
 .row-fade {
     position: relative;
     display: table;
-    width: 100%;
 }
 
 .row-fade:after {
