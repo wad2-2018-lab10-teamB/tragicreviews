@@ -34,7 +34,10 @@
                 </div>
                 <div class="col-sm-4">
                     {% if user == article.author.user %}
-                        <a href="{% url 'edit_article' article.category.slug article.id %}" class="btn btn-default pull-right" role="button">Edit Article</a>
+                        <div class="pull-right">
+                            <a href="{% url 'edit_article' article.category.slug article.id %}" class="btn btn-default" role="button">Edit</a>
+                            <a href="{% url 'delete_article' article.category.slug article.id %}" class="btn btn-danger left-buffer" role="button">Delete</a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
