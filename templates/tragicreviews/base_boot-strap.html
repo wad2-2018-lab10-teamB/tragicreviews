@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load tragicreviews_template_tags %}
 {{ subject_list }}
 <html lang="en">
 
@@ -80,6 +81,10 @@
         </p><p>
         <a href='{% url 'delete_account' %}'><span class="glyphicon glyphicon-remove"></span> Delete Account</a>
         </p></h5>
+            {% if request.user|has_group:"staff" %}
+                <h5><p><a href='{% url 'add_category' %}'><span class="glyphicon glyphicon-plus"></span> Add Category</a></p></h5>
+            {% endif %}
+
         {% else %}
         <h4><p>
         <a href='{% url 'registration_register' %}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>

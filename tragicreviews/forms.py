@@ -106,3 +106,10 @@ class RatingForm(forms.ModelForm):
         model = Rating
         fields = ("rating", )
         help_texts = {"rating": "Please enter your rating (1-5)"}
+
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ("name", )
+        help_texts = {"name": "Please enter your subject name"}

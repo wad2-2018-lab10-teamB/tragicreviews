@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/reviews/$', views.profile_reviews, name='profile_reviews'),
     url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/uploads/$', views.profile_uploads, name='profile_uploads'),
     url(r'^$', views.index, name='index'),
+    url(r'^add-category/$', views.add_category, name='add_category'),
 ]
