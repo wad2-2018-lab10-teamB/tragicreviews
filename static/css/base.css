@@ -158,6 +158,19 @@ p.article {
     margin-top: 0;
 }
 
+#profile > .panel-heading {
+    padding: 0;
+}
+
+#profile .nav-tabs {
+    padding: 3px 15px 0;
+    border-bottom: none;
+}
+
+.profile-article-list {
+    margin-bottom: 0;
+}
+
 .profile-article-list .row {
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
