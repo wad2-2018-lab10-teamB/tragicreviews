@@ -5,6 +5,10 @@ import tragicreviews.unit_test.test_utils as test_utils
 from django.contrib.auth.models import User, Group
 from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, UpdateStaffProfileForm, DeleteUserAccountForm
 
+"""
+Unit tests for user authentication functionality and forms
+"""
+
 
 class TestRegbackend(TestCase):
 

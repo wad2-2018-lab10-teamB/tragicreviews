@@ -3,6 +3,10 @@ from tragicreviews.models import Subject, UserProfile, Article
 from django.contrib.auth.models import Group
 import populate_tragicreviews
 
+"""
+Unit tests for populate scripts
+"""
+
 
 class PopulateTests(TestCase):
 

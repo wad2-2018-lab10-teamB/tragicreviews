@@ -3,6 +3,10 @@ from django.core.urlresolvers import reverse
 from tragicreviews.models import Article, Comment, Rating, ArticleViews, UserProfile, Subject
 import tragicreviews.unit_test.test_utils as test_utils
 
+"""
+Unit tests for views and forms which are used by views.
+"""
+
 
 class TestViews(TestCase):
     def test_index(self):
@@ -78,12 +82,17 @@ class TestViews(TestCase):
         response = self.client.login(username='dummy', password='test1234')
         self.assertTrue(response)
         subject = test_utils.create_subject()
-        self.client.post(reverse('add_article', args=[subject.slug, ]),
+        response = self.client.post(reverse('add_article', args=[subject.slug, ]),
                          data={'title': 'My Article', 'body': 'some text'})
+
         # Test article is added correctly
         self.assertEqual(Article.objects.count(), 1)
         self.assertEqual(Article.objects.filter(category=subject).count(), 1)
         self.assertEqual(Article.objects.filter(author=user_pf).count(), 1)
+
+        # Test correctly redirect to index page after adding article
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('index'))
 
     def test_profile(self):
         user_pf_id = test_utils.create_user_profile_for_testing()  # user_pf_id is username
@@ -125,12 +134,25 @@ class TestViews(TestCase):
         self.assertEqual(rating_response.context['rating_avg'], (1+4)/2.0)
         self.assertEqual(article_object.rating_set.count(), 2)
 
+        # Test a user can rate an article only once
+        self.client.post(reverse('article', args=['bar', article_id]), data={'ratingbtn': 'Submit', 'rev-rating': 2})
+        rating_response = self.client.get(reverse('article', args=['bar', article_id]))
+        self.assertEqual(rating_response.context['rating_avg'], (2 + 4) / 2.0)
+        self.assertEqual(article_object.rating_set.count(), 2)
+
         # Test adding a comment to an article
         self.client.post(reverse('article', args=['bar', article_id]),
                          data={'com-text': 'Some new comments', 'commentbtn': 'Submit'})
         response = self.client.get(reverse('article', args=['bar', article_id]))
         self.assertEqual(response.context['comment_set'].count(), 2)
         self.assertEqual(Comment.objects.filter(article=article_object).count(), 2)
+
+        # Test a user can post more that one comments to an article
+        self.client.post(reverse('article', args=['bar', article_id]),
+                         data={'com-text': 'Some new comments again', 'commentbtn': 'Submit'})
+        response = self.client.get(reverse('article', args=['bar', article_id]))
+        self.assertEqual(response.context['comment_set'].count(), 3)
+        self.assertEqual(Comment.objects.filter(article=article_object).count(), 3)
 
     def test_add_category(self):
         # Login a staff account

@@ -10,8 +10,11 @@ from freezegun import freeze_time
 from io import StringIO
 import sys
 
+"""
+Unit tests for models.
+"""
 
-# Testing Models
+
 class ModelTests(TestCase):
 
     def test_create_category(self):

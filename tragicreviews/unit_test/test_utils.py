@@ -1,6 +1,10 @@
 from tragicreviews.models import *
 from django.contrib.auth.models import Permission
 
+"""
+A collect of helper functions to facilitate unit testing
+"""
+
 
 def create_groups():
     Group.objects.get_or_create(name="student")
