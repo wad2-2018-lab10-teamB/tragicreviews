@@ -7,7 +7,7 @@
 {% endblock %}
 {% block scripts %}
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script async src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.12" id="facebook-jssdk"></script>
+    <script async src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&amp;version=v2.12" id="facebook-jssdk"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 {% endblock %}
 
@@ -85,8 +85,6 @@
                             <h4 class="media-heading"><a href="{% url 'profile' c.user.user %}"> {{ c.user }} </a></h4>
                             <p> {{ c.text }} </p>
                         </div>
-
-
                     </div>
                 {% endfor %}
             </div>

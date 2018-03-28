@@ -4,7 +4,9 @@ WAD2 project
 ## Environment Requiments
 Python 3.6 or later is __required__ for the web application to run. Earlier 3.x versions will not work and will result in syntax errors. The version of Python used in the labs satisfies this requirement.
 
-## Additional Packages 
+## Additional Packages
+These packages can all be installed in a single command: `pip install -r requirements.txt`
+
 * [django-registration-redux v2.2](https://django-registration-redux.readthedocs.io/en/latest/index.html)
 
   Installation: `pip install django-registration-redux`
