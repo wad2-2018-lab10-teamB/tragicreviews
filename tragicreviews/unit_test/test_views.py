@@ -95,7 +95,26 @@ class TestViews(TestCase):
         response = self.client.login(username='dummy', password='test1234')
         self.assertTrue(response)
         a = Article.objects.filter(author=UserProfile.objects.get_by_username(username))[0]
+        data = {
+            'title': a.title + ' new',
+            'body': a.body + ' new'
+        }
 
+        response = self.client.get(reverse('edit_article', args=[a.category.slug, a.id]))
+
+        # Test original article is in form
+        self.assertContains(response, "User Article")
+        self.assertContains(response, "User article content")
+        response = self.client.post(reverse('edit_article', args=[a.category.slug, a.id]),
+                                    data=data)
+        # Test redirect to article page after edit
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('article', args=[a.category, a.id]))
+
+        # Test successfully edit article
+        new_a = Article.objects.filter(author=UserProfile.objects.get_by_username(username))[0]
+        self.assertEquals(new_a.title, data['title'])
+        self.assertEquals(new_a.body, data['body'])
 
     def test_profile(self):
         user_pf_id = test_utils.create_user_profile_for_testing()  # user_pf_id is username
