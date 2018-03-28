@@ -1,0 +1,5 @@
+<form class="{{ form_classes }} search-autocomplete" data-ajax-endpoint="{% url 'ajax_search_autocomplete' %}" method="get" action="{% url 'haystack_search' %}">
+    <div class="search-box-wrapper">
+        <input class="form-control" type="text" autocomplete="off" name="q" placeholder="Search...">
+    </div>
+</form>

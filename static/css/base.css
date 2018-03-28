@@ -51,7 +51,7 @@ body {
         display: flex;
     }
 
-    .navbar-form .form-group {
+    .navbar-form .search-box-wrapper {
         width: 100%;
         margin-right: 15px;
     }
@@ -285,7 +285,7 @@ a.carousel-control:visited {
     margin-left: 4px;
 }
 
-.search-autocomplete, .search-autocomplete .form-group {
+.search-autocomplete, .search-autocomplete .search-box-wrapper {
     position: relative;
 }
 

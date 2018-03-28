@@ -6,12 +6,12 @@ from tragicreviews.forms import UserRegistrationForm, UpdateStudentProfileForm, 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 
 
 class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of FormView
     form_class = UserRegistrationForm
-    success_url = '/tragicreviews/'
+    success_url = reverse_lazy('index')
 
     def register(self, form):
         data = form.cleaned_data

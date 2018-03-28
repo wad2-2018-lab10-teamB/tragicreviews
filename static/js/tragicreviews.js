@@ -38,11 +38,11 @@ var SearchAutocomplete = function()
 {
 	var self = this;
 
-	this.url = "/ajax/search/autocomplete/";
-	this.minimumLength = 3;
-
 	this.formElement = $(".search-autocomplete");
 	this.queryBox = this.formElement.find("input[name=q]");
+
+	this.url = this.formElement.data("ajax-endpoint");
+	this.minimumLength = 3;
 
 	// Watch the input box.
 	this.queryBox.keyup(function()
