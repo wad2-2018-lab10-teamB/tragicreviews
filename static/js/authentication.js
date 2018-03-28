@@ -40,3 +40,8 @@ function isValidEmail() {
     }
     return true;
 }
+
+function showTos() {
+    var popup = document.getElementById("tospopup");
+    popup.classList.toggle("show");
+}

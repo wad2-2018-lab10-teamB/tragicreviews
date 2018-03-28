@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from tragicreviews.models import Article, Comment, Rating, ArticleViews, UserProfile
+from tragicreviews.models import Article, Comment, Rating, ArticleViews, UserProfile, Subject
 import tragicreviews.unit_test.test_utils as test_utils
 
 
@@ -132,4 +132,25 @@ class TestViews(TestCase):
         self.assertEqual(response.context['comment_set'].count(), 2)
         self.assertEqual(Comment.objects.filter(article=article_object).count(), 2)
 
+    def test_add_category(self):
+        # Login a staff account
+        staff = test_utils.create_staff_user_profile()
+        response = self.client.login(username=staff, password='test1234')
+        self.assertTrue(response)
 
+        # Test add a category
+        response = self.client.post(reverse('add_category'), data={'name': 'New Category'})
+        self.assertEqual(Subject.objects.filter(name='New Category').count(), 1)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('index'))
+
+    def test_add_category_forbidden(self):
+        # Login a student account
+        student = test_utils.create_student_user_profile()
+        response = self.client.login(username=student, password='test1234')
+        self.assertTrue(response)
+
+        # Test add a category fail and get forbidden code 403
+        response = self.client.post(reverse('add_category'), data={'name': 'New Category'})
+        self.assertEqual(Subject.objects.filter(name='New Category').count(), 0)
+        self.assertEqual(response.status_code, 403)

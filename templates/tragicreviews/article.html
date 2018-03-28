@@ -5,6 +5,11 @@
 {% block title_block %}
     {{ title }}
 {% endblock %}
+{% block scripts %}
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.12" id="facebook-jssdk"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+{% endblock %}
 
 {% block body_block %}
 
@@ -17,14 +22,13 @@
                     <a href="https://twitter.com/share" class="twitter-share-button"
                        data-text="Good article"
                        data-show-count="false"></a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     <div class="fb-share-button"
                          data-href=""
                          data-layout="button"
                          data-size="small"
                          data-mobile-iframe="true">
                     </div>
-                    <script async src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.12" id="facebook-jssdk"></script>
+                    <div class="g-plus" data-action="share"  ></div>
                 </div>
             </h3>
         </div>

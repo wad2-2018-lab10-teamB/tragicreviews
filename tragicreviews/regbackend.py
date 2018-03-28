@@ -23,8 +23,6 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
         default_img = 'profile_images/default_avatar.jpg'
         image = default_img
         if 'image' in data and data['image'] is not None:
-            print("image found")
-            print(data['image'])
             image = data['image']
 
         user_profile = UserProfile.objects.create_user(username)
@@ -33,12 +31,9 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
         user_profile.user.groups.add(group)
 
         # Adding majors
-        print(form.cleaned_data['majors'])
         for major in majors:
-            print(major)
             major.save()
             user_profile.majors.add(major)
-        print(user_profile.majors.all())
 
         # default set level None
         user_profile.level = None
@@ -46,7 +41,6 @@ class MyRegistrationView(RegistrationView):  # RegistrationView - a subclass of 
             level = data['student_level']
         else:
             level = data['staff_level']
-        print(level)
         if level != '':
             user_profile.level = level
 

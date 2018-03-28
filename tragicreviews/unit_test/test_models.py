@@ -3,7 +3,7 @@ from tragicreviews.models import Subject, Article, Rating, Comment, UserProfile,
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
 import tragicreviews.unit_test.test_utils as test_utils
-from datetime import datetime
+from datetime import datetime, date
 from django.db.utils import IntegrityError
 from django.db import transaction
 from freezegun import freeze_time
@@ -122,6 +122,10 @@ class ModelTests(TestCase):
         self.assertEqual(articles[0].author, article_one.author)
         # Test article category is saved correctly
         self.assertEqual(articles[0].category, s)
+        # Test get new articles
+        self.assertEqual(Article.objects.get_new_articles().count(), 2)
+        # Test get url correct
+        self.assertRegexpMatches(article_one.get_absolute_url(), '/tragicreviews/category/(?P<category_name_slug>[\w\-]+)/article/(?P<article_id>\d+)/')
 
     def test_rating(self):
         user = test_utils.create_user()
@@ -280,7 +284,15 @@ class ModelTests(TestCase):
         with freeze_time(lambda: datetime(2018, 2, 4)):
             article_views5 = ArticleViews(article=article1, views=5)
             self.assertIsNone(article_views5.save())
-        print(article_views.date)
-        print(article_views5.date)
+
+        # Test get the correct number of total views
+        self.assertEqual(ArticleViews.objects.get_total_views(article=article1), 10)
+
+        # Test get the correct number of trending articles
+        self.assertEqual(len(ArticleViews.objects.get_trending_articles()), 2)
+
+        # Test correctness of add_views
+        ArticleViews.objects.add_view(article=article1)
+        self.assertEqual(ArticleViews.objects.filter(article=article1, date=date.today())[0].views, article_views.views + 1)
 
 
