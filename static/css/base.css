@@ -76,18 +76,30 @@ body {
     #sidebar {
         position: absolute;
         top: 0;
-        left: -30%;
-        width: 30%;
+        left: -200px;
+        width: 200px;
         padding-left: 40px;
         padding-bottom: 50px;
     }
 
     #main-row.active {
-        left: 30%;
+        left: 200px;
     }
 
     #pageBody {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 511px)
+{
+    #header {
+        display: block;
+    }
+
+    #account-col {
+        width: 100%;
+        margin-top: 15px;
     }
 }
 
