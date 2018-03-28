@@ -1,19 +1,9 @@
 {% extends 'tragicreviews/base_boot-strap.html' %}
-{% load staticfiles %}
-{% load bootstrap3 %}
 
 {% block title_block %}
 	Submit Article
 {% endblock %}
 
 {% block body_block %}
-        <div class="panel panel-default">
-            <div class="panel-body" id="new-article">
-                <form method="POST" action=".">
-                    {% csrf_token %}
-                    {% bootstrap_form form %}
-                    <input class="btn btn-default" type="submit" value="Submit" />
-                </form>
-            </div>
-        </div>
+    {% include 'tragicreviews/base_form.html' with title="Submit Article" submit_text="Submit" %}
 {% endblock %}
