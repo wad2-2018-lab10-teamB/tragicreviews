@@ -93,7 +93,7 @@ class ArticleForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["text"].widget.attrs["rows"] = 4
+        self.fields["text"].widget.attrs["rows"] = 4 # Decrease default height
         
     class Meta:
         model = Comment
