@@ -43,6 +43,8 @@ These packages can all be installed in a single command: `pip install -r require
 
 * [Google+ Share Button](https://developers.google.com/+/web/share/)
 
+_Notice_: The Facebook button will not work on localhost when clicked. This is a security restriction put in place by Facebook. Also, the Google Plus share button will refuse to share localhost link. You can see both of them working on the live PythonAnywhere site.
+
 ## Running the Populate Script
 The population script can be run in two modes: “core” or “examples”. The “core” mode sets up the staff and student groups which are required by the web application. It also adds the default list of categories. This is what is used for deployment to PythonAnywhere. The “examples” mode does everything that “core” does but it _additionally_ adds 10 fake users (5 student, 5 staff) and a random number of articles (1-3) in each category, each with a random number (0-5) of ratings and comments. This is useful for a quick-start demo. __Specifying which mode to use is required.__
 
@@ -54,15 +56,17 @@ Auto-updates its index but requires an initial `./manage.py rebuild_index` to cr
 Initiallise index: `python manage.py rebuild_index`
 
 ## Testing
-### Running Unit Tests:
+### Running Unit Tests
 `python manage.py test tragicreviews.unit_test.your_test`
 
 Example:
 `python manage.py test tragicreviews.unit_test.test_models`
 
 
-### Code Coverage Testing:
+### Code Coverage Testing
 Running tests: `coverage run --source='.' manage.py test tragicreviews`
 
 Viewing report: `coverage report`
 
+## Email Validation in User Registration 
+Staff account registration validates the email to make sure it is a UofG email (gla.ac.uk etc.). The email isn’t actually used, and therefore isn’t verified, but is nevertheless a part of the validation as a demonstration that staff accounts would be verified. You will not be able to register for a staff account without entering a UofG email.
