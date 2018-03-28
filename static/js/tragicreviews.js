@@ -8,7 +8,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$('.carousel').on('slide.bs.carousel', function(event) {
 	    var nextHeight = $(event.relatedTarget).height();
-	    $(this).find('.carousel-inner').animate({ height: nextHeight }, 500);
+	    $(this).find('.carousel-inner').animate({ queue: false, height: nextHeight }, 500);
 	});
 });
 
