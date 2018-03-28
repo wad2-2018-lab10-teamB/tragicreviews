@@ -177,7 +177,6 @@ class TestViews(TestCase):
         self.assertEqual(Subject.objects.filter(name='New Category').count(), 0)
         self.assertEqual(response.status_code, 403)
 
-
     def test_delete_category(self):
         # Login a staff account
         staff = test_utils.create_staff_user_profile()
@@ -190,3 +189,42 @@ class TestViews(TestCase):
         self.assertEqual(Subject.objects.all().count(), 0)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('index'))
+
+    def test_delete_category_forbidden(self):
+        # Login a student account
+        student = test_utils.create_student_user_profile()
+        test_utils.create_subject()
+        response = self.client.login(username=student, password='test1234')
+        self.assertTrue(response)
+
+        # Test delete a category fail and get forbidden code 403
+        response = self.client.post(reverse('delete_category', args=['foo', ]), data={'confirm_delete': True})
+        self.assertEqual(Subject.objects.filter(name='foo').count(), 1)
+        self.assertEqual(response.status_code, 403)
+
+    def test_update_category(self):
+        # Login a staff account
+        staff = test_utils.create_staff_user_profile()
+        test_utils.create_article()
+        response = self.client.login(username=staff, password='test1234')
+        self.assertTrue(response)
+
+        # Test delete a category
+        response = self.client.post(reverse('update_category', args=['bar', ]), data={'name': 'foo'})
+        self.assertEqual(Subject.objects.filter(name='bar').count(), 0)
+        self.assertEqual(Subject.objects.filter(name='foo').count(), 1)
+        self.assertEqual(Article.objects.filter(category='foo').count(), 1)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('index'))
+
+    def test_update_category_forbidden(self):
+        # Login a student account
+        student = test_utils.create_student_user_profile()
+        test_utils.create_article()
+        response = self.client.login(username=student, password='test1234')
+        self.assertTrue(response)
+
+        # Test update a category fail and get forbidden code 403
+        response = self.client.post(reverse('delete_category', args=['bar', ]), data={'name': 'foo'})
+        self.assertEqual(Subject.objects.filter(name='foo').count(), 0)
+        self.assertEqual(response.status_code, 403)
