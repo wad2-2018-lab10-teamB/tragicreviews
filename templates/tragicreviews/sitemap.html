@@ -1,0 +1,26 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+
+{% block title_block %}
+    Sitemap
+{% endblock %}
+
+{% block body_block %}
+    <div class="panel panel-default">
+        <div class="panel-heading">Sitemap</div>
+
+        <div class="panel-body">
+            <ul>
+                {% for c in categories %}
+                    <li>
+                        <a href="{% url 'category' c.slug %}">{{c}}</a>
+                        <ul>
+                            {% for a in c.get_articles %}
+                                <li><a href="{% url 'article' c.slug a.id %}">{{a.title}}</a> by <a href="{% url 'profile' a.author.user %}">{{a.author}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

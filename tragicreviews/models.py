@@ -15,6 +15,9 @@ class Subject(models.Model):
 	name = models.CharField(max_length=32, unique=True)
 	slug = models.SlugField(max_length=32, primary_key=True)
 
+	def get_articles(self):
+		return Article.objects.filter(category=self)
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
 		super().save(*args, **kwargs)

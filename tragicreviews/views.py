@@ -147,19 +147,13 @@ class DeleteArticleView(DeleteView, LoginRequiredMixin):
         return article
 
 
-def base(request):
-    context_dict = {}
-
-    return render(request, 'tragicreviews/base.html', context_dict)
-
-
 def category(request, category_name_slug):
     context_dict = {}
 
     # Needs a title, author and preview
     try:
         category = Subject.objects.get(slug=category_name_slug)
-        articles = Article.objects.filter(category=category)
+        articles = category.get_articles()
 
         context_dict['articles'] = articles
         context_dict['category'] = category
@@ -186,6 +180,10 @@ def index(request):
     context_dict['new_articles'] = new_article_list
 
     return render(request, 'tragicreviews/index.html', context_dict)
+
+
+def sitemap(request):
+    return render(request, 'tragicreviews/sitemap.html')
 
 
 def profile(request, profile_id):

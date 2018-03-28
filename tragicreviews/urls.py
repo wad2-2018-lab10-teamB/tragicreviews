@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/reviews/$', views.profile_reviews, name='profile_reviews'),
     url(r'^profile/(?P<profile_id>[\w\-\.\+@]+)/uploads/$', views.profile_uploads, name='profile_uploads'),
     url(r'^$', views.index, name='index'),
+    url(r'^sitemap/$', views.sitemap, name='sitemap'),
     url(r'^add-category/$', views.add_category, name='add_category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/delete-category/$', views.delete_category, name='delete_category'),
     url(r'^category/(?P<category_name_slug>[\w\-]+)/update-category/$', views.update_category, name='update_category'),
