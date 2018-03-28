@@ -1,0 +1,20 @@
+{% extends 'tragicreviews/base_boot-strap.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title_block %}
+	Edit Article
+{% endblock %}
+
+{% block body_block %}
+        <div class="panel panel-default">
+            <div class="panel-heading">Edit Article</div>
+            <div class="panel-body">
+                <form method="POST" action=".">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input class="btn btn-default" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+{% endblock %}
