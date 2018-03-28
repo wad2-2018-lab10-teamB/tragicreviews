@@ -116,4 +116,4 @@ class SubjectForm(forms.ModelForm):
 
 
 class DeleteSubjectForm(forms.Form):
-    confirm_delete = forms.BooleanField(required=True)
+    confirm_delete = forms.BooleanField(required=True, label="Confirm delete category", help_text="This action cannot be undone.")
