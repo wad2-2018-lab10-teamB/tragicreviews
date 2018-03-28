@@ -40,26 +40,27 @@
                     <p class="article">{{ text }}</p>
                 </div>
             </div>
-            <div class="top-buffer">
-                <p>Average Rating: {{ rating_avg|floatformat:2 }}</p>
-                {% if sub_form %}
-                    <form method="post" action=".">
-                        {% csrf_token %}
-                        {% bootstrap_form sub_form %}
-                        <input class="btn btn-default" type="submit" name="ratingbtn" value="Submit"/>
-                    </form>
-                {% endif %}
-            </div>
-            {% if form %}
-                <div class="top-buffer">
-                    <form method="POST" action=".">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        <input class="btn btn-default" type="submit" name="commentbtn" value="Submit"/>
-                    </form>
-                </div>
+
+            <hr>
+            <h3>Rating</h3>
+            <p>Average Rating: {{ rating_avg|floatformat:2 }}</p>
+            {% if sub_form %}
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    {% bootstrap_form sub_form %}
+                    <input class="btn btn-default" type="submit" name="ratingbtn" value="Submit"/>
+                </form>
             {% endif %}
 
+            <hr>
+            <h3>Comments</h3>
+            {% if form %}
+                <form method="POST" action=".">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input class="btn btn-default" type="submit" name="commentbtn" value="Submit"/>
+                </form>
+            {% endif %}
             <div class="top-buffer">
                 {% for c in comment_set %}
                     <div class="media">
