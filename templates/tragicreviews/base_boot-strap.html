@@ -81,7 +81,7 @@
         </p><p>
         <a href='{% url 'delete_account' %}'><span class="glyphicon glyphicon-remove"></span> Delete Account</a>
         </p></h5>
-            {% if request.user|has_group:"staff" %}
+            {% if perms.tragicreviews.add_subject %}
                 <h5><p><a href='{% url 'add_category' %}'><span class="glyphicon glyphicon-plus"></span> Add Category</a></p></h5>
             {% endif %}
 

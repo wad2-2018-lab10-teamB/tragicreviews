@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from tragicreviews.models import Subject, UserProfile, Article, Rating, Comment, ArticleViews
 from tragicreviews.forms import ArticleForm, CommentForm, RatingForm, SubjectForm
 from django.http import HttpResponseRedirect
@@ -171,8 +171,9 @@ def profile_uploads(request, profile_id):
     return render(request, 'tragicreviews/profile_uploads.html', context_dict)
 
 
-@login_required
+@permission_required('tragicreviews.add_subject')
 def add_category(request):
+    context_dict = {}
     form = SubjectForm()
     if request.method == 'POST':
         form = SubjectForm(request.POST)
@@ -181,5 +182,5 @@ def add_category(request):
             return HttpResponseRedirect(reverse('index'))  # redirect user to index page
         else:
             print(form.errors)
-    # handle bad forms
-    return render(request, 'tragicreviews/add_category.html', {'form': form})
+    context_dict['form'] = form
+    return render(request, 'tragicreviews/add_category.html', context_dict)
