@@ -25,7 +25,7 @@
                                       <p class="article truncated">{{u.article.body}}</p>
                                   </div>
                                   <div class="col-sm-5">
-                                      <p>Rated: {{u.rating}}</p>
+                                      <p>Rated: <noscript>{{u.rating}}/5</noscript><span class="article-rating" class="glyphicon" data-rating="{{u.rating}}"></span></p>
                                   </div>
                               </div>
                           {% empty %}

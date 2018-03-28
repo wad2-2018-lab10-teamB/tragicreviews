@@ -17,9 +17,11 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-	ratingEl = $("#article-rating");
-	ratingEl.css("display", "inline-block");
-	ratingEl.width(Math.round(ratingEl.width() * (ratingEl.data("rating") / 5)));
+	$(".article-rating").each(function() {
+		var ratingEl = $(this);
+		ratingEl.css("display", "inline-block");
+		ratingEl.width(Math.round(ratingEl.width() * (ratingEl.data("rating") / 5)));
+	});
 });
 
 

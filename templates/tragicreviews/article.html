@@ -43,7 +43,7 @@
 
             <hr>
             <h3>Rating</h3>
-            <p>Average Rating: <noscript>{{ rating_avg|floatformat:2 }}</noscript><span id="article-rating" class="glyphicon" data-rating="{{ rating_avg }}"></span></p>
+            <p>Average Rating: <noscript>{{ rating_avg|floatformat:2 }}/5</noscript><span class="article-rating" class="glyphicon" data-rating="{{ rating_avg }}"></span></p>
             {% if sub_form %}
                 <form method="post" action=".">
                     {% csrf_token %}
