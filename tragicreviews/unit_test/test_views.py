@@ -86,8 +86,13 @@ class TestViews(TestCase):
         response = self.client.login(username='dummy', password='test1234')
         self.assertTrue(response)
         a = Article.objects.filter(author=UserProfile.objects.get_by_username(username))[0]
-        response = self.client.get(reverse('delete_article', args=[a.category.slug, a.id]), follow=True)
+        response = self.client.get(reverse('delete_article', args=[a.category.slug, a.id]))
         self.assertContains(response, 'Are you sure you want to delete')
+
+        # Test successfully delete article
+        response = self.client.post(reverse('delete_article', args=[a.category.slug, a.id]))
+        self.assertEquals(response.status_code, 302)
+        self.assertFalse(Article.objects.filter(title='User article').exists())
 
     def test_edit_article(self):
         # Login a user
