@@ -39,7 +39,10 @@ class UserProfileManager(models.Manager):
 		return user_profile
 
 	def get_by_username(self, username):
-		return self.get(user=User.objects.get(username=username))
+		try:
+			return self.get(user=User.objects.get(username=username))
+		except User.DoesNotExist:
+			raise UserProfile.DoesNotExist
 
 class UserLevelField(models.CharField):
 	student_levels = ["Level 1 undergraduate", "Level 2 undergraduate", "Level 3 undergraduate", "Level 4 undergraduate", "Level 5 undergraduate", "Postgraduate"]
