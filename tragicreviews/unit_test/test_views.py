@@ -89,10 +89,10 @@ class TestViews(TestCase):
         self.assertEqual(Article.objects.count(), 1)
         self.assertEqual(Article.objects.filter(category=subject).count(), 1)
         self.assertEqual(Article.objects.filter(author=user_pf).count(), 1)
-
+        a = Article.objects.get(category=subject)
         # Test correctly redirect to index page after adding article
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('index'))
+        self.assertRedirects(response, reverse('article', args=[a.category, a.id]))
 
     def test_profile(self):
         user_pf_id = test_utils.create_user_profile_for_testing()  # user_pf_id is username
