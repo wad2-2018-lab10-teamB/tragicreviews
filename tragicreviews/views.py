@@ -256,6 +256,11 @@ def update_category(request, category_name_slug):
             for a in Article.objects.filter(category=subject):
                 a.category = Subject.objects.get(name=new_category_name)
                 a.save()
+            for u in UserProfile.objects.all():
+                if u.majors.filter(name=subject):
+                    u.majors.add(Subject.objects.get(name=new_category_name))
+                    u.majors.remove(subject)
+                    u.save()
             # Remove all articles under new category and delete old one
             Subject.objects.filter(slug=subject.slug).delete()
             return HttpResponseRedirect(reverse('index'))
