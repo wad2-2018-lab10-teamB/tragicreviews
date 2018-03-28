@@ -6,7 +6,7 @@
             {% csrf_token %}
             {% bootstrap_form form %}
             <p>{{ message }}</p>
-            <input class="btn btn-default" type="submit" value="{{ submit_text }}" />
+            <input class="btn {{ btn_class|default:'btn-default' }}" type="submit" value="{{ submit_text }}" />
         </form>
     </div>
 </div>
